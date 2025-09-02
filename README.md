@@ -30,6 +30,3 @@ Para utilizar o código-fonte deste projeto, siga as instruções abaixo:
 ```bash
 # 1. Clone este repositório em seu ambiente local:
 git clone https://github.com/Tevezx/cyclus.git
-
-# 3. Inicie o servidor de desenvolvimento:
-npm run dev
