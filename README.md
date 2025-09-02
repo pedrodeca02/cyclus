@@ -1,4 +1,4 @@
-![Logo do Projeto](src/assets/logo_cyclus.png) </br>
+![Logo do Projeto](Assets/cyclus.jpg) </br>
 
 # Projeto Cyclus
 Este repositório contém o código-fonte e a documentação relacionada ao **Cyclus**, um sistema de monitoramento da temperatura da carne utilizando Arduino, desenvolvido como parte do trabalho de conclusão de curso.
@@ -30,6 +30,3 @@ Para utilizar o código-fonte deste projeto, siga as instruções abaixo:
 ```bash
 # 1. Clone este repositório em seu ambiente local:
 git clone https://github.com/Tevezx/cyclus.git
-
-# 3. Inicie o servidor de desenvolvimento:
-npm run dev
