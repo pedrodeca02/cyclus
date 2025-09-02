@@ -1,4 +1,4 @@
-![Logo do Projeto](src/assets/logo_cyclus.png) </br>
+![Logo do Projeto](Assets/cyclus.jpg) </br>
 
 # Projeto Cyclus
 Este repositório contém o código-fonte e a documentação relacionada ao **Cyclus**, um sistema de monitoramento da temperatura da carne utilizando Arduino, desenvolvido como parte do trabalho de conclusão de curso.
