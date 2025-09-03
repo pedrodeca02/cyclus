@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Financeira</title>
+</head>
+<body>
+    <h2>Porque utilizar o sensor?</h2><br>
+    <i>Informe o nome da empresa:</i> <input type="text" style="color: blue;" id="ipt_nome"><br><br>
+    <i>Informe a área monitorada(transporte, depósito ou câmara):</i> <input type="text" style="color: blue;" id="ipt_area" ><br>
+    <button onclick="acumular()">GERAR</button>
+    <div id="div_msg" style="font-weight: bold;"></div>
+
+</body>
+<script>
+    function acumular() {
+        var ax_num1 = (ipt_area.value)
+        var ax_num2 = (ipt_nome.value)
+        ax_resultado = 0;
+        if
+        (ax_num1 == "transporte"){ax_resultado = 15 - 2}
+        if
+         (ax_num1 == "câmara"){ax_resultado = 20 - 3}
+         if
+         (ax_num1 == "depósito"){ax_resultado = 25 - 4}
+
+         div_msg.innerHTML = 'Com o sensor, a redução de risco de perdas da empresa ' + ax_num2 + ' fica em torno de ' + ax_resultado + '%.'
+         
+    }
+</script>
+</html>
