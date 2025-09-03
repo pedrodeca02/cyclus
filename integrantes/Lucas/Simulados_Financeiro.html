@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SV</title>
+</head>
+<body>
+    <h2>Simulador Financeiro</h2>
+    Qual a quantidade de carnes (kg): <input type="text" id="ipt_quantidade">, e qual o preço dessas carnes: <input type="text" id="ipt_preco">
+    <br><br>
+    Informa a temperatura: <input type="text" id="ipt_temperatura">, e a quantidade de horas que as carnes ficou exposta a essa temperatura: <input type="text" id="ipt_horas">
+    <br><br>
+    <button onclick="calcular()">Cálculo</button> 
+    <br><br>
+    <div id="div_text"></div>
+
+    <script>
+        function calcular(){
+            var ax_quantidade = Number(ipt_quantidade.value);
+            var ax_preco = Number(ipt_preco.value);
+            var ax_temperatura = Number(ipt_temperatura.value);
+            var ax_horas = Number(ipt_horas.value);
+
+            var conta_preco = ax_quantidade * ax_preco;
+
+            if (ax_temperatura >= 0 && ax_temperatura <= 4){
+                div_text.innerHTML = `<br> O seu LUCRO foi total de R$${conta_preco} <br> <img src="Lucro.png" weight="200" height="300">`;
+            }
+            else{
+                div_text.innerHTML = `<br> INFELIZMENTE, PERDA TOTAL DE R$${0 - conta_preco}, ESSE PRODUTO NÃO PODE FICAR MAIS QUE UMA HORA NESSA TEMPERATURA <br> <img src="Prejuizo.png" weight="200" height="300">`
+            }
+        }
+    </script>
+</body>
+</html>
+
