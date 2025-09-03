@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro Smartbeef</title>
+</head>
+<body>
+    
+    <h1>Simulador de Serviços - <span style="color: darkgreen;">Smartbeef</span></h1>
+
+    <h3>Apresentamos o nosso simulador financeiro para a prestação de serviços de nossa empresa.<br><br>Nosso simulador serve para ter a compreensão e a clareza dos benefícios dos nossos serviços.</h3>
+    <p>(<b>OBS:</b> é importante pautar que a eficácia medida no simulador é totalmente baseada no funcionamento total dos sensores e componentes eletrônicos,
+    com foco apenas na perda relacionada a temperatura e umidade. 
+    Não está incluso nessa eficácia as possibilidades de dano ao sensor ou componentes eletrônicos de ambas as partes (empresa contratante e contratada), 
+    falta de monitoramento da empresa contratada, quedas de energia do estabelecimento ou qualquer outra condição que possa prejudicar os sensores e componentes eletrônicos.)
+ </p>
+
+    <h1>_______________________________________________________________________________________________</h1>
+    
+    <h1> Faça sua simulação aqui </h1>
+
+    
+    Informe a quantidade de sensores que sua empresa quer contratar: <input id="sensor"><br>
+    Informe a quantidade de unidades que irão utilizar os sensores: <input id="unidade"><br>
+    Informe a quantidade de equipamentos frigoríficos que irão utilizar os sensores <input id="equipamento"><br><br>
+
+    <button onclick="analise()">Análise da simulação</button>
+
+    <div id="div_msg"></div>
+ 
+</body>
+
+    <script>
+        
+        function analise() {
+
+            var sen = Number (sensor.value);
+            var uni = Number (unidade.value);
+            var equi = Number (equipamento.value);
+            var senmaior = sen - equi;
+            var senmenor = equi - sen;
+
+            if (sen == equi) {
+                div_msg.innerHTML = `<b>ANÁLISE</b><br>Sua(s) ${uni} unidade(s) e ${equi} equipamento(s) estarão <b>100%</b> protegidos(as) em relação a temperatura e umidade.<br>
+                Muitos dos prejuízos financeiros em relação a temperatura e a umidade de carnes, com nossos sensores, tendem a diminuir.`
+            }
+
+            if (sen > equi) {
+                div_msg.innerHTML = `<b>ANÁLISE</b><br>Sua(s) ${uni} unidade(s) e ${equi} equipamento(s) estarão <b>100%</b> protegido(as) em relação a temperatura e umidade, porém é recomendado o uso de 1 sensor por equipamento, 
+                e nesse caso voce está contratando <u><b>${senmaior}</b></u> sensor(es) a mais. <br> 
+                Muitos dos prejuízos financeiros em relação a temperatura e a umidade de carnes, com nossos sensores, tendem a diminuir.`
+            }
+
+            if (sen < equi) {
+                div_msg.innerHTML = `<b>ANÁLISE</b><br>As unidades e equipamentos que estiverem com os sensores instalados estarão <b>100%</b> protegidas em relação a temperatura e umidade,
+                porém é recomendado 1 sensor por equipamento para proteção de todas as unidades e equipamentos, dado as circunstancias recomendamos a sua empresa realize a contratação de mais <u><b>${senmenor}</b></u> sensores.
+                muitos dos prejuízos financeiros em relação a temperatura e a umidade de carnes, com nossos sensores, tendem a diminuir.`
+            }
+
+        
+
+        }
+
+    </script>
+
+</html>
