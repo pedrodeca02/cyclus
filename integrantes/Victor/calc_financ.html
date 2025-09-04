@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira SmartBeef</title>
+</head>
+<body>
+    <h1>Calculo gastos financeiros</h1>
+    <h3>----------------------------------------------------------------------------</h3><br>
+    Insira a quantidade total possível de Carcaças Armazenadas:  <input type="text" id="idCarArmazenadas"><br>  
+    Insira a quantidade de Carcaças Vendidas:  <input type="text" id="idCarVendidas"><br>
+    Insira o preço por peça armazenada: <input type="text" id="idPecaAr"><br>
+    Insira a Quantidade de perda: <input type="text" id="idQtdPerda"><br>
+    Insira o período de tempo em mês(es): <input type="text" id="idTempo"><br>
+    <button onclick="calculoPerda()">Calculo de perda</button><br>
+    <br>
+    <div id="id_msg"></div>
+</body>
+<script>
+    function calculoPerda(){
+        var carArma = Number(idCarArmazenadas.value);
+        var carVend= Number(idCarVendidas.value);
+        var pecaP = Number(idPecaAr.value);
+        var qtdPerda = Number(idQtdPerda.value);
+        var tempo = Number(idTempo.value);
+        var prejuProcesso =  5000;
+        
+        //captação de dados^^
+
+        var valorTotal = tempo*(pecaP*carVend);
+        var prejuTotal = (tempo*(qtdPerda*pecaP));
+
+        var lucroLiquido = valorTotal - prejuTotal;
+        var recuSensor = ((prejuTotal*30)/100);
+        var porcentagemPre = (prejuTotal/valorTotal)*100;
+        var lucroSensor = recuSensor + lucroLiquido;
+        var lucroProcesso = lucroLiquido - prejuProcesso;
+        var lucroPotencial = tempo*(carArma*pecaP)
+        var perdaPotencial = lucroPotencial - prejuTotal;
+
+        id_msg.innerHTML =  "O seu lucro total em "+tempo+" mês(es) foi: R$"+valorTotal.toFixed(2)+" E seu prejuízo total durante este período <br> foi de R$"+prejuTotal.toFixed(2)+"<br> Isso representa um percentual de: "+porcentagemPre.toFixed(2)+"%";
+        id_msg.innerHTML += "<br> Portanto, seu lucro líquido será de R$"+lucroLiquido+" Durante estes "+tempo+" meses<br>";
+        id_msg.innerHTML += "Com a inserção de nosso sensor, estimando que ele reduza em 30% do prejuízo de maneira mínima, o valor recuperado será: R$"+recuSensor; 
+        id_msg.innerHTML +="<br> E seu lucro total com a introdução do sensor se tornará: R$"+lucroSensor.toFixed(2)+"<br> E caso a empresa sofra um processo por intoxicação alimentar, supondo um valor mínimo de processo sem contar com custos adicionais, este será seu lucro líquido final: R$"+lucroProcesso.toFixed(2);
+        id_msg.innerHTML += "<br> O total que poderia ter sido vendido do lote seria: R$"+lucroPotencial.toFixed(2)+" <br> E o valor limite que poderá ser vendido, por conta do prejuízo, se tornou: R$"+perdaPotencial.toFixed(2);
+
+        /*Mostrar o prejuízo evitado em meses
+        Mostrar possível prejuízo com processo
+        Mostrar a % das perdas totais estimadas em relação ao que seria o valor total de um produto
+        Mostrar um valor estimado mínimo da redução do prejuízo baseada no sensor
+        */
+
+
+        
+    }
+</script>
+</html>
