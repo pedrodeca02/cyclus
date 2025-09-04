@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclus - Smartbeef</title>
+</head>
+<body>
+    <h2>Negócios do cliente</h2>
+    Quanto de carne (em reais) você movimenta por mês? <br> <input id="ipt_carnes">
+    <br>
+    Qual a média de perdas que você tem hoje (%)? <br> <input id="ipt_perdas">
+    <br>
+    <button onclick="economia()">Ver economia</button>
+    <div id="id_msg">
+
+    </div>
+</body>
+<script>
+    function economia(){
+        var movimentoCarnes = Number(ipt_carnes.value);
+        var perdas = Number(ipt_perdas.value);
+        
+        id_msg.innerHTML = `Hoje você perde cerca de <b style="color: red;">R$${git }</b> por ano. <br> Com o SmartBeef, essa perda cairia para <b style="color:green;">R$${}</b>. <br> Isso significa uma economia de <b style="color:green;">R$${}</b>/ano.`;
+    }
+</script>
+</html>
