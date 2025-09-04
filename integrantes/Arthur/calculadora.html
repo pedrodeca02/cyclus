@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Registros de Carnes</title>
+</head>
+
+<body>
+    <h2>Calculadora Financeira</h2>
+    Insira o Valor da Carne Vendida(R$) <input type="text" name="" id="ipt_valor"><br>
+    Insira a quantidade Aproximado de Carne Registrada no Freezer(Kg) <input type="text" name=""
+        id="ipt_carne_freezer"><br>
+    Insira o Tempo Aproximado que a carne fica exposta: <input type="text" name="" id="ipt_exposicao"><br>
+
+    <button onclick="calcular()">Calcular!</button>
+    <div id="div_msg"></div>
+</body>
+
+<script>
+    function calcular() {
+        var ax_valor = Number(ipt_valor.value);
+        var ax_carne_freezer = Number(ipt_carne_freezer.value);
+        var ax_exposicao = Number(ipt_exposicao.value);
+
+        if (ax_exposicao == 1) {
+
+            var percentual_perda = 0.20;
+            var ax_valor_esperado = ax_valor * ax_carne_freezer * 12;
+            var ax_perda_ano = ax_valor_esperado * percentual_perda;
+            var ax_perda_hora = ax_perda_ano / 365;
+        }
+
+    
+         if (ax_exposicao == 2) {
+        var percentual_perda = 0.50;
+        var ax_valor_esperado = ax_valor * ax_carne_freezer * 12;
+        var ax_perda_ano = ax_valor_esperado * percentual_perda;
+        var ax_perda_hora = ax_perda_ano / 365;
+    }
+    if (ax_exposicao >= 3) {
+        var percentual_perda = 1.00;
+        var ax_valor_esperado = ax_valor * ax_carne_freezer * 12;
+        var ax_perda_ano = ax_valor_esperado * percentual_perda;
+        var ax_perda_hora = ax_perda_ano / 365;
+    }
+
+
+    var ax_valor_esperado = ax_valor * ax_carne_freezer * 12;
+    var ax_perc_perda = (ax_perda_ano / ax_valor_esperado) * 100;
+
+    var ax_cyclus = (ax_perda_ano * 0.27)
+
+    div_msg.innerHTML = `<br>A sua perda de reais por hora é de <b>R$${ax_perda_hora.toFixed(2)}</b>, com um total de <b>R$${ax_perda_ano.toFixed(2)}</b> em perdas anuais.
+        <br>Com um percentual de <b>${ax_perc_perda.toFixed(1)}%</b> de perda por ano. Com a Cyclus,
+         traremos uma melhora de 27% para seu lucro, ou seja,<br> aproximadamente <b>R$${ax_cyclus.toFixed(2)}</b> em relação a perda relatada!`
+
+    }
+</script>
+
+</html>
