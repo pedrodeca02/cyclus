@@ -6,12 +6,13 @@
     <title>Cyclus - Smartbeef</title>
 </head>
 <body>
-    <h2>Negócios do cliente</h2>
-    Quanto de carne (em reais) você movimenta por mês? <br> <input id="ipt_carnes">
+    <h1>Simulador Financeiro.</h1>
+    <h4>A Calculadora SMARTBEEF, é uma ferramenta interativa desenvolvida para mostrar, de forma simples e clara, <br> os ganhos financeiros que empresas do setor de carnes podem obter ao adotar o sistema de monitoramento inteligente de temperatura.</h4>
+    Quanto você movimenta em carnes por mês (R$)? 💰 <br> <input id="ipt_carnes">
     <br>
-    Qual a média de perdas que você tem hoje (%)? <br> <input id="ipt_perdas">
+    Qual a média de perdas que você tem hoje (%)? 🥩 <br> <input id="ipt_perdas">
     <br>
-    <button onclick="economia()">Ver economia</button>
+    <button onclick="economia()">Calcular</button>
     <div id="id_msg">
 
     </div>
@@ -20,8 +21,11 @@
     function economia(){
         var movimentoCarnes = Number(ipt_carnes.value);
         var perdas = Number(ipt_perdas.value);
+        var total = movimentoCarnes * (perdas/100);
+        var reducao = total * 0.30;
+        var economia = total - reducao;
         
-        id_msg.innerHTML = `Hoje você perde cerca de <b style="color: red;">R$${git }</b> por ano. <br> Com o SmartBeef, essa perda cairia para <b style="color:green;">R$${}</b>. <br> Isso significa uma economia de <b style="color:green;">R$${}</b>/ano.`;
+        id_msg.innerHTML = `Hoje você perde cerca de <b style="color: red;">R$${total}</b> por ano. <br> Com o SmartBeef, essa perda cairia para <b style="color:green;">R$${reducao}</b>. <br> Isso significa uma economia de <b style="color:green;">R$${economia}</b>/ano.`;
     }
 </script>
 </html>
