@@ -1,0 +1,52 @@
+CREATE DATABASE cyclus;
+USE cyclus;
+-- TABELA DO CADASTRO
+CREATE TABLE cadastroEmpresa(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    representante VARCHAR (45),
+    nome_empresa VARCHAR(70),
+    UF CHAR (2),
+    cnpj CHAR(18) NOT NULL UNIQUE,
+    email VARCHAR(100) UNIQUE NOT NULL,
+	token INT UNIQUE
+);
+
+CREATE TABLE endereco(
+idEndereco INT PRIMARY KEY AUTO_INCREMENT,
+rua VARCHAR (100),
+numero VARCHAR (10),
+bairro VARCHAR(100),
+cidade VARCHAR (50),
+cep CHAR (8),
+complemento VARCHAR (50));
+
+-- TABELA DA USÚARIO
+CREATE TABLE usuario(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR (100),
+cpf CHAR(14) UNIQUE,
+cargo VARCHAR(20),
+email VARCHAR(100) UNIQUE,
+senha VARCHAR(12)
+);
+
+-- TABELA DO SENSOR COM OS DADOS REGISTRADOS
+CREATE TABLE sensor(
+	idSensor INT PRIMARY KEY AUTO_INCREMENT,
+    modelo VARCHAR(100),
+    tempMax DECIMAL (4,1),
+    tempMin DECIMAL(4,1));
+
+-- TABELA DO REGISTRO DE DADOS
+CREATE TABLE registro(
+idReg INT PRIMARY KEY AUTO_INCREMENT,
+temperaturaAtual DECIMAL (4,1),
+horarioRegistro DATETIME DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE frezzer(
+idFrezzer INT PRIMARY KEY AUTO_INCREMENT,
+localizacao VARCHAR (300),
+modelo VARCHAR (30),
+alerta VARCHAR (25)
+);
+
