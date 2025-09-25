@@ -27,4 +27,4 @@ Para utilizar o código-fonte deste projeto, siga as instruções abaixo:
 
 ```bash
 # 1. Clone este repositório em seu ambiente local:
-git clone https://github.com/Tevezx/cyclus.git](https://github.com/pedrodeca02/cyclus.git)
+https://github.com/pedrodeca02/cyclus.git
