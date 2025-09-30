@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula ChartJS</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div style="max-width: 700px;">
+        <canvas id="myChartPrincipal"></canvas>
+        <canvas id="myChart2"></canvas>
+        <canvas id="myChart3"></canvas>
+        <canvas id="myChart4"></canvas>
+        <canvas id="myChart5"></canvas>
+        <canvas id="myChart6"></canvas>
+
+    </div>
+</body>
+</html>
+
+<script>
+  const ctx = document.getElementById('myChartPrincipal');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Mario', 'Junho', 'Julho'],
+      datasets: [{
+        label: 'Temperatura Média Cº',
+        data: [22, 24, 27, 23, 20, 18, 31],
+        borderWidth: 1, 
+        borderColor: 'blue'
+      },{
+        label: 'Umidade Média em %',
+        data: [5, 89, 93, 10, 15, 45, 90],
+        borderWidth: 1,
+        borderColor: 'green'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  
+  const ctx2 = document.getElementById('myChart2');
+
+  new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'Temperatura máxima ideal',
+        data: [8, 8, 8, 8, 8, 8, 8],
+        borderWidth: 1, 
+        borderColor: 'black'
+      },{
+        label: 'Temperatura Média Cº',
+        data: [5, 10, 8, -2, 6, 8, 7],
+        borderWidth: 1,
+        borderColor: 'green'
+      },{
+        label: 'Temperatura mínima ideal',
+        data: [2, 2, 2, 2, 2, 2, 2],
+        borderWidth: 1,
+        borderColor: 'black'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  const ctx3 = document.getElementById('myChart3');
+
+  new Chart(ctx3, {
+    type: 'line',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'Temperatura máxima ideal',
+        data: [8, 8, 8, 8, 8, 8, 8],
+        borderWidth: 1, 
+        borderColor: 'blue'
+      },{
+        label: 'Temperatura Média Cº',
+        data: [5, 89, 93, 10, 15, 45, 90],
+        borderWidth: 1,
+        borderColor: 'green'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });const ctx4 = document.getElementById('myChart4');
+
+  new Chart(ctx4, {
+    type: 'line',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'Temperatura máxima ideal',
+        data: [8, 8, 8, 8, 8, 8, 8],
+        borderWidth: 1, 
+        borderColor: 'blue'
+      },{
+        label: 'Temperatura Média Cº',
+        data: [5, 89, 93, 10, 15, 45, 90],
+        borderWidth: 1,
+        borderColor: 'green'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  const ctx5 = document.getElementById('myChart5');
+
+  new Chart(ctx5, {
+    type: 'line',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'Temperatura máxima ideal',
+        data: [8, 8, 8, 8, 8, 8, 8],
+        borderWidth: 1, 
+        borderColor: 'blue'
+      },{
+        label: 'Temperatura Média Cº',
+        data: [5, 89, 93, 10, 15, 45, 90],
+        borderWidth: 1,
+        borderColor: 'green'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  const ctx6 = document.getElementById('myChart6');
+
+  new Chart(ctx6, {
+    type: 'line',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'Temperatura máxima ideal',
+        data: [8, 8, 8, 8, 8, 8, 8],
+        borderWidth: 1, 
+        borderColor: 'blue'
+      },{
+        label: 'Temperatura Média Cº',
+        data: [5, 89, 93, 10, 15, 45, 90],
+        borderWidth: 1,
+        borderColor: 'green'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
