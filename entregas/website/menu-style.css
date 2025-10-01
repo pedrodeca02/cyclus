@@ -1,0 +1,47 @@
+.letra-menu {
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 3px 3px 3px rgb(56, 3, 0);
+    text-decoration: none;
+    padding: 10px 8px;
+    transition: .2s ease ;
+    border-radius: 7px;
+}
+
+.letra-menu:hover {
+    background-color: #fff;
+    color: rgba(151, 7, 0, 1);
+    text-shadow: none;
+}
+
+.header {
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 40px 50px;
+    background-image: url(./imgFundo.jpg);
+    background-color: rgba(145, 14, 8, 0.9);
+    background-position:center;
+    background-size: cover;
+    background-blend-mode: multiply;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content-logo {
+    width: 200px;
+}
+
+.header-links {
+    display: flex;
+}
+
+.header-links-item {
+    margin: 0 8px;
+}
+

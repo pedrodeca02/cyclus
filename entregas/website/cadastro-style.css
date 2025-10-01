@@ -1,0 +1,61 @@
+h1{
+    margin: 30px 200px ;
+    color: rgba(36, 65, 103, 1);
+    font-size: 40px;
+}
+
+.cadastro-div{
+    background-color: rgba(224, 224, 224, 1);
+    margin: 0 200px;
+    padding:30px 100px;
+}
+
+.cadastro-titulo{
+    margin-bottom: 40px;
+}
+
+.cadastro-titulo h2{
+    font-size: 40px;
+    font-weight: 500;
+    color: rgba(151, 7, 0, 1);
+    margin-bottom: 20px;
+}
+
+.cadastro-titulo p{
+    color: rgba(130, 130, 130, 1);
+}
+
+.cadastro-form-campos p {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.cadastro-form-campos input{
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.duplo {
+    display: flex;
+    gap: 50px;
+}
+
+.duplo .cadastro-form-campos {
+    flex: 1;
+}
+
+.cadastro-form button{
+    background-color: rgba(36, 65, 103, 1);
+    color: #fff;
+    padding: 15px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+}
