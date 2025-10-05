@@ -59,11 +59,6 @@
         borderWidth: 1,
         borderColor: 'green'
       },{
-        label: 'Freezer 5',
-        data: [3, 10, 8, 5, 6, 11, 2],
-        borderWidth: 1,
-        borderColor: 'yellow'
-      },{
         label: 'Temperatura mínima ideal',
         data: [2, 2, 2, 2, 2, 2, 2],
         borderWidth: 1,
@@ -206,35 +201,4 @@
     }
   });
 
-  const ctx6 = document.getElementById('myChart6');
-
-  new Chart(ctx6, {
-    type: 'line',
-    data: {
-      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
-      datasets: [{
-        label: 'Temperatura máxima ideal',
-        data: [8, 8, 8, 8, 8, 8, 8],
-        borderWidth: 1, 
-        borderColor: 'black'
-      },{
-        label: 'Temperatura Média Cº',
-        data: [3, 10, 8, 5, 6, 11, 2],
-        borderWidth: 1,
-        borderColor: 'yellow'
-      },{
-        label: 'Temperatura mínima ideal',
-        data: [2, 2, 2, 2, 2, 2, 2],
-        borderWidth: 1,
-        borderColor: 'black'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
 </script>
