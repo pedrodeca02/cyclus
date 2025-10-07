@@ -1,0 +1,24 @@
+.home{
+margin: 60px;
+}
+
+.sessao1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.sessao1-div {
+    margin-bottom: 50px;
+    width: 70%;
+}
+
+.sessao1-div h1 {
+    color: rgba(36, 65, 103, 1);
+    font-size: 64px;
+    margin-bottom: 30px;
+}
+.sessao1-div p {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
