@@ -5,22 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aula ChartJS</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
       .graficos{
         display: flex;
       }
+      .graficos1 {
+        display: flex;
+      }
+      .graficos2 {
+        display: flex;
+      }
     </style>
+
 </head>
 <body>
 
-    <div class="graficos" style="max-width: 700px;">
+    <div class="graficos" style="max-width: 800px;">
         <canvas id="myChartPrincipal"></canvas>
+  
+    </div>
+
+    <div class="graficos1" style="max-width: 500px;">
         <canvas id="myChart2"></canvas>
         <canvas id="myChart3"></canvas>
+
+    </div>
+
+    <div class="graficos2" style="max-width: 500px;">
         <canvas id="myChart4"></canvas>
         <canvas id="myChart5"></canvas>
-        <canvas id="myChart6"></canvas>
-
     </div>
 
 </body>
@@ -30,39 +44,45 @@
   const ctx = document.getElementById('myChartPrincipal');
 
   new Chart(ctx, {
-    type: 'line',
+    type: 'line' ,
     data: {
       labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
       datasets: [{
         label: 'Temperatura máxima ideal',
         data: [8, 8, 8, 8, 8, 8, 8],
         borderWidth: 1, 
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       },{
         label: 'Freezer 1',
         data: [5, 4, 8, -2, 6, 8, 7],
         borderWidth: 1,
-        borderColor: 'red'
+        borderColor: 'red',
+        backgroundColor: 'red'
       },{
         label: 'Freezer 2',
         data: [12, 3, 5, 9, 2, 8, 4],
         borderWidth: 1,
-        borderColor: 'blue'
+        borderColor: 'blue',
+        backgroundColor: 'blue'
       },{
         label: 'Freezer 3',
         data: [-3, 1, 10, 3, 7, 3, 10],
         borderWidth: 1,
-        borderColor: 'orange'
+        borderColor: 'orange',
+        backgroundColor: 'orange'
       },{
         label: 'Freezer 4',
         data: [4, 4, -3, 5, 6, 8, 7],
         borderWidth: 1,
-        borderColor: 'green'
+        borderColor: 'green',
+        backgroundColor: 'green'
       },{
         label: 'Temperatura mínima ideal',
         data: [2, 2, 2, 2, 2, 2, 2],
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       }]
     },
     options: {
@@ -84,17 +104,20 @@
         label: 'Temperatura máxima ideal',
         data: [8, 8, 8, 8, 8, 8, 8],
         borderWidth: 1, 
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       },{
         label: 'Temperatura Média Cº',
         data: [5, 4, 8, -2, 6, 8, 7],
         borderWidth: 1,
-        borderColor: 'red'
+        borderColor: 'red',
+        backgroundColor: 'red'
       },{
         label: 'Temperatura mínima ideal',
         data: [2, 2, 2, 2, 2, 2, 2],
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       }]
     },
     options: {
@@ -115,17 +138,20 @@
         label: 'Temperatura máxima ideal',
         data: [8, 8, 8, 8, 8, 8, 8],
         borderWidth: 1, 
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       },{
         label: 'Temperatura Média Cº',
         data: [12, 3, 5, 9, 2, 8, 4],
         borderWidth: 1,
-        borderColor: 'blue'
+        borderColor: 'blue',
+        backgroundColor: 'blue'
       },{
         label: 'Temperatura mínima ideal',
         data: [2, 2, 2, 2, 2, 2, 2],
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       }]
     },
     options: {
@@ -147,17 +173,20 @@
         label: 'Temperatura máxima ideal',
         data: [8, 8, 8, 8, 8, 8, 8],
         borderWidth: 1, 
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       },{
         label: 'Temperatura Média Cº',
         data: [-3, 1, 10, 3, 7, 3, 10],
         borderWidth: 1,
-        borderColor: 'orange'
+        borderColor: 'orange',
+        backgroundColor: 'orange'
       },{
         label: 'Temperatura mínima ideal',
         data: [2, 2, 2, 2, 2, 2, 2],
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       }]
     },
     options: {
@@ -179,17 +208,20 @@
         label: 'Temperatura máxima ideal',
         data: [8, 8, 8, 8, 8, 8, 8],
         borderWidth: 1, 
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       },{
         label: 'Temperatura Média Cº',
         data: [4, 4, -3, 5, 6, 8, 7],
         borderWidth: 1,
-        borderColor: 'green'
+        borderColor: 'green',
+        backgroundColor: 'green'
       },{
         label: 'Temperatura mínima ideal',
         data: [2, 2, 2, 2, 2, 2, 2],
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor: 'black'
       }]
     },
     options: {
