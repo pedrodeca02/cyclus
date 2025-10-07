@@ -16,29 +16,46 @@
       .graficos2 {
         display: flex;
       }
+      .card {
+            width: 80%;
+            height: fit-content;
+            background-color: #caddf9;
+            border-radius: 15px;
+            border: solid 5px black;
+            margin: 20px;
+            padding: 50px;
+      }.card1 {
+            width: 80%;
+            height: fit-content;
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: solid 2px black;
+            margin: 10px;
+            padding: 50px;
+      }
     </style>
 
 </head>
 <body>
-
+  <div class="card">
     <div class="graficos" style="max-width: 800px;">
-        <canvas id="myChartPrincipal"></canvas>
-  
+        <div class="card1"><canvas id="myChartPrincipal"></canvas></div>
     </div>
 
     <div class="graficos1" style="max-width: 500px;">
-        <canvas id="myChart2"></canvas>
-        <canvas id="myChart3"></canvas>
-
-    </div>
-
-    <div class="graficos2" style="max-width: 500px;">
+        <div class="card1">
+          <canvas id="myChart2"></canvas>
+          <canvas id="myChart3"></canvas>
+        </div>
+        <div class="card1">
         <canvas id="myChart4"></canvas>
         <canvas id="myChart5"></canvas>
+        </div>
     </div>
 
 </body>
 </html>
+</div>
 
 <script>
   const ctx = document.getElementById('myChartPrincipal');
