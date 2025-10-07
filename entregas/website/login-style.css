@@ -4,34 +4,44 @@ h1 {
     font-size: 40px;
 }
 
-.cadastro-div {
+.login-div {
     background-color: rgba(224, 224, 224, 1);
     margin: 0 200px;
     padding: 30px 100px;
     border-radius: 5px;
 }
 
-.cadastro-titulo {
+.login-titulo {
     margin-bottom: 40px;
 }
 
-.cadastro-titulo h2 {
+.login-titulo h2 {
     font-size: 40px;
     font-weight: 500;
     color: rgba(151, 7, 0, 1);
     margin-bottom: 20px;
 }
 
-.cadastro-titulo p {
+.login-titulo p {
     color: rgba(130, 130, 130, 1);
 }
 
-.cadastro-form-campos p {
+.login-form{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-form-campos {
+    flex-grow: 1;
+}
+
+.login-form-campos p {
     font-weight: 500;
     margin-bottom: 6px;
 }
 
-.cadastro-form-campos input {
+.login-form-campos input {
     font-size: 16px;
     padding: 9px;
     border-radius: 8px;
@@ -40,16 +50,7 @@ h1 {
     width: 100%;
 }
 
-.duplo {
-    display: flex;
-    gap: 50px;
-}
-
-.duplo .cadastro-form-campos {
-    flex: 1;
-}
-
-.cadastro-form button {
+.login-form button {
     background-color: rgba(36, 65, 103, 1);
     color: #fff;
     border: none;
@@ -59,17 +60,14 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 0 rgb(19, 40, 66);
     transition: all 0.1s ease-in-out;
+    width: 100%;
 }
 
-.cadastro-form button:hover {
+.login-form button:hover {
     background-color: rgb(60, 109, 173);
 }
 
-.cadastro-form button:active {
+.login-form button:active {
     box-shadow: 0 2px 0 rgb(52, 93, 146);
     transform: translateY(2px);
-}
-
-.cadastro-div a {
-    margin-left: 20px;
 }

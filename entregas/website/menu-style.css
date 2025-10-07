@@ -19,12 +19,13 @@
     position: sticky;
     top: 0;
     left: 0;
-    padding: 40px 50px;
+    padding: 10px 50px;
     background-image: url(./imgFundo.jpg);
     background-color: rgba(145, 14, 8, 0.9);
     background-position:center;
     background-size: cover;
     background-blend-mode: multiply;
+    box-shadow: 0 4px 30px rgb(19, 40, 66);
 }
 
 .header-content {
