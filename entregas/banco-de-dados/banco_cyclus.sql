@@ -1,5 +1,5 @@
-CREATE DATABASE cyclus;
-USE cyclus;
+create database cyclus;
+use cyclus;
 
 CREATE TABLE endereco(
 	idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -35,7 +35,7 @@ CREATE TABLE usuario(
 		CONSTRAINT fkUsuarioEmpresa
         FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
-
+	
 CREATE TABLE freezer(
 	idFreezer INT PRIMARY KEY AUTO_INCREMENT,
     localizacao VARCHAR(300) NOT NULL,
@@ -64,6 +64,7 @@ CREATE TABLE registro(
     tempAtual DECIMAL(3,1) NOT NULL,
     horarioRegistro DATETIME,
     CONSTRAINT fkRegSensor
-		FOREIGN KEY (fkSensor) REFERENCES sensor(fkSensor)
+		FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
 );
 
+	
