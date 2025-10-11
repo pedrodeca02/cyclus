@@ -69,22 +69,22 @@ CREATE TABLE registro(
 
 -- INSERINDO VALORES
 INSERT INTO endereco (rua, numero, bairro, cidade, cep, complemento, uf) VALUES
-	('Av 9 de Julho', 1080, 'Vila Virginia', 'Jundiai', 13201009, 'Loja', 'SP'),
-	('Av Tenente Marques', 3582, 'Polvilho', 'Cajamar', 07790845, 'Loja', 'SP'),
-	('Av Adolfo Pinheiro', 674, 'Santo Amaro', 'São Paulo', 04734000, 'Loja', 'SP');
+	('Rua das Estrelas', 810, 'Vila dos Cedros', 'Jundiai', 32345098, 'Loja', 'SP'),
+	('Avenida Horizonte Azul', 357, 'Jardim Aurora', 'Campinas', 65432321, 'Loja', 'SP'),
+	('Travessa da Lua Cheia', 194, 'Vila Monte Claro', 'São Paulo', 89123345, 'Loja', 'SP');
     
 INSERT INTO empresa (representante, nome_empresa, cnpj, email, token, fkEndereco) VALUES
-	('Marcos Gomes', 'Loja Jundiai', 11111111000111, 'lojajundiai@gmail.com', 988467, 1),
-	('Carol Fonseca', 'Loja Cajamar', 22222222000222, 'lojacajamar@gmail.com', 442079, 2),
-	('Julio Cesar', 'Loja Santo Amaro', 33333333000333, 'lojasantoamaro@gmail.com', 202644, 3);
+	('Marcos Gomes', 'Loja Vila dos Cedros', 11111111000111, 'lojaviladoscedros@gmail.com', 988467, 1),
+	('Carolina Fonseca', 'Loja Jardim Aurora', 22222222000222, 'lojajardimaurora@gmail.com', 442079, 2),
+	('Julio Menezes', 'Loja Vila Monte Claro', 33333333000333, 'lojavilamonteclaro@gmail.com', 202644, 3);
     
 INSERT INTO usuario (nome, cpf, cargo, email, senha, fkEmpresa) VALUES
 	('Marcos Gomes', 11111111111, 'Gerente', 'marcos.gomes@gmail.com', 'marcos123', 1),
 	('Claudio Figueira', 22222222222, 'Supervisor', 'claudio.figueira@gmail.com', 'claudio123', 1),
-	('Carol Fonseca', 33333333333, 'Gerente', 'carol.fonseca@gmail.com', 'carol123', 2),
-	('Gustavo Jesus', 44444444444, 'Supervisor', 'gustavo.jesus@gmail.com', 'gustavo123', 2),
-	('Julio Cesar', 55555555555, 'Gerente', 'julio.cesar@gmail.com', 'julio123', 3),
-	('Jorge Rock', 66666666666, 'Supervisor', 'jorge.rock@gmail.com', 'jorge123', 3);
+	('Carolina Fonseca', 33333333333, 'Gerente', 'carolina.fonseca@gmail.com', 'carolina123', 2),
+	('Mariana Marques', 44444444444, 'Supervisor', 'mariana.marques@gmail.com', 'mariana123', 2),
+	('Julio Menezes', 55555555555, 'Gerente', 'julio.menezes@gmail.com', 'julio123', 3),
+	('Jorge Souza', 66666666666, 'Supervisor', 'jorge.souza@gmail.com', 'jorge123', 3);
     
 INSERT INTO freezer (localizacao, modelo, status) VALUES 
 	('Corredor 1', 'Freezer Philco PFH205B', 'Funcionando'),
