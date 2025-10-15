@@ -1,11 +1,12 @@
-.home{
-margin: 60px;
+.home {
+    margin: 60px;
 }
 
 .sessao1 {
     display: flex;
     flex-direction: column;
 }
+
 .sessao1 img {
     width: 70%;
     margin-left: 180px;
@@ -21,6 +22,7 @@ margin: 60px;
     font-size: 54px;
     margin-bottom: 30px;
 }
+
 .sessao1-div p {
     font-size: 20px;
     margin-bottom: 30px;
@@ -47,6 +49,91 @@ margin: 60px;
     box-shadow: 0 2px 0 rgb(52, 93, 146);
     transform: translateY(2px);
 }
+
 .sessao2 {
     margin-top: 50px;
+    display: block;
+    margin-bottom: 50px;
+}
+
+.sessao2-titulo {
+    color: rgba(36, 65, 103, 1);
+    font-size: 25px;
+    font-weight: 100;
+    margin-bottom: 30px;
+}
+
+.sessao2-divs {
+    display: flex;
+    justify-content: space-around;
+}
+
+.sessao2-div {
+    width: 405px;
+
+}
+
+.sessao2-div p {
+    color: rgba(130, 130, 130, 1);
+    font-size: 20px;
+
+}
+
+.sessao2-div h3 {
+    margin-bottom: 8px;
+    margin-top: 12px;
+}
+
+.sessao3 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sessao3-div {
+    width: 50%;
+}
+
+.sessao3-img {
+    margin-right: 13%;
+}
+
+.sessao3-div h2 {
+    color: rgba(36, 65, 103, 1);
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.sessao3-div p {
+    font-size: 20px;
+}
+
+.sessao4 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+
+.sessao4-div {
+    width: 50%;
+
+}
+
+.sessao4-img {
+    margin-right: 13%;
+}
+
+.sessao4 h2 {
+    color: rgba(36, 65, 103, 1);
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+.sessao4-div h3 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    
+}
+
+.sessao4-div p {
+    font-size: 20px;
+    margin-top: 30px;
 }
