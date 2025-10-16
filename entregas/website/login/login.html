@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../global/menu-style.css">
     <link rel="stylesheet" href="./login-style.css">
     <link rel="stylesheet" href="../global/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -22,7 +23,7 @@
                     <a class="letra-menu" href="../home/home.html">Home</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="#">Simulador</a>
+                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
                 </li>
                 <li class="header-links-item">
                     <a class="letra-menu" href="#">Contato</a>
@@ -52,22 +53,63 @@
                     <button onclick="login()">Login</button>
                 </div>
             </form>
-            <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;" href="../cadastro/cadastro.html">Cadastrar conta nova</a>
+            <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;"
+                href="../cadastro/cadastro.html">Cadastrar conta nova</a>
         </div>
     </section>
 </body>
 <script>
-    function login(){
+    function login() {
         event.preventDefault();
         let cnpj = ipt_cnpj.value;
         let senha = ipt_senha.value;
 
         // CNPJ: 94642417000100 SENHA: 1234
         if (cnpj == '94642417000100' && senha == '1234') {
-            window.location.href = "../dashboard/dashboard.html";
-        } else {
-            alert("Senha ou usuário inválido");
+            Swal.fire({
+                title: 'Sucesso!',
+                text: 'Login realizado com sucesso!',
+                icon: 'success',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: false,
+                background: 'rgba(36, 65, 103, 1)',
+                color: '#fff'
+            });
+            setTimeout(() => {
+                window.location.href = "../dashboard/dashboard.html";
+            }, 1000);
+        } else if (cnpj == '' || senha == '') {
+            Swal.fire({
+                title: 'Falha!',
+                text: 'Insira todos os dados!',
+                icon: 'error',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: false,
+                background: 'rgba(36, 65, 103, 1)',
+                color: '#fff'
+            });
+        }
+        else {
+            Swal.fire({
+                title: 'Falha!',
+                text: 'CNPJ ou senha incorretos!',
+                icon: 'error',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: false,
+                background: 'rgba(36, 65, 103, 1)',
+                color: '#fff'
+            });
         }
     }
 </script>
+
 </html>

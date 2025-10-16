@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../global/menu-style.css">
+    <link rel="stylesheet" href="../global/main.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="../home/home.html">
+                <img class="header-content-logo" src="../global/cyclus.png" alt="Riot Games">
+            </a>
+            <ul class="header-links">
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../home/home.html">Home</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="#">Contato</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../login/login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <h1><i>Simulador Financeiro Cyclus</i></h1>
+    <h2>Projete sua economia com segurança!</h2>
+
+    <p>
+        O <b>Simulador Financeiro Cyclus</b> foi desenvolvido para auxiliar empresas a analisarem o impacto das perdas
+        financeiras causadas por falhas no monitoramento e identificar o potencial de recuperação a partir da utilização
+        dos nossos serviços. <br>
+    </p>
+    <hr>
+    <br>
+    Informe o nome de sua empresa: <input id="iptNomeEmpresa"> <br><br>
+
+    Insira o valor do seu faturamento anual aproximado (R$): <input id="iptValorFaturamento"> <br><br>
+
+    <button onclick="calcular()">Simule Agora</button> <br><br>
+
+    <hr>
+
+    <br>
+
+    <div id="div_simulacao"></div>
+    <div id="div_entenda"></div>
+
+</body>
+<script>
+    var perdaGlobal = 0;
+    var recuperacaoGlobal = 0;
+
+    function calcular() {
+        div_simulacao.innerHTML = "";
+
+        var faturamento = iptValorFaturamento.value;
+        var empresa = iptNomeEmpresa.value;
+
+        if (empresa == "" || faturamento == "") {
+            alert("Preencha todos os campos!")
+        } else if (faturamento <= 0) {
+            alert("Insira valores acima de R$0!")
+        } else {
+            var perda = Number(faturamento) * 0.30
+            var recuperacao = perda * 0.40;
+
+            perdaGlobal = perda;
+            recuperacaoGlobal = recuperacao;
+
+            //limpando as entradas
+            iptNomeEmpresa.value = ''
+            iptValorFaturamento.value = '';
+
+            div_simulacao.innerHTML =
+                `Seja bem vindo(a)!<br><br>
+                
+                <b>SIMULAÇÃO DA EMPRESA ${empresa.toUpperCase()}</b><br><br>
+
+                Recuperação Financeira de <b style="color: green">R$ ${recuperacao.toFixed(2)}</b> dos <b style="color: red">R$ ${perda.toFixed(2)}</b> de prejuízo anual.<br><br>`;
+                entenda();
+            }
+    }
+
+    function entenda() {
+        div_entenda.innerHTML = `
+        <br><hr><br>
+        <b>ENTENDA MAIS:</b><br><br>
+        De acordo com estudos e pesquisas realizadas pela <b>Cyclus</b>, empresas do setor podem perder até <b style="color: red;">30%</b> do faturamento devido a falhas de monitoramento. No seu caso, isso pode significar uma perda de aproximadamente <b style="color: red;">R$ ${perdaGlobal.toFixed(2)} </b> por ano.<br><br>
+
+        Com a contratação do nosso serviço de prevenção e monitoramento automatizado, é possível reduzir a perda desse valor em até <b style="color: green;">40%</b>,<br>representando uma recuperação financeira em torno de <b style="color: green;">R$ ${recuperacaoGlobal.toFixed(2)} </b>  de volta para o seu caixa.<br><br>
+
+        <b>Essa diferença pode ser o que separa um prejuízo de uma oportunidade de crescimento!</b>`;
+    }
+</script>
+
+</html>
