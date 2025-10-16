@@ -1,4 +1,4 @@
-.letra-menu {
+.letra-menu, .texto-menu {
     color: #fff;
     font-size: 20px;
     text-shadow: 3px 3px 3px rgb(56, 3, 0);
@@ -6,6 +6,10 @@
     padding: 10px 8px;
     transition: .2s ease ;
     border-radius: 7px;
+}
+
+.texto-menu {
+    padding: 10px 50px;
 }
 
 .letra-menu:hover {

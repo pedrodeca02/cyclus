@@ -42,19 +42,32 @@
             <form class="login-form">
                 <div class="login-form-campos">
                     <p>CNPJ</p>
-                    <input type="text" placeholder="__.___.___/____-__" />
+                    <input id="ipt_cnpj" type="text" placeholder="__.___.___/____-__" />
                 </div>
                 <div class="login-form-campos">
                     <p>Senha</p>
-                    <input type="password" />
+                    <input id="ipt_senha" type="password" />
                 </div>
                 <div>
-                    <button>Login</button>
+                    <button onclick="login()">Login</button>
                 </div>
             </form>
             <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;" href="../cadastro/cadastro.html">Cadastrar conta nova</a>
         </div>
     </section>
 </body>
+<script>
+    function login(){
+        event.preventDefault();
+        let cnpj = ipt_cnpj.value;
+        let senha = ipt_senha.value;
 
+        // CNPJ: 94642417000100 SENHA: 1234
+        if (cnpj == '94642417000100' && senha == '1234') {
+            window.location.href = "../dashboard/dashboard.html";
+        } else {
+            alert("Senha ou usuário inválido");
+        }
+    }
+</script>
 </html>
