@@ -1,5 +1,6 @@
 .home {
-    margin: 60px;
+    margin: 200px;
+    margin-top: 100px;
 }
 
 .sessao1 {
@@ -8,8 +9,9 @@
 }
 
 .sessao1 img {
-    width: 70%;
-    margin-left: 180px;
+    width: 100%;
+    margin: auto;
+    border-radius: 5px;
 }
 
 .sessao1-div {
@@ -21,6 +23,30 @@
     color: rgba(36, 65, 103, 1);
     font-size: 54px;
     margin-bottom: 30px;
+}
+
+.sessao1-div a {
+    background-color: rgba(36, 65, 103, 1);
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgb(19, 40, 66);
+    transition: all 0.1s ease-in-out;
+    width: 100%;
+}
+
+.sessao1-div a:hover {
+    background-color: rgb(60, 109, 173);
+}
+
+.sessao1-div a:active {
+    box-shadow: 0 2px 0 rgb(52, 93, 146);
+    transform: translateY(2px);
 }
 
 .sessao1-div p {
@@ -51,9 +77,8 @@
 }
 
 .sessao2 {
-    margin-top: 50px;
+    margin-top: 100px;
     display: block;
-    margin-bottom: 50px;
 }
 
 .sessao2-titulo {
@@ -65,75 +90,44 @@
 
 .sessao2-divs {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .sessao2-div {
     width: 405px;
-
 }
 
 .sessao2-div p {
     color: rgba(130, 130, 130, 1);
     font-size: 20px;
-
 }
 
-.sessao2-div h3 {
+.sessao2-div h3,
+.sessao4-div h3 {
     margin-bottom: 8px;
     margin-top: 12px;
 }
 
-.sessao3 {
-    display: flex;
-    justify-content: space-between;
-}
-
-.sessao3-div {
-    width: 50%;
-}
-
-.sessao3-img {
-    margin-right: 13%;
-}
-
-.sessao3-div h2 {
-    color: rgba(36, 65, 103, 1);
-    font-size: 40px;
-    margin-bottom: 30px;
-}
-
-.sessao3-div p {
-    font-size: 20px;
-}
-
+.sessao3,
 .sessao4 {
+    margin-top: 100px;
     display: flex;
     justify-content: space-between;
-    margin-top: 80px;
 }
 
+.sessao3-div,
 .sessao4-div {
-    width: 50%;
-
+    width: 60%;
 }
 
-.sessao4-img {
-    margin-right: 13%;
-}
-
-.sessao4 h2 {
+.sessao3-div h2,
+.sessao4-div h2 {
     color: rgba(36, 65, 103, 1);
     font-size: 40px;
     margin-bottom: 30px;
 }
-.sessao4-div h3 {
-    font-size: 30px;
-    margin-bottom: 30px;
-    
-}
 
+.sessao3-div p,
 .sessao4-div p {
     font-size: 20px;
-    margin-top: 30px;
 }
