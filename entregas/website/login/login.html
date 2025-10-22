@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../global/menu-style.css">
     <link rel="stylesheet" href="./login-style.css">
     <link rel="stylesheet" href="../global/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
 </head>
 
@@ -65,49 +65,11 @@
         let senha = ipt_senha.value;
 
         // CNPJ: 94642417000100 SENHA: 1234
-        if (cnpj == '94642417000100' && senha == '1234') {
-            Swal.fire({
-                title: 'Sucesso!',
-                text: 'Login realizado com sucesso!',
-                icon: 'success',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: false,
-                background: 'rgba(36, 65, 103, 1)',
-                color: '#fff'
-            });
-            setTimeout(() => {
+        if(cnpj == '' || senha == ''){
+            alert ('Os campos não devem estar vazios')
+        
+        }else if (cnpj == '94642417000100' && senha == '1234') {
                 window.location.href = "../dashboard/dashboard.html";
-            }, 1000);
-        } else if (cnpj == '' || senha == '') {
-            Swal.fire({
-                title: 'Falha!',
-                text: 'Insira todos os dados!',
-                icon: 'error',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: false,
-                background: 'rgba(36, 65, 103, 1)',
-                color: '#fff'
-            });
-        }
-        else {
-            Swal.fire({
-                title: 'Falha!',
-                text: 'CNPJ ou senha incorretos!',
-                icon: 'error',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: false,
-                background: 'rgba(36, 65, 103, 1)',
-                color: '#fff'
-            });
         }
     }
 </script>
