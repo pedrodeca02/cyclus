@@ -1,6 +1,6 @@
 .letra-menu, .texto-menu {
     color: #fff;
-    font-size: 20px;
+    font-size: 15px;
     text-shadow: 3px 3px 3px rgb(56, 3, 0);
     text-decoration: none;
     padding: 10px 8px;
@@ -39,7 +39,7 @@
 }
 
 .header-content-logo {
-    width: 200px;
+    width: 150px;
 }
 
 .header-links {

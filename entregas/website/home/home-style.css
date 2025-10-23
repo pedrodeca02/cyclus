@@ -78,7 +78,8 @@
 
 .sessao2 {
     margin-top: 100px;
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .sessao2-titulo {
@@ -90,11 +91,20 @@
 
 .sessao2-divs {
     display: flex;
-    justify-content: space-between;
 }
 
 .sessao2-div {
-    width: 405px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sessao2-div p {
+    width: 95%;
+    height: 100%;
+    text-align: center;
 }
 
 .sessao2-div p {
@@ -115,12 +125,18 @@
     justify-content: space-between;
 }
 
+.sessao3{
+    padding: 20px;
+    background-color: #ececec;
+    box-shadow: 5px 5px 5px rgb(159, 159, 159);
+}
+
 .sessao3-div,
 .sessao4-div {
     width: 60%;
 }
 
-.sessao4-div{
+.sessao4-div {
     margin-left: 30px;
 }
 
@@ -136,3 +152,6 @@
     font-size: 20px;
 }
 
+.sessao2-div img {
+    width: 90%;
+}
