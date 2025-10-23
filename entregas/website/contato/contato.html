@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" href="../global/menu-style.css">
+    <link rel="stylesheet" href="../contato/contato-style.css">
+    <link rel="stylesheet" href="../global/main.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="../home/home.html">
+                <img class="header-content-logo" src="../global/cyclus.png" alt="Cyclus">
+            </a>
+            <ul class="header-links">
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../home/home.html">Home</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../contato/contato.html">Contato</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../login/login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="contato">
+        <h1>Fale Conosco</h1>
+        <div class="contato-div">
+            <div class="contato-titulo">
+                <h2>Solicite um orçamento ou tire suas dúvidas</h2>
+                <p>Entre em contato com nossa equipe comercial ou técnica e retornaremos o mais breve possível.</p>
+            </div>
+
+            <form class="contato-form">
+                <div class="duplo">
+                    <div class="contato-form-campos">
+                        <p>Nome <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+                        <input type="text" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="contato-form-campos">
+                        <p>E-mail <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+                        <input type="email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+
+                <div class="duplo">
+                    <div class="contato-form-campos">
+                        <p>Telefone</p>
+                        <input type="text" placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="contato-form-campos">
+                        <p>Tipo de contato <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+                        <select required>
+                            <option value="">Selecione...</option>
+                            <option value="orcamento">Solicitar orçamento</option>
+                            <option value="demonstracao">Agendar demonstração</option>
+                            <option value="suporte">Suporte técnico</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="contato-form-campos">
+                    <p>Mensagem <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+                    <textarea placeholder="Descreva sua necessidade ou dúvida..." rows="6" required></textarea>
+                </div>
+
+                <div>
+                    <button type="submit">Enviar mensagem</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

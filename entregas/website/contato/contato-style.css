@@ -1,0 +1,74 @@
+h1 {
+    margin: 30px 200px;
+    color: rgba(36, 65, 103, 1);
+    font-size: 40px;
+}
+
+.contato-div {
+    background-color: rgba(224, 224, 224, 1);
+    margin: 0 200px;
+    padding: 30px 100px;
+    border-radius: 5px;
+}
+
+.contato-titulo {
+    margin-bottom: 40px;
+}
+
+.contato-titulo h2 {
+    font-size: 40px;
+    font-weight: 500;
+    color: rgba(151, 7, 0, 1);
+    margin-bottom: 10px;
+}
+
+.contato-titulo p {
+    color: rgba(130, 130, 130, 1);
+}
+
+.contato-form-campos p {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.contato-form-campos input,
+.contato-form-campos textarea,
+.contato-form-campos select {
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 20px;
+    width: 100%;
+    resize: none;
+}
+
+.duplo {
+    display: flex;
+    gap: 50px;
+}
+
+.duplo .contato-form-campos {
+    flex: 1;
+}
+
+.contato-form button {
+    background-color: rgba(36, 65, 103, 1);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgb(19, 40, 66);
+    transition: all 0.1s ease-in-out;
+}
+
+.contato-form button:hover {
+    background-color: rgb(60, 109, 173);
+}
+
+.contato-form button:active {
+    box-shadow: 0 2px 0 rgb(52, 93, 146);
+    transform: translateY(2px);
+}
