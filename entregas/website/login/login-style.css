@@ -71,3 +71,58 @@ h1 {
     box-shadow: 0 2px 0 rgb(52, 93, 146);
     transform: translateY(2px);
 }
+
+.footer-letra-menu, .footer-texto-menu {
+    color: #fff;
+    font-size: 15px;
+    text-shadow: 3px 3px 3px rgb(56, 3, 0);
+    text-decoration: none;
+    padding: 10px 8px;
+    transition: .2s ease ;
+    border-radius: 7px;
+}
+
+.footer-texto-menu {
+    padding: 10px 50px;
+}
+
+.footer-letra-menu:hover {
+    background-color: #fff;
+    color: rgba(151, 7, 0, 1);
+    text-shadow: none;
+}
+
+.footer {
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 10px 50px;
+    background-image: url(./imgMenu.jpg);
+    background-color: rgba(145, 14, 8, 0.9);
+    background-position:center;
+    background-size: cover;
+    background-blend-mode: multiply;
+    box-shadow: 0 4px 30px rgb(19, 40, 66);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content-logo {
+    width: 200px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-links-item {
+    margin: 0 8px;  
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
