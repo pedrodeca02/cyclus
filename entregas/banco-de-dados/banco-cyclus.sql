@@ -16,7 +16,6 @@ CREATE TABLE empresa(
 	idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     razao_social VARCHAR(70) NOT NULL,
     cnpj CHAR(14) NOT NULL,
-    email VARCHAR(100) NOT NULL,
     fkEndereco INT,
 		CONSTRAINT fkEmpresaEndereco
         FOREIGN KEY (fkEndereco) REFERENCES endereco (idEndereco)
