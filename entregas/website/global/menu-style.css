@@ -1,10 +1,11 @@
-.letra-menu, .texto-menu {
+.letra-menu,
+.texto-menu {
     color: #fff;
     font-size: 15px;
     text-shadow: 3px 3px 3px rgb(56, 3, 0);
     text-decoration: none;
     padding: 10px 8px;
-    transition: .2s ease ;
+    transition: .2s ease;
     border-radius: 7px;
 }
 
@@ -18,7 +19,7 @@
     text-shadow: none;
 }
 
-.header, .footer {
+.header {
     z-index: 10;
     position: sticky;
     top: 0;
@@ -26,19 +27,20 @@
     padding: 15px 50px;
     background-image: url(./imgMenu.jpg);
     background-color: rgba(145, 14, 8, 0.9);
-    background-position:center;
+    background-position: center;
     background-size: cover;
     background-blend-mode: multiply;
     box-shadow: 0 4px 30px rgb(8, 10, 12);
 }
 
-.header-content, .footer-content {
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-content-logo, .footer-content-logo {
+.header-content-logo,
+.footer-content-logo {
     width: 150px;
 }
 
@@ -50,3 +52,20 @@
     margin: 0 8px;
 }
 
+.footer {
+    background-color: rgba(145, 14, 8, 0.9);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./imgMenu.jpg);
+    background-color: rgba(145, 14, 8, 0.9);
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: multiply;
+}
