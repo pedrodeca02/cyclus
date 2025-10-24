@@ -7,6 +7,8 @@
     <title>Home</title>
     <link rel="stylesheet" href="../global/menu-style.css">
     <link rel="stylesheet" href="../global/main.css">
+    <link rel="stylesheet" href="../simulador/simulador-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -32,34 +34,80 @@
         </div>
     </header>
 
-    <section>
-        
+    <section class="hero">
+        <div class="hero-title">
+            <h1>Simulador Financeiro Cyclus</h1>
+            <h2>Projete sua economia com segurança!</h2>
+        </div>
+    </section>
+    <section class="simulador">
+        <div class="simulador-infos">
+            <h3>Simule agora!</h3>
+            <div class="simulador-input">
+                <p>Informe o nome da sua empresa:</p>
+                <input id="iptNomeEmpresa" placeholder="Nome da empresa">
+            </div>
+            <div class="simulador-input">
+                <p>Informe o o valor do seu faturamento anual aproximado em reais:</p>
+                <input id="iptValorFaturamento" placeholder="Faturamento Anual Aproximado">
+            </div>
+            <button onclick="calcular()">Simule Agora</button>
+        </div>
+        <div class="simulador-resultados">
+            <p id="infogeral_msg" class="infogeral_msg">Preencha os dados para fazer a simulação</p>
+            <div class="graficos">
+                <div class="cardPrincipal">
+                    <canvas id="grafico-principal" class="grafico-principal"></canvas>
+                </div>
+            </div>
+            <p id="resultados_msg" class="resultados_msg"></p>
+        </div>
     </section>
 
-    <h1>Simulador Financeiro Cyclus</h1>
-    <h2>Projete sua economia com segurança!</h2>
-
-    <p>
-        O Simulador Financeiro Cyclus foi desenvolvido para auxiliar empresas a analisarem o impacto das perdas
-        financeiras causadas por falhas no monitoramento e identificar o potencial de recuperação a partir da utilização
-        dos nossos serviços.
-    </p>
-    Informe o nome de sua empresa: <input id="iptNomeEmpresa">
-
-    Insira o valor do seu faturamento anual aproximado (R$): <input id="iptValorFaturamento">
-
-    <button onclick="calcular()">Simule Agora</button>
-
-    <div id="div_simulacao"></div>
-    <div id="div_entenda"></div>
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="../home/home.html">
+                <img class="footer-content-logo" src="../global/cyclus.png" alt="Riot Games">
+            </a>
+        </div>
+    </footer>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     var perdaGlobal = 0;
     var recuperacaoGlobal = 0;
+    const ctx = document.getElementById('grafico-principal');
+
+    const grafico = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [0, 0]
+            }],
+            labels: [
+                'Recuperação Financeira',
+                'Prejuízo Financeiro'
+            ], datasets: [{
+                data: [0, 0],
+                backgroundColor: ['#27ae60','#e74c3c'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 
     function calcular() {
-        div_simulacao.innerHTML = "";
+        grafico.data.datasets[0].data = [0, 0];
+        grafico.update();
+        infogeral_msg.innerHTML = "Preencha os dados para fazer a simulação";
+        resultados_msg.innerHTML = "";
 
         var faturamento = iptValorFaturamento.value;
         var empresa = iptNomeEmpresa.value;
@@ -78,26 +126,23 @@
             //limpando as entradas
             iptNomeEmpresa.value = ''
             iptValorFaturamento.value = '';
+            grafico.data.datasets[0].data = [recuperacaoGlobal,perdaGlobal];
+            grafico.update();
 
-            div_simulacao.innerHTML =
+            infogeral_msg.innerHTML =
                 `Seja bem vindo(a)!<br><br>
                 
-                <b>SIMULAÇÃO DA EMPRESA ${empresa.toUpperCase()}</b><br><br>
+                Simulação da empresa ${empresa.toUpperCase()}<br><br>
+                Faturamento Anual: R$${faturamento}<br><br>
 
-                Recuperação Financeira de <b style="color: green">R$ ${recuperacao.toFixed(2)}</b> dos <b style="color: red">R$ ${perda.toFixed(2)}</b> de prejuízo anual.<br><br>`;
-                entenda();
-            }
-    }
+                Com as soluções da Cyclus, é possível recuperar <b style = "color: green"> R$ ${recuperacao.toFixed(2)}</b> dos <b style = "color: red" > R$ ${perda.toFixed(2)}</b> de prejuízo anual.<br><br>
+                `
 
-    function entenda() {
-        div_entenda.innerHTML = `
-        <br><hr><br>
-        <b>ENTENDA MAIS:</b><br><br>
-        De acordo com estudos e pesquisas realizadas pela <b>Cyclus</b>, empresas do setor podem perder até <b style="color: red;">30%</b> do faturamento devido a falhas de monitoramento. No seu caso, isso pode significar uma perda de aproximadamente <b style="color: red;">R$ ${perdaGlobal.toFixed(2)} </b> por ano.<br><br>
-
-        Com a contratação do nosso serviço de prevenção e monitoramento automatizado, é possível reduzir a perda desse valor em até <b style="color: green;">40%</b>,<br>representando uma recuperação financeira em torno de <b style="color: green;">R$ ${recuperacaoGlobal.toFixed(2)} </b>  de volta para o seu caixa.<br><br>
-
-        <b>Essa diferença pode ser o que separa um prejuízo de uma oportunidade de crescimento!</b>`;
+            resultados_msg.innerHTML =
+                `
+            <span style="font-weight: 400";> Empresas do setor perdem até 30% do faturamento anual devido a falhas no monitoramento. </span>
+            `;
+        }
     }
 </script>
 

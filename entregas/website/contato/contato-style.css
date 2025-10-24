@@ -4,6 +4,10 @@ h1 {
     font-size: 40px;
 }
 
+.contato{
+    margin-bottom: 80px;
+}
+
 .contato-div {
     background-color: rgba(224, 224, 224, 1);
     margin: 0 200px;

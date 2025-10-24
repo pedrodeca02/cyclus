@@ -1,3 +1,37 @@
+.hero {
+    width: 100%;
+    min-height: 80vh;
+    background-image: url(/home/HeroImage.png);
+    background-size: cover;
+    background-position: top;
+    overflow: hidden;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-title {
+    margin-left: 5vw;
+    color: #fff;
+}
+
+.hero-content-logo{
+    margin-right: 5vw;
+    height: 100px;
+}
+
+.hero-title h1 {
+    font-weight: 800;
+    font-size: 100px;
+}
+
+.hero-title h2 {
+    font-weight: 200;
+    font-size: 50px;
+}
+
 .home {
     margin: 100px;
     margin-top: 75px;
