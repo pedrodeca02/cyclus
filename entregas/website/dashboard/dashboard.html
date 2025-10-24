@@ -339,23 +339,26 @@
           backgroundColor: 'black'
         }, {
           label: 'Freezer 1',
-          data: [8, 10, 5, 2, 4, 7, 12],
+          data: [8, 6, 1, 2, 4, 7, 12],
           borderColor: 'red',
           tension: 0.3
-        }
-        ,{ label: 'Freezer 2', 
-        data: gerarTemperaturas(7, 0, 9), 
-        borderColor: 'blue', 
-        tension: 0.3 },
-        { label: 'Freezer 3', 
-        data: gerarTemperaturas(7, 0, 9), 
-        borderColor: 'orange', 
-        tension: 0.3 },
-        { label: 'Freezer 4', 
-        data: gerarTemperaturas(7, 0, 9), 
-        borderColor: 'green', 
-        tension: 0.3 },
-        { label: 'Temperatura mínima ideal',
+        },{ 
+          label: 'Freezer 2', 
+          data: [1, 8, 7, 11, 2, 3, 2], 
+          borderColor: 'blue', 
+          tension: 0.3 
+        },{ 
+          label: 'Freezer 3', 
+          data: [2, 1, 2, 6, 5, 9, 7], 
+          borderColor: 'orange', 
+          tension: 0.3 
+        },{ 
+          label: 'Freezer 4', 
+          data: [4, 6, 8, 10, 3, 4, 1], 
+          borderColor: 'green', 
+          tension: 0.3 
+        },{ 
+          label: 'Temperatura mínima ideal',
           data: [2, 2, 2, 2, 2, 2, 2],
           borderWidth: 1,
           borderColor: 'black',
@@ -379,9 +382,22 @@
         data: {
           labels: ['12h', '13h', '14h', '15h', '16h', '17h'],
           datasets: [
-            { label: 'Temperatura Média °C', data: gerarTemperaturas(6), borderColor: color, tension: 0.3 },
-            { label: 'Máx ideal', data: Array(6).fill(8), borderColor: 'black', borderDash: [4, 4] },
-            { label: 'Min ideal', data: Array(6).fill(2), borderColor: 'black', borderDash: [4, 4] }
+            { 
+            label: 'Temperatura Média °C', 
+            data: [8, 6, 1, 2, 4, 7, 12], 
+            borderColor: color, 
+            tension: 0.3
+          }, { 
+            label: 'Máx ideal', 
+            data: [8, 8, 8, 8, 8, 8, 8], 
+            borderColor: 'black', 
+            borderDash: [4, 4] 
+          }, { 
+            label: 'Min ideal', 
+            data: [2, 2, 2, 2, 2, 2, 2], 
+            borderColor: 'black',
+            borderDash: [4, 4] 
+          }
           ]
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
