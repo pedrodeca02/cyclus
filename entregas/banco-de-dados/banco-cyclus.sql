@@ -131,3 +131,5 @@ SELECT s.modelo, s.tempMax, s.tempMin, s.idSensor,
         JOIN registro AS r
         ON r.fkSensor= s.idSensor;
         
+ALTER TABLE endereco DROP COLUMN UF;
+SELECT * FROM endereco;
