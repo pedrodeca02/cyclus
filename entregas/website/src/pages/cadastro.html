@@ -106,7 +106,7 @@
                 </div>
                 <div>
                     <button type="button" onclick="cadastro()">Cadastre-se</button>
-                    <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;" href="../pages/login.html">Já
+                    <a style="color: rgba(180, 11, 2, 0.9); text-decoration: underline;" href="../pages/login.html">Já
                         sou cadastrado</a>
                 </div>
             </form>
@@ -138,7 +138,7 @@
         let letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
 
         // ANALISA SE ALGUM INPUT ESTÁ VAZIO
-        if (nome == '' || razaosocial == '' || cnpj == '' || email == '' || telefone == '' ||
+        if (nome == '' || razaosocial == '' || cnpj == '' || email == '' ||
             cep == '' || endereco == '' || numero == '' || senha == '' || senhaConfirm == '') {
             alert('Insira todos os campos!');
         } else {
@@ -256,6 +256,7 @@
         if (cnpjBool == true && emailBool == true && telefoneBool == true
             && cepBool == true && senhaBool == true) {
             alert("Cadastro bem sucedido!")
+            window.location.href = "../pages/login.html";
         }
     }
 </script>
