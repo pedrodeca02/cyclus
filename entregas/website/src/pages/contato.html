@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../styles/menu-style.css">
     <link rel="stylesheet" href="../styles/contato-style.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -61,6 +64,7 @@
                         <p>Tipo de contato <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
                         <select required>
                             <option value="">Selecione...</option>
+                            <option value="senha">Recuperar senha</option>
                             <option value="orcamento">Solicitar orçamento</option>
                             <option value="demonstracao">Agendar demonstração</option>
                             <option value="suporte">Suporte técnico</option>
@@ -71,7 +75,7 @@
 
                 <div class="contato-form-campos">
                     <p>Mensagem <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                    <textarea placeholder="Descreva sua necessidade ou dúvida..." rows="6" required></textarea>
+                    <textarea placeholder="Escreva sua mensagem" rows="6" required></textarea>
                 </div>
 
                 <div>
@@ -80,7 +84,7 @@
             </form>
         </div>
     </section>
-        <footer class="footer">
+    <footer class="footer">
         <p>© 2025 Cyclus - Monitoramento Inteligente</p>
     </footer>
 </body>

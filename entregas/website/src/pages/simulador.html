@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../styles/menu-style.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/simulador-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -83,10 +86,10 @@
             }],
             labels: [
                 'Recuperação Financeira',
-                'Prejuízo Financeiro'
+                'Prejuízo Anual'
             ], datasets: [{
                 data: [0, 0],
-                backgroundColor: ['green','rgb(145, 14, 8)'],
+                backgroundColor: ['green', 'rgb(145, 14, 8)'],
                 borderWidth: 2
             }]
         },
@@ -122,7 +125,7 @@
             //limpando as entradas
             iptNomeEmpresa.value = ''
             iptValorFaturamento.value = '';
-            grafico.data.datasets[0].data = [recuperacaoGlobal,perdaGlobal];
+            grafico.data.datasets[0].data = [recuperacaoGlobal, perdaGlobal];
             grafico.update();
 
             infogeral_msg.innerHTML =

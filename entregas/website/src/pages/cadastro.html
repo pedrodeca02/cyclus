@@ -8,26 +8,29 @@
     <link rel="stylesheet" href="../styles/menu-style.css">
     <link rel="stylesheet" href="../styles/cadastro-style.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="../home/home.html">
-                <img class="header-content-logo" src="../global/cyclus.png" alt="Riot Games">
+            <a href="../pages/home.html">
+                <img class="header-content-logo" src="../assets/cyclus.png">
             </a>
             <ul class="header-links">
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../home/home.html">Home</a>
+                    <a class="letra-menu" href="../pages/home.html">Home</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
+                    <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="#">Contato</a>
+                    <a class="letra-menu" href="../pages/contato.html">Contato</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../login/login.html">Login</a>
+                    <a class="letra-menu" href="../pages/login.html">Login</a>
                 </li>
             </ul>
         </div>
@@ -40,11 +43,11 @@
                 <p>Campos com <b style="color: rgba(180, 11, 2, 0.9);">*</b> são obrigatórios</p>
             </div>
             <form class="cadastro-form">
-                    <div class="cadastro-form-campos">
-                        <p>Nome <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" required id="ipt_nome" placeholder="Nome completo" />
-                        <span class="cadastro-form-campos-alerta"></span>
-                    </div>
+                <div class="cadastro-form-campos">
+                    <p>Nome <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+                    <input type="text" required id="ipt_nome" placeholder="Nome completo" />
+                    <span class="cadastro-form-campos-alerta"></span>
+                </div>
                 <div class="duplo">
                     <div class="cadastro-form-campos">
                         <p>Razão social<b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
@@ -122,8 +125,8 @@
         alerta_senhaconfirm = ``;
 
         let nome = ipt_nome.value;
-        let cnpj = ipt_cnpj.value;
         let razaosocial = ipt_razaosocial.value;
+        let cnpj = ipt_cnpj.value;
         let email = ipt_email.value;
         let telefone = ipt_telefone.value;
         let cep = ipt_cep.value;
@@ -139,8 +142,8 @@
         let cepBool = false;
         let senhaBool = false;
 
-        if (nome == '' || cnpj == '' || email == '' || telefone == '' ||
-            cep == '' || endereco == '' || cadastro == '' || complemento == '' ||
+        if (nome == '' || razaosocial == '' || cnpj == '' || email == '' || telefone == '' ||
+            cep == '' || endereco == '' || numero == '' || complemento == '' ||
             senha == '' || senhaConfirm == '') {
             alert('Insira todos os campos!');
         } else {

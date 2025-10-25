@@ -40,6 +40,10 @@ h1 {
     width: 100%;
 }
 
+.cadastro-form-campos input:focus {
+    outline: none;
+}
+
 .duplo {
     display: flex;
     gap: 50px;

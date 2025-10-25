@@ -5,14 +5,18 @@ h1 {
 }
 
 .contato{
-    margin-bottom: 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .contato-div {
     background-color: rgba(224, 224, 224, 1);
     margin: 0 200px;
-    padding: 30px 100px;
+    padding: 70px 100px 90px 100px;
     border-radius: 5px;
+    box-shadow: 0 4px 30px rgb(105, 105, 105);
 }
 
 .contato-titulo {
