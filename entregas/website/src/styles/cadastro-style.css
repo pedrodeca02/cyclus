@@ -28,7 +28,8 @@ h1 {
 
 .cadastro-form-campos p {
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .cadastro-form-campos input {
@@ -36,7 +37,7 @@ h1 {
     padding: 9px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     width: 100%;
 }
 
@@ -63,6 +64,7 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 0 rgb(19, 40, 66);
     transition: all 0.1s ease-in-out;
+    margin-top: 20px;
 }
 
 .cadastro-form button:hover {
@@ -76,4 +78,10 @@ h1 {
 
 .cadastro-div a {
     margin-left: 20px;
+}
+
+.cadastro-form-campos-alerta {
+    color: rgb(187, 22, 13);
+    font-size: 15px;
+    font-weight: 400;
 }

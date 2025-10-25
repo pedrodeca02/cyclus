@@ -56,7 +56,7 @@
                     </div>
                     <div class="cadastro-form-campos">
                         <p>CNPJ <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" required id="ipt_cnpj" placeholder="__.___.___/____-__" />
+                        <input type="text" required id="ipt_cnpj" placeholder="12345678912345" />
                         <span class="cadastro-form-campos-alerta" id="alerta_cnpj"></span>
                     </div>
                 </div>
@@ -68,12 +68,12 @@
                 <div class="duplo">
                     <div class="cadastro-form-campos">
                         <p>Telefone</p>
-                        <input type="text" required id="ipt_telefone" placeholder="(01)99999-9999" />
+                        <input type="text" required id="ipt_telefone" placeholder="(11)99999-9999" />
                         <span class="cadastro-form-campos-alerta" id="alerta_telefone"></span>
                     </div>
                     <div class="cadastro-form-campos">
                         <p>CEP <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" required id="ipt_cep" placeholder="_____-___" />
+                        <input type="text" required id="ipt_cep" placeholder="12345678" />
                         <span class="cadastro-form-campos-alerta" id="alerta_cep"></span>
                     </div>
                 </div>
@@ -118,59 +118,139 @@
 </body>
 <script>
     function cadastro() {
-        alerta_cnpj.innerHTML = ``;
-        alerta_email.innerHTML = ``;
-        alerta_telefone.innerHTML = ``;
-        alerta_cep.innerHTML = ``;
-        alerta_senhaconfirm = ``;
+        // LIMPA OS ALERTAS
+        alerta_cnpj.innerHTML = ``; alerta_email.innerHTML = ``; alerta_telefone.innerHTML = ``;
+        alerta_cep.innerHTML = ``; alerta_senha.innerHTML = ``; alerta_senhaconfirm.innerHTML = ``;
 
-        let nome = ipt_nome.value;
-        let razaosocial = ipt_razaosocial.value;
-        let cnpj = ipt_cnpj.value;
-        let email = ipt_email.value;
-        let telefone = ipt_telefone.value;
-        let cep = ipt_cep.value;
-        let senha = ipt_senha.value;
-        let senhaConfirm = ipt_senhaConfirm.value;
-        let endereco = ipt_endereco.value;
-        let numero = ipt_numero.value;
-        let complemento = ipt_complemento.value;
+        // DECLARANDO TODAS AS VARIÁVEIS
+        let nome = ipt_nome.value, razaosocial = ipt_razaosocial.value, cnpj = ipt_cnpj.value,
+            email = ipt_email.value, telefone = ipt_telefone.value, cep = ipt_cep.value,
+            senha = ipt_senha.value, senhaConfirm = ipt_senhaConfirm.value, endereco = ipt_endereco.value,
+            numero = ipt_numero.value, complemento = ipt_complemento.value;
 
-        let cnpjBool = false;
-        let emailBool = false;
-        let telefoneBool = false;
-        let cepBool = false;
-        let senhaBool = false;
+        // DECLARANDO VARIÁVEIS PARA A VALIDAÇÃO FINAL
+        let cnpjBool = false, emailBool = false, telefoneBool = false,
+            cepBool = false, senhaBool = false;
 
+        // DECLARANDO VARIÁVEIS PARA VALIDAÇÃO DA SENHA
+        let charEspecial = "!@#$%¨&*()-_=+[]{}\\|;:\"'<>,.?/";
+        let letrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
+
+        // ANALISA SE ALGUM INPUT ESTÁ VAZIO
         if (nome == '' || razaosocial == '' || cnpj == '' || email == '' || telefone == '' ||
-            cep == '' || endereco == '' || numero == '' || complemento == '' ||
-            senha == '' || senhaConfirm == '') {
+            cep == '' || endereco == '' || numero == '' || senha == '' || senhaConfirm == '') {
             alert('Insira todos os campos!');
         } else {
-            if (cnpj.length != 14) {
-                alerta_cnpj.innerHTML = `Insira um CNPJ válido`;
+            // VALIDAÇÃO CNPJ
+            let temLetraCNPJ = 0;
+            for (let i = 0; i < cnpj.length; i++) {
+                if (isNaN(Number(cnpj[i]))) {
+                    temLetraCNPJ++;
+                }
+            }
+            if (cnpj.length != 14 || temLetraCNPJ > 0) {
+                if (cnpj.length != 14) {
+                    alerta_cnpj.innerHTML += `Seu CNPJ precisa ter 14 dígitos<br>`
+                }
+                if (temLetraCNPJ > 0) {
+                    alerta_cnpj.innerHTML += `Seu CNPJ possui ${temLetraCNPJ} caracteres inválidos`
+                }
             } else {
                 cnpjBool = true;
             }
-            if (email.indexOf('@') < 0 && email.indexOf('.')) {
+
+            // VALIDAÇÃO EMAIL
+            let temArrobaEmail = false;
+            let temPontoEmail = false;
+            for (let i = 0; i < email.length; i++) {
+                if (email[i] == '@') {
+                    temArrobaEmail = true;
+                }
+                if (email[i] == '.') {
+                    temPontoEmail = true;
+                }
+            }
+            if (temArrobaEmail == false || temPontoEmail == false) {
                 alerta_email.innerHTML = `Insira um email válido`;
             } else {
                 emailBool = true;
             }
-            if (telefone.length < 7 || telefone.length > 8) {
+
+            let temLetraTelefone = false;
+            //VALIDAÇÃO TELEFONE
+            for (let i = 0; i < telefone.length; i++) {
+                if (isNaN(Number(telefone[i]))) {
+                    temLetraTelefone = true;
+                }
+            }
+
+            if (telefone.length < 8 || telefone.length > 11 || temLetraTelefone == true) {
                 alerta_telefone.innerHTML = `Insira um telefone válido`;
             } else {
                 telefoneBool = true;
             }
-            if (cep.length != 8) {
-                alerta_cep.innerHTML = `Insira um cep válido`;
+
+            let temLetraCep = false;
+            for (let i = 0; i < cep.length; i++) {
+                if (isNaN(Number(cep[i]))) {
+                    temLetraCep = true;
+                }
+            }
+            //VALIDAÇÃO CEP
+            if (cep.length != 8 || temLetraCep == true) {
+                if (temLetraCep == true) {
+                    alerta_cep.innerHTML += `Só pode ter números no CEP<br>`;
+                }
+                if (cep.length != 8) {
+                    alerta_cep.innerHTML += `Precisa ter 8 dígitos no CEP`;
+                }
             } else {
                 cepBool = true;
             }
-            if (senha != senhaConfirm) {
-                alerta_senhaconfirm.innerHTML = `As senhas devem ser iguais`;
+
+            //VALIDAÇÃO SENHA
+            let temCharEspecialSenha = false;
+            let temCharMaiusculoSenha = false;
+            let temCharMinusculoSenha = false;
+
+            for (let i = 0; i < senha.length; i++) {
+                for (let n = 0; n < charEspecial.length; n++) {
+                    if (senha[i] == charEspecial[n]) {
+                        temCharEspecialSenha = true;
+                    }
+                }
+                for (let j = 0; j < letrasMaiusculas.length; j++) {
+                    if (senha[i] == letrasMaiusculas[j]) {
+                        temCharMaiusculoSenha = true;
+                    }
+                }
+                for (let j = 0; j < letrasMinusculas.length; j++) {
+                    if (senha[i] == letrasMinusculas[j]) {
+                        temCharMinusculoSenha = true;
+                    }
+                }
+            }
+            if (senha.length < 12 || temCharEspecialSenha == false ||
+                temCharMaiusculoSenha == false || temCharMinusculoSenha == false) {
+                if (senha.length < 12) {
+                    alerta_senha.innerHTML += `Precisa ter mais de 12 dígitos<br>`
+                }
+                if (temCharEspecialSenha == false) {
+                    alerta_senha.innerHTML += `Precisa ter pelo menos um caracter especial<br>`
+                }
+                if (temCharMaiusculoSenha == false) {
+                    alerta_senha.innerHTML += `Precisa ter pelo menos uma letra maiúscula<br>`
+                }
+                if (temCharMinusculoSenha == false) {
+                    alerta_senha.innerHTML += `Precisa ter pelo menos uma letra minúscula<br>`
+                }
             } else {
-                senhaBool = true;
+                if (senha != senhaConfirm) {
+                    alerta_senhaconfirm.innerHTML += `As senhas devem ser iguais<br>`;
+                } else {
+                    senhaBool = true;
+                }
             }
         }
         if (cnpjBool == true && emailBool == true && telefoneBool == true

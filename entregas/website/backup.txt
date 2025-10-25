@@ -1,0 +1,5 @@
+if (nome == '' || razaosocial == '' || cnpj == '' || email == '' || telefone == '' ||
+            cep == '' || endereco == '' || numero == '' || complemento == '' ||
+            senha == '' || senhaConfirm == '') {
+            alert('Insira todos os campos!');
+        }
