@@ -1,7 +1,7 @@
 .hero {
     width: 100%;
-    min-height: 50vh;
-    background-image: url(/simulador/calculadora-foto.png);
+    min-height: 80vh;
+    background-image: url(../assets/calculadora-foto.png);
     background-size: cover;
     background-position: center;
     overflow: hidden;

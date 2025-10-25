@@ -1,35 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD:entregas/website/src/pages/login.html
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/login-style.css">
+    <link rel="stylesheet" href="../styles/main.css">
+=======
     <title>Document</title>
     <link rel="stylesheet" href="../global/menu-style.css">
     <link rel="stylesheet" href="./login-style.css">
     <link rel="stylesheet" href="../global/main.css">
    
 
+>>>>>>> b62f83fed7cf74e4d6c3428829bcb77842b93794:entregas/website/login/login.html
 </head>
 
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="../home/home.html">
-                <img class="header-content-logo" src="../global/cyclus.png" alt="Riot Games">
+            <a href="../pages/home.html">
+                <img class="header-content-logo" src="../assets/cyclus.png">
             </a>
             <ul class="header-links">
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../home/home.html">Home</a>
+                    <a class="letra-menu" href="../pages/home.html">Home</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
+                    <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../contato/contato.html">Contato</a>
+                    <a class="letra-menu" href="../pages/contato.html">Contato</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../login/login.html">Login</a>
+                    <a class="letra-menu" href="../pages/login.html">Login</a>
                 </li>
             </ul>
         </div>
@@ -42,8 +49,8 @@
             </div>
             <form class="login-form">
                 <div class="login-form-campos">
-                    <p>CNPJ</p>
-                    <input id="ipt_cnpj" type="text" placeholder="__.___.___/____-__" />
+                    <p>E-mail</p>
+                    <input id="ipt_email" type="text" placeholder="" />
                 </div>
                 <div class="login-form-campos">
                     <p>Senha</p>
@@ -54,22 +61,36 @@
                 </div>
             </form>
             <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;"
-                href="../cadastro/cadastro.html">Cadastrar conta nova</a>
+                href="../pages/cadastro.html">Cadastrar conta nova</a>
         </div>
     </section>
+    <footer class="footer">
+        <p>© 2025 Cyclus - Monitoramento Inteligente</p>
+    </footer>
 </body>
+
+
 <script>
     function login() {
         event.preventDefault();
-        let cnpj = ipt_cnpj.value;
+        let email = ipt_email.value;
         let senha = ipt_senha.value;
 
+<<<<<<< HEAD:entregas/website/src/pages/login.html
+        // EMAIL: cliente@teste.com SENHA: 1234
+        if (email == '' || senha == '') {
+            alert('Os campos não devem estar vazios')
+
+        } else if (email == 'cliente@teste.com' && senha == '1234') {
+            window.location.href = "../pages/dashboard.html";
+=======
         // CNPJ: 123456 SENHA: 1234
         if(cnpj == '' || senha == ''){
             alert ('Os campos não devem estar vazios')
        
         }else if (cnpj == '123456' && senha == '1234') {
                 window.location.href = "../dashboard/dashboard.html";
+>>>>>>> b62f83fed7cf74e4d6c3428829bcb77842b93794:entregas/website/login/login.html
         }
     }
 </script>

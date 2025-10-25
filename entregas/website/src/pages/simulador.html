@@ -1,34 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="../global/menu-style.css">
-    <link rel="stylesheet" href="../global/main.css">
-    <link rel="stylesheet" href="../simulador/simulador-style.css">
+    <title>Simulador Financeiro</title>
+    <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/simulador-style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="../home/home.html">
-                <img class="header-content-logo" src="../global/cyclus.png" alt="Riot Games">
+            <a href="../pages/home.html">
+                <img class="header-content-logo" src="../assets/cyclus.png">
             </a>
             <ul class="header-links">
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../home/home.html">Home</a>
+                    <a class="letra-menu" href="../pages/home.html">Home</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
+                    <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../contato/contato.html">Contato</a>
+                    <a class="letra-menu" href="../pages/contato.html">Contato</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../login/login.html">Login</a>
+                    <a class="letra-menu" href="../pages/login.html">Login</a>
                 </li>
             </ul>
         </div>
@@ -65,11 +65,7 @@
     </section>
 
     <footer class="footer">
-        <div class="footer-content">
-            <a href="../home/home.html">
-                <img class="footer-content-logo" src="../global/cyclus.png" alt="Riot Games">
-            </a>
-        </div>
+        <p>© 2025 Cyclus - Monitoramento Inteligente</p>
     </footer>
 
 </body>
@@ -90,7 +86,7 @@
                 'Prejuízo Financeiro'
             ], datasets: [{
                 data: [0, 0],
-                backgroundColor: ['#27ae60','#e74c3c'],
+                backgroundColor: ['green','rgb(145, 14, 8)'],
                 borderWidth: 2
             }]
         },
@@ -135,7 +131,7 @@
                 Simulação da empresa ${empresa.toUpperCase()}<br><br>
                 Faturamento Anual: R$${faturamento}<br><br>
 
-                Com as soluções da Cyclus, é possível recuperar <b style = "color: green"> R$ ${recuperacao.toFixed(2)}</b> dos <b style = "color: red" > R$ ${perda.toFixed(2)}</b> de prejuízo anual.<br><br>
+                Com as soluções da Cyclus, é possível recuperar <b style = "color: green"> R$ ${recuperacao.toFixed(2)}</b> dos <b style = "color: rgb(145, 14, 8)" > R$ ${perda.toFixed(2)}</b> de prejuízo anual.<br><br>
                 `
 
             resultados_msg.innerHTML =

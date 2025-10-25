@@ -5,9 +5,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dashboard | Cyclus</title>
-  <link rel="stylesheet" href="../global/main.css">
-  <link rel="stylesheet" href="../global/menu-style.css">
-  <link rel="stylesheet" href="../home/home-style.css">
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/menu-style.css">
+  <link rel="stylesheet" href="../styles/home-style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -43,7 +43,7 @@
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
     }
 
-    .kpi-card p{
+    .kpi-card p {
       font-size: 25px;
     }
 
@@ -175,12 +175,12 @@
 <body>
   <header class="header">
     <div class="header-content">
-      <a href="../home/home.html">
-        <img class="header-content-logo" src="../global/cyclus.png" alt="Cyclus">
+      <a href="../pages/home.html">
+        <img class="header-content-logo" src="../assets/cyclus.png" alt="Cyclus">
       </a>
       <ul class="header-links">
         <li class="header-links-item"><span class="texto-menu">Bem vindo, Adm123!</span></li>
-        <li class="header-links-item"><a class="letra-menu" href="../login/login.html">Sair</a></li>
+        <li class="header-links-item"><a class="letra-menu" href="../pages/login.html">Sair</a></li>
       </ul>
     </div>
   </header>
@@ -316,7 +316,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="footer">
     <p>© 2025 Cyclus - Monitoramento Inteligente</p>
   </footer>
 
@@ -342,6 +342,28 @@
           data: [8, 6, 1, 2, 4, 7, 12],
           borderColor: 'red',
           tension: 0.3
+<<<<<<< HEAD:entregas/website/src/pages/dashboard.html
+        }
+          , {
+            label: 'Freezer 2',
+          data: gerarTemperaturas(7, 0, 9),
+          borderColor: 'blue',
+          tension: 0.3
+        },
+        {
+          label: 'Freezer 3',
+          data: gerarTemperaturas(7, 0, 9),
+          borderColor: 'orange',
+          tension: 0.3
+        },
+        {
+          label: 'Freezer 4',
+          data: gerarTemperaturas(7, 0, 9),
+          borderColor: 'green',
+          tension: 0.3
+        },
+        {
+=======
         },{ 
           label: 'Freezer 2', 
           data: [1, 8, 7, 11, 2, 3, 2], 
@@ -358,6 +380,7 @@
           borderColor: 'green', 
           tension: 0.3 
         },{ 
+>>>>>>> b62f83fed7cf74e4d6c3428829bcb77842b93794:entregas/website/dashboard/dashboard.html
           label: 'Temperatura mínima ideal',
           data: [2, 2, 2, 2, 2, 2, 2],
           borderWidth: 1,
