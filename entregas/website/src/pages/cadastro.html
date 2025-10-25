@@ -13,21 +13,21 @@
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="../pages/home.html">
-                <img class="header-content-logo" src="../assets/cyclus.png">
+            <a href="../home/home.html">
+                <img class="header-content-logo" src="../global/cyclus.png" alt="Riot Games">
             </a>
             <ul class="header-links">
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../pages/home.html">Home</a>
+                    <a class="letra-menu" href="../home/home.html">Home</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
+                    <a class="letra-menu" href="../simulador/simulador.html">Simulador</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../pages/contato.html">Contato</a>
+                    <a class="letra-menu" href="#">Contato</a>
                 </li>
                 <li class="header-links-item">
-                    <a class="letra-menu" href="../pages/login.html">Login</a>
+                    <a class="letra-menu" href="../login/login.html">Login</a>
                 </li>
             </ul>
         </div>
@@ -40,55 +40,70 @@
                 <p>Campos com <b style="color: rgba(180, 11, 2, 0.9);">*</b> são obrigatórios</p>
             </div>
             <form class="cadastro-form">
-                <div class="duplo">
                     <div class="cadastro-form-campos">
                         <p>Nome <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" id="ipt_nome" placeholder="Nome completo" />
+                        <input type="text" required id="ipt_nome" placeholder="Nome completo" />
+                        <span class="cadastro-form-campos-alerta"></span>
+                    </div>
+                <div class="duplo">
+                    <div class="cadastro-form-campos">
+                        <p>Razão social<b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+                        <input type="text" required id="ipt_razaosocial" placeholder="Razão social" />
+                        <span class="cadastro-form-campos-alerta"></span>
                     </div>
                     <div class="cadastro-form-campos">
                         <p>CNPJ <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" id="ipt_cnpj" placeholder="__.___.___/____-__" />
+                        <input type="text" required id="ipt_cnpj" placeholder="__.___.___/____-__" />
+                        <span class="cadastro-form-campos-alerta" id="alerta_cnpj"></span>
                     </div>
                 </div>
                 <div class="cadastro-form-campos">
                     <p>E-mail <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                    <input type="text" id="ipt_email" placeholder="nome@email.com" />
+                    <input type="text" required id="ipt_email" placeholder="nome@email.com" />
+                    <span class="cadastro-form-campos-alerta" id="alerta_email"></span>
                 </div>
                 <div class="duplo">
                     <div class="cadastro-form-campos">
                         <p>Telefone</p>
-                        <input type="text" id="ipt_numero" placeholder="(01)99999-9999" />
+                        <input type="text" required id="ipt_telefone" placeholder="(01)99999-9999" />
+                        <span class="cadastro-form-campos-alerta" id="alerta_telefone"></span>
                     </div>
                     <div class="cadastro-form-campos">
                         <p>CEP <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" id="ipt_cep" placeholder="_____-___" />
+                        <input type="text" required id="ipt_cep" placeholder="_____-___" />
+                        <span class="cadastro-form-campos-alerta" id="alerta_cep"></span>
                     </div>
                 </div>
                 <div class="cadastro-form-campos">
                     <p>Endereço <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                    <input type="text" id="" />
+                    <input type="text" required id="ipt_endereco" />
+                    <span class="cadastro-form-campos-alerta"></span>
                 </div>
                 <div class="duplo">
                     <div class="cadastro-form-campos">
                         <p>Número <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                        <input type="text" id="ipt_" />
+                        <input type="text" required id="ipt_numero" />
+                        <span class="cadastro-form-campos-alerta"></span>
                     </div>
                     <div class="cadastro-form-campos">
                         <p>Complemento</p>
-                        <input type="text" id="" />
+                        <input type="text" required id="ipt_complemento" />
+                        <span class="cadastro-form-campos-alerta" id="alerta_complemento"></span>
                     </div>
                 </div>
                 <div class="cadastro-form-campos">
                     <p>Senha <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                    <input type="password" />
+                    <input type="password" id="ipt_senha" />
+                    <span class="cadastro-form-campos-alerta" id="alerta_senha"></span>
                 </div>
                 <div class="cadastro-form-campos">
                     <p>Confirmar senha <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
-                    <input type="password" />
+                    <input type="password" id="ipt_senhaConfirm" />
+                    <span class="cadastro-form-campos-alerta" id="alerta_senhaconfirm"></span>
                 </div>
                 <div>
-                    <button>Cadastre-se</button>
-                    <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;" href="../pages/login.html">Já
+                    <button type="button" onclick="cadastro()">Cadastre-se</button>
+                    <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;" href="../login/login.html">Já
                         sou cadastrado</a>
                 </div>
             </form>
@@ -98,5 +113,68 @@
         <p>© 2025 Cyclus - Monitoramento Inteligente</p>
     </footer>
 </body>
+<script>
+    function cadastro() {
+        alerta_cnpj.innerHTML = ``;
+        alerta_email.innerHTML = ``;
+        alerta_telefone.innerHTML = ``;
+        alerta_cep.innerHTML = ``;
+        alerta_senhaconfirm = ``;
+
+        let nome = ipt_nome.value;
+        let cnpj = ipt_cnpj.value;
+        let razaosocial = ipt_razaosocial.value;
+        let email = ipt_email.value;
+        let telefone = ipt_telefone.value;
+        let cep = ipt_cep.value;
+        let senha = ipt_senha.value;
+        let senhaConfirm = ipt_senhaConfirm.value;
+        let endereco = ipt_endereco.value;
+        let numero = ipt_numero.value;
+        let complemento = ipt_complemento.value;
+
+        let cnpjBool = false;
+        let emailBool = false;
+        let telefoneBool = false;
+        let cepBool = false;
+        let senhaBool = false;
+
+        if (nome == '' || cnpj == '' || email == '' || telefone == '' ||
+            cep == '' || endereco == '' || cadastro == '' || complemento == '' ||
+            senha == '' || senhaConfirm == '') {
+            alert('Insira todos os campos!');
+        } else {
+            if (cnpj.length != 14) {
+                alerta_cnpj.innerHTML = `Insira um CNPJ válido`;
+            } else {
+                cnpjBool = true;
+            }
+            if (email.indexOf('@') < 0 && email.indexOf('.')) {
+                alerta_email.innerHTML = `Insira um email válido`;
+            } else {
+                emailBool = true;
+            }
+            if (telefone.length < 7 || telefone.length > 8) {
+                alerta_telefone.innerHTML = `Insira um telefone válido`;
+            } else {
+                telefoneBool = true;
+            }
+            if (cep.length != 8) {
+                alerta_cep.innerHTML = `Insira um cep válido`;
+            } else {
+                cepBool = true;
+            }
+            if (senha != senhaConfirm) {
+                alerta_senhaconfirm.innerHTML = `As senhas devem ser iguais`;
+            } else {
+                senhaBool = true;
+            }
+        }
+        if (cnpjBool == true && emailBool == true && telefoneBool == true
+            && cepBool == true && senhaBool == true) {
+            alert("Cadastro bem sucedido!")
+        }
+    }
+</script>
 
 </html>

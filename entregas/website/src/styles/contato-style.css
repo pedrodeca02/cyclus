@@ -47,6 +47,14 @@ h1 {
     resize: none;
 }
 
+.contato-form-campos input:focus {
+    outline: none;
+}
+
+.contato-form-campos textarea:focus {
+    outline: none;
+}
+
 .duplo {
     display: flex;
     gap: 50px;

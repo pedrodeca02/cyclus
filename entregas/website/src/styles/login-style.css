@@ -54,6 +54,10 @@ h1 {
     width: 100%;
 }
 
+.login-form-campos input:focus {
+    outline: none;
+}
+
 .login-form button {
     background-color: rgba(36, 65, 103, 1);
     color: #fff;
