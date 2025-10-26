@@ -33,8 +33,8 @@
 
     <section class="kpis">
       <div class="kpi-card">
-        <h3>Temperatura Média</h3>
-        <p>5.4 °C</p>
+        <h3>Tempo Dentro da Faixa Ideal</h3>
+        <p>92%</p>
       </div>
       <div class="kpi-card">
         <h3>Alertas Ativos</h3>
@@ -69,12 +69,12 @@
           <tbody>
             <tr>
               <td>04/04/2025</td>
-              <td>ID07</td>
+              <td>ID03</td>
               <td>1 °C</td>
             </tr>
             <tr>
               <td>20/04/2025</td>
-              <td>ID11</td>
+              <td>ID04</td>
               <td>-2 °C</td>
             </tr>
             <tr>
@@ -89,12 +89,12 @@
             </tr>
             <tr>
               <td>09/06/2025</td>
-              <td>ID18</td>
+              <td>ID01</td>
               <td>12 °C</td>
             </tr>
             <tr>
               <td>13/06/2025</td>
-              <td>ID20</td>
+              <td>ID02</td>
               <td>-1 °C</td>
             </tr>
             <tr>
@@ -103,24 +103,24 @@
               <td>3 °C</td>
             </tr>
             <tr>
-              <td>25/12/2025</td>
-              <td>ID08</td>
-              <td>5 °C</td>
+              <td>22/09/2025</td>
+              <td>ID03</td>
+              <td>1 °C</td>
             </tr>
             <tr>
-              <td>25/12/2025</td>
-              <td>ID08</td>
-              <td>5 °C</td>
+              <td>02/10/2025</td>
+              <td>ID04</td>
+              <td>10 °C</td>
             </tr>
             <tr>
-              <td>25/12/2025</td>
-              <td>ID08</td>
-              <td>5 °C</td>
+              <td>23/10/2025</td>
+              <td>ID01</td>
+              <td>1 °C</td>
             </tr>
             <tr>
-              <td>25/12/2025</td>
-              <td>ID08</td>
-              <td>5 °C</td>
+              <td>23/10/2025</td>
+              <td>ID01</td>
+              <td>9.5 °C</td>
             </tr>
           </tbody>
         </table>
@@ -164,140 +164,106 @@
   </footer>
 
   <script>
-    const gerarTemperaturas = (n, min = 0, max = 10) =>
-      Array.from({ length: n }, () => (Math.random() * (max - min) + min).toFixed(1));
+  const mockFreezer1 = [8, 6, 1, 2, 4, 7, 9.4];
+  const mockFreezer2 = [3.2, 4.1, 5.0, 6.3, 5.5, 4.8, 3.9];
+  const mockFreezer3 = [2.8, 3.1, 3.9, 4.3, 4.0, 3.6, 3.2];
+  const mockFreezer4 = [6.5, 6.8, 7.1, 7.0, 6.7, 6.2, 5.9];
 
-    // Gráfico principal
-    const ctx = document.getElementById('myChartPrincipal');
+  const dias = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
 
-    new Chart(ctx, {
+  // Gráfico Principal
+  const ctx = document.getElementById('myChartPrincipal');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [
+        { label: 'Temperatura máxima ideal', data: Array(7).fill(8), borderColor: 'black', backgroundColor: 'black', borderWidth: 1 },
+        { label: 'Freezer 1', data: mockFreezer1, borderColor: 'red', tension: 0.3 },
+        { label: 'Freezer 2', data: mockFreezer2, borderColor: 'blue', tension: 0.3 },
+        { label: 'Freezer 3', data: mockFreezer3, borderColor: 'orange', tension: 0.3 },
+        { label: 'Freezer 4', data: mockFreezer4, borderColor: 'green', tension: 0.3 },
+        { label: 'Temperatura mínima ideal', data: Array(7).fill(2), borderColor: 'black', backgroundColor: 'black', borderWidth: 1 }
+      ]
+    },
+    options: { scales: { y: { beginAtZero: true } } }
+  });
+
+  // Gráficos Individuais
+  const sensorDataMap = {
+    red: mockFreezer1,
+    blue: mockFreezer2,
+    orange: mockFreezer3,
+    green: mockFreezer4
+  };
+
+  document.querySelectorAll('.sensor').forEach((canvas) => {
+    const color = canvas.dataset.color;
+    const data = sensorDataMap[color] || [];
+    new Chart(canvas, {
       type: 'line',
       data: {
-        labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
-        datasets: [{
-          label: 'Temperatura máxima ideal',
-          data: [8, 8, 8, 8, 8, 8, 8],
-          borderWidth: 1,
-          borderColor: 'black',
-          backgroundColor: 'black'
-        }, {
-          label: 'Freezer 1',
-          data: [8, 6, 1, 2, 4, 7, 12],
-          borderColor: 'red',
-          tension: 0.3
-        }
-          , {
-          label: 'Freezer 2',
-          data: gerarTemperaturas(7, 0, 9),
-          borderColor: 'blue',
-          tension: 0.3
-        },
-        {
-          label: 'Freezer 3',
-          data: gerarTemperaturas(7, 0, 9),
-          borderColor: 'orange',
-          tension: 0.3
-        },
-        {
-          label: 'Freezer 4',
-          data: gerarTemperaturas(7, 0, 9),
-          borderColor: 'green',
-          tension: 0.3
-        },
-        {
-          label: 'Temperatura mínima ideal',
-          data: [2, 2, 2, 2, 2, 2, 2],
-          borderWidth: 1,
-          borderColor: 'black',
-          backgroundColor: 'black'
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-    // Mini gráficos individuais
-    document.querySelectorAll('.sensor').forEach((canvas) => {
-      const color = canvas.dataset.color;
-      new Chart(canvas, {
-        type: 'line',
-        data: {
-          labels: ['12h', '13h', '14h', '15h', '16h', '17h'],
-          datasets: [
-            {
-              label: 'Temperatura Média °C',
-              data: [8, 6, 1, 2, 4, 7, 12],
-              borderColor: color,
-              tension: 0.3
-            }, {
-              label: 'Máx ideal',
-              data: [8, 8, 8, 8, 8, 8, 8],
-              borderColor: 'black',
-              borderDash: [4, 4]
-            }, {
-              label: 'Min ideal',
-              data: [2, 2, 2, 2, 2, 2, 2],
-              borderColor: 'black',
-              borderDash: [4, 4]
-            }
-          ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-      });
-    });
-
-    // ====== NOVOS GRÁFICOS (Desempenho Semanal) ======
-    const dias = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
-
-    // Gráfico de Barras
-    new Chart(document.getElementById('graficoBarra'), {
-      type: 'bar',
-      data: {
-        labels: dias,
+        labels: ['12h', '13h', '14h', '15h', '16h', '17h', '18h'],
         datasets: [
-          { label: 'Temperatura máxima ideal', data: Array(7).fill(8), backgroundColor: '#000' },
-          { label: 'Freezer 1', data: gerarTemperaturas(7, 0, 10), backgroundColor: 'red' },
-          { label: 'Freezer 2', data: gerarTemperaturas(7, 0, 10), backgroundColor: 'blue' },
-          { label: 'Freezer 3', data: gerarTemperaturas(7, 0, 10), backgroundColor: 'orange' },
-          { label: 'Freezer 4', data: gerarTemperaturas(7, 0, 10), backgroundColor: 'green' },
-          { label: 'Temperatura mínima ideal', data: Array(7).fill(2), backgroundColor: '#333' },
+          { label: 'Temperatura Média °C', data, borderColor: color, tension: 0.3 },
+          { label: 'Máx ideal', data: Array(7).fill(8), borderColor: 'black', borderDash: [4, 4] },
+          { label: 'Min ideal', data: Array(7).fill(2), borderColor: 'black', borderDash: [4, 4] }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: 'top' } },
-        scales: { y: { min: -4, max: 12, ticks: { stepSize: 2 } } }
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, min: 0, max: 12 } }
       }
     });
+  });
 
-    // Gráfico de Linhas
-    new Chart(document.getElementById('graficoLinha'), {
-      type: 'line',
-      data: {
-        labels: dias,
-        datasets: [
-          { label: 'Temperatura máxima ideal', data: Array(7).fill(8), borderColor: 'black', borderWidth: 1.5, tension: 0 },
-          { label: 'Freezer 1', data: gerarTemperaturas(7, 0, 9), borderColor: 'red', tension: 0.3 },
-          { label: 'Freezer 2', data: gerarTemperaturas(7, 0, 9), borderColor: 'blue', tension: 0.3 },
-          { label: 'Freezer 3', data: gerarTemperaturas(7, 0, 9), borderColor: 'orange', tension: 0.3 },
-          { label: 'Freezer 4', data: gerarTemperaturas(7, 0, 9), borderColor: 'green', tension: 0.3 },
-          { label: 'Temperatura mínima ideal', data: Array(7).fill(2), borderColor: '#333', borderWidth: 1.5, tension: 0 }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'top' } },
-        scales: { y: { min: 0, max: 10, ticks: { stepSize: 1 } } }
-      }
-    });
-  </script>
+  // Gráfico de Barras - Semanal
+  new Chart(document.getElementById('graficoBarra'), {
+    type: 'bar',
+    data: {
+      labels: dias,
+      datasets: [
+        { label: 'Temperatura máxima ideal', data: Array(7).fill(8), backgroundColor: '#000' },
+        { label: 'Freezer 1', data: mockFreezer1, backgroundColor: 'red' },
+        { label: 'Freezer 2', data: mockFreezer2, backgroundColor: 'blue' },
+        { label: 'Freezer 3', data: mockFreezer3, backgroundColor: 'orange' },
+        { label: 'Freezer 4', data: mockFreezer4, backgroundColor: 'green' },
+        { label: 'Temperatura mínima ideal', data: Array(7).fill(2), backgroundColor: '#333' }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: { y: { min: -4, max: 12, ticks: { stepSize: 2 } } }
+    }
+  });
+
+  // Gráfico de Linhas - Semanal
+  new Chart(document.getElementById('graficoLinha'), {
+    type: 'line',
+    data: {
+      labels: dias,
+      datasets: [
+        { label: 'Temperatura máxima ideal', data: Array(7).fill(8), borderColor: 'black', borderWidth: 1.5, tension: 0 },
+        { label: 'Freezer 1', data: mockFreezer1, borderColor: 'red', tension: 0.3 },
+        { label: 'Freezer 2', data: mockFreezer2, borderColor: 'blue', tension: 0.3 },
+        { label: 'Freezer 3', data: mockFreezer3, borderColor: 'orange', tension: 0.3 },
+        { label: 'Freezer 4', data: mockFreezer4, borderColor: 'green', tension: 0.3 },
+        { label: 'Temperatura mínima ideal', data: Array(7).fill(2), borderColor: '#333', borderWidth: 1.5, tension: 0 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: { y: { min: 0, max: 10, ticks: { stepSize: 1 } } }
+    }
+  });
+</script>
+
 </body>
 
 </html>
