@@ -16,7 +16,8 @@
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        min-height: 100px;
     }
 
     .kpi-card {
@@ -28,6 +29,11 @@
         padding: 16px;
         text-align: center;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .kpi-card-2{
+        background-color: #537199;
+        min-width: 180px;
     }
 
     .kpi-card p {
