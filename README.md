@@ -1,5 +1,5 @@
 # Projeto Cyclus
-Este repositório contém o código-fonte e a documentação relacionada ao **Cyclus**, um sistema de monitoramento da temperatura de freezers de exposição de carne utilizando o microcontrolador Arduino e sensor de temperatura LMT35, projeto desenvolvido como trabalho de Pesquisa e Inovação.
+Este repositório contém o código-fonte e a documentação relacionada ao **Cyclus**, um sistema de monitoramento da temperatura de freezers de exposição de carne utilizando o microcontrolador Arduino e sensor de temperatura LM35, projeto desenvolvido como trabalho de Pesquisa e Inovação.
 
 ## Descrição
 
