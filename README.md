@@ -1,5 +1,5 @@
 # Projeto Cyclus
-Este repositório contém o código-fonte e a documentação relacionada ao **Cyclus**, um sistema de monitoramento da temperatura da carne utilizando Arduino, desenvolvido como parte do trabalho de conclusão de curso.
+Este repositório contém o código-fonte e a documentação relacionada ao **Cyclus**, um sistema de monitoramento da temperatura de freezers de exposição de carne utilizando o microcontrolador Arduino e sensor de temperatura LMT35, projeto desenvolvido como trabalho de Pesquisa e Inovação.
 
 ## Descrição
 
@@ -22,9 +22,3 @@ O **Cyclus** foi desenvolvido utilizando as seguintes tecnologias:
 - **C/C++**: Linguagem utilizada na programação do Arduino.    
 - **HTML5 e CSS3**: Estruturação e estilização da interface.   
 
-## Instalação e Uso
-Para utilizar o código-fonte deste projeto, siga as instruções abaixo:
-
-```bash
-# 1. Clone este repositório em seu ambiente local:
-https://github.com/pedrodeca02/cyclus.git
