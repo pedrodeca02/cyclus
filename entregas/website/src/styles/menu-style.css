@@ -1,16 +1,12 @@
 .letra-menu,
 .texto-menu {
     color: #fff;
-    font-size: 15px;
+    font-size: 20px;
     text-shadow: 3px 3px 3px rgb(56, 3, 0);
     text-decoration: none;
     padding: 10px 8px;
     transition: .2s ease;
     border-radius: 7px;
-}
-
-.texto-menu {
-    padding: 10px 50px;
 }
 
 .letra-menu:hover {
@@ -24,7 +20,7 @@
     position: sticky;
     top: 0;
     left: 0;
-    padding: 15px 50px;
+    padding: 20px 50px;
     background-image: url(../assets/imgMenu.jpg);
     background-color: rgba(145, 14, 8, 0.9);
     background-position: center;

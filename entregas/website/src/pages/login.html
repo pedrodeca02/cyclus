@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/alert.css">
     <link rel="stylesheet" href="../styles/login-style.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +36,12 @@
             </ul>
         </div>
     </header>
+    <div id="alerta" class="alerta">
+        <span class="msg"></span>
+    </div>
+    <div id="alerta-verde" class="alerta-verde">
+        <span class="msg"></span>
+    </div>
     <h1>Conecte-se conosco</h1>
     <section class="login">
         <div class="login-div">
@@ -75,20 +82,89 @@
 
         // EMAIL: cliente@teste.com SENHA: 1234
         if (email == '' || senha == '') {
-            alert('Os campos precisam estar preenchidos')
+            mostrarAlertaInserir();
         } else {
             if (email == 'cliente@teste.com' && senha == '1234') {
-                window.location.href = "../pages/dashboard.html";
+                mostrarSucessoLogin();
+                setTimeout(() => {
+                    window.location.href = "../pages/dashboard.html";
+                }, 1500);
             } else {
-                alert(`E-mail ou senha incorretos!`);
+                mostrarAlertaCadastro();
             }
         }
     }
 
-    function validando() {
-        let senhasIncorretas = 0;
+    function mostrarAlertaCadastro() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Email ou senha incorretos</p>';
 
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
 
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+
+    function mostrarAlertaInserir() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Insira os dados</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+
+    function mostrarSucessoLogin() {
+        const alerta = document.getElementById('alerta-verde');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Login realizado com sucesso!</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
     }
 </script>
 

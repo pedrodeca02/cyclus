@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="../pages/home.html">
+                <img class="header-content-logo" src="../assets/cyclus.png">
+            </a>
+            <ul class="header-links">
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/home.html">Home</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/contato.html">Contato</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="alerta" class="alerta">
+        <span class="msg">Cadastro realizado com sucesso!</span>
+    </div>
+</body>
+<script>
+    function mostrarAlerta() {
+        const alerta = document.getElementById('alerta');
+
+        alerta.style.opacity = '1';
+        alerta.style.transform = 'translateX(0)';
+        alerta.style.transition = 'all 0.5s ease';
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+</script>
+
+</html>

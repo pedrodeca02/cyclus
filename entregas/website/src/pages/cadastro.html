@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/alert.css">
     <link rel="stylesheet" href="../styles/cadastro-style.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +36,12 @@
             </ul>
         </div>
     </header>
+    <div id="alerta" class="alerta">
+        <span class="msg"></span>
+    </div>
+    <div id="alerta-verde" class="alerta-verde">
+        <span class="msg"></span>
+    </div>
     <section class="cadastro">
         <h1>Conecte-se conosco</h1>
         <div class="cadastro-div">
@@ -140,7 +147,7 @@
         // ANALISA SE ALGUM INPUT ESTÁ VAZIO
         if (nome == '' || razaosocial == '' || cnpj == '' || email == '' ||
             cep == '' || endereco == '' || numero == '' || senha == '' || senhaConfirm == '') {
-            alert('Insira todos os campos!');
+            mostrarCadastroVazio();
         } else {
             // VALIDAÇÃO CNPJ
             let temLetraCNPJ = 0;
@@ -255,9 +262,59 @@
         }
         if (cnpjBool == true && emailBool == true && telefoneBool == true
             && cepBool == true && senhaBool == true) {
-            alert("Cadastro bem sucedido!")
-            window.location.href = "../pages/login.html";
+            mostrarSucessoCadastro();
+            setTimeout(() => {
+                window.location.href = "../pages/login.html";
+            }, 2500);
         }
+    }
+
+    function mostrarSucessoCadastro() {
+        const alerta = document.getElementById('alerta-verde');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Cadastro realizado com sucesso!</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+
+    function mostrarCadastroVazio() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Insira todos os campos!</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
     }
 </script>
 
