@@ -7,6 +7,7 @@
     <title>Simulador Financeiro</title>
     <link rel="stylesheet" href="../styles/menu-style.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/alert.css">
     <link rel="stylesheet" href="../styles/simulador-style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,13 +37,15 @@
             </ul>
         </div>
     </header>
-
+    <div id="alerta" class="alerta"></div>
     <section class="hero">
         <div class="hero-title">
             <h1>Simulador Financeiro Cyclus</h1>
             <h2>Projete sua economia com segurança!</h2>
         </div>
     </section>
+    <span class="msg"></span>
+    </div>
     <section class="simulador">
         <div class="simulador-infos">
             <h3>Simule agora!</h3>
@@ -112,20 +115,17 @@
         var empresa = iptNomeEmpresa.value;
 
         if (empresa == "" || faturamento == "") {
-            alert("Preencha todos os campos!")
+            alertaSimulador();
         } else if (faturamento <= 0) {
             alert("Insira valores acima de R$0!")
         } else {
             var perda = Number(faturamento) * 0.30
             var recuperacao = perda * 0.40;
 
-            perdaGlobal = perda;
-            recuperacaoGlobal = recuperacao;
-
             //limpando as entradas
             iptNomeEmpresa.value = ''
             iptValorFaturamento.value = '';
-            grafico.data.datasets[0].data = [recuperacaoGlobal, perdaGlobal];
+            grafico.data.datasets[0].data = [recuperacao, perda];
             grafico.update();
 
             infogeral_msg.innerHTML =
@@ -134,7 +134,8 @@
                 Simulação da empresa ${empresa.toUpperCase()}<br><br>
                 Faturamento Anual: R$${faturamento}<br><br>
 
-                Com as soluções da Cyclus, é possível recuperar <b style = "color: green"> R$ ${recuperacao.toFixed(2)}</b> dos <b style = "color: rgb(145, 14, 8)" > R$ ${perda.toFixed(2)}</b> de prejuízo anual.<br><br>
+                Com as soluções da Cyclus, é possível recuperar <b style = "color: green"> R$ ${recuperacao.toFixed(2)} (40%)</b>
+                dos <b style = "color: rgb(145, 14, 8)" > R$ ${perda.toFixed(2)} (30%)</b> de prejuízo anual.<br><br>
                 `
 
             resultados_msg.innerHTML =
@@ -142,6 +143,29 @@
             <span style="font-weight: 400";> Empresas do setor perdem até 30% do faturamento anual devido a falhas no monitoramento. </span>
             `;
         }
+    }
+    function alertaSimulador() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Insira todos os dados</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
     }
 </script>
 
