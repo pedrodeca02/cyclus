@@ -9,7 +9,6 @@ CREATE TABLE endereco(
     cidade VARCHAR(50) NOT NULL,
     cep CHAR(8) NOT NULL,
     complemento VARCHAR(50) NOT NULL,
-    UF CHAR(2) NOT NULL
 );
 
 CREATE TABLE empresa(
@@ -61,6 +60,20 @@ CREATE TABLE registro(
     dataHoraRegistro DATETIME,
     CONSTRAINT fkRegSensor
 		FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
+);
+
+CREATE TABLE monitoramento (
+	idMonitoramento INT AUTO_INCREMENT,
+    fkUsuario INT,
+    fkFreezer INT,
+    dtInicioTurno DATETIME,
+    dtFimTurno DATETIME,
+    CONSTRAINT pkCompostaMonitoramento
+		PRIMARY KEY (idMonitoramento, fkUsuario, fkFreezer),
+	CONSTRAINT fkMonUsuario
+		FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario),
+	CONSTRAINT fkMonFreezer
+		FOREIGN KEY (fkFreezer) REFERENCES freezer (idFreezer)
 );
 
 -- INSERINDO VALORES
@@ -131,5 +144,3 @@ SELECT s.modelo, s.tempMax, s.tempMin, s.idSensor,
         JOIN registro AS r
         ON r.fkSensor= s.idSensor;
         
-ALTER TABLE endereco DROP COLUMN UF;
-SELECT * FROM endereco;
