@@ -4,61 +4,57 @@ h1 {
     font-size: 40px;
 }
 
-.login {
-    min-height: 100vh;
-}
-
-.login-div {
+.cadastro-div {
     background-color: rgba(224, 224, 224, 1);
     margin: 0 200px;
     padding: 30px 100px;
     border-radius: 5px;
 }
 
-.login-titulo {
+.cadastro-titulo {
     margin-bottom: 40px;
 }
 
-.login-titulo h2 {
+.cadastro-titulo h2 {
     font-size: 40px;
     font-weight: 500;
     color: rgba(151, 7, 0, 1);
     margin-bottom: 20px;
 }
 
-.login-titulo p {
+.cadastro-titulo p {
     color: rgba(130, 130, 130, 1);
 }
 
-.login-form{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.login-form-campos {
-    flex-grow: 1;
-}
-
-.login-form-campos p {
+.cadastro-form-campos p {
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
-.login-form-campos input {
+.cadastro-form-campos input {
     font-size: 16px;
     padding: 9px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     width: 100%;
 }
 
-.login-form-campos input:focus {
+.cadastro-form-campos input:focus {
     outline: none;
 }
 
-.login-form button {
+.duplo {
+    display: flex;
+    gap: 50px;
+}
+
+.duplo .cadastro-form-campos {
+    flex: 1;
+}
+
+.cadastro-form button {
     background-color: rgba(36, 65, 103, 1);
     color: #fff;
     border: none;
@@ -68,14 +64,24 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 0 rgb(19, 40, 66);
     transition: all 0.1s ease-in-out;
-    width: 100%;
+    margin-top: 20px;
 }
 
-.login-form button:hover {
+.cadastro-form button:hover {
     background-color: rgb(60, 109, 173);
 }
 
-.login-form button:active {
+.cadastro-form button:active {
     box-shadow: 0 2px 0 rgb(52, 93, 146);
     transform: translateY(2px);
+}
+
+.cadastro-div a {
+    margin-left: 20px;
+}
+
+.cadastro-form-campos-alerta {
+    color: rgb(187, 22, 13);
+    font-size: 15px;
+    font-weight: 400;
 }

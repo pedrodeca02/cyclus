@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AquaTech | Cadastro</title>
+
+  <script src="./js/sessao.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/menu-style.css">
+  <link rel="stylesheet" href="./css/alert.css">
+  <link rel="stylesheet" href="./css/cadastro-style.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <!-- <link rel="stylesheet" href="./css/estilo.css" /> -->
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body onload="listar()">
+  <!--header inicio-->
+  <header class="header">
+    <div class="header-content">
+      <a href="../pages/home.html">
+        <img class="header-content-logo" src="./assets/cyclus.png">
+      </a>
+      <ul class="header-links">
+        <li class="header-links-item">
+          <a class="letra-menu" href="../pages/home.html">Home</a>
+        </li>
+        <li class="header-links-item">
+          <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
+        </li>
+        <li class="header-links-item">
+          <a class="letra-menu" href="../pages/contato.html">Contato</a>
+        </li>
+        <li class="header-links-item">
+          <a class="letra-menu" href="../pages/login.html">Login</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <!--header fim-->
+  <!--
+  <div class="login">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card card-cadastro">
+        <h2>Bem-vindo!</h2>
+        <div class="formulario">
+          <div class="campo">
+            <span>Código de ativação:</span>
+            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
+          </div>
+          <div class="campo">
+            <span>Nome:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
+          </div>
+          <div class="campo">
+            <span>E-mail:</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+          </div>
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="campo">
+            <span>Confirmação da Senha:</span>
+            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
+          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+        </div>
+        <div id="div_aguardar" class="loading-div">
+          <img src="./assets/circle-loading.gif" id="loading-gif" />
+        </div>
+
+        <div id="div_erros_login"></div>
+      </div>
+    </div>
+  </div>-->
+
+  <section class="cadastro">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+    <h1>Conecte-se conosco</h1>
+    <div class="cadastro-div">
+      <div class="cadastro-titulo">
+        <h2>Cadastro</h2>
+        <p>Campos com <b style="color: rgba(180, 11, 2, 0.9);">*</b> são obrigatórios</p>
+      </div>
+      <form class="cadastro-form">
+        <div class="cadastro-form-campos">
+          <p>Nome <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+          <input type="text" required id="nome_ipt" placeholder="Nome completo" />
+          <span class="cadastro-form-campos-alerta"></span>
+        </div>
+        <div class="duplo">
+          <div class="cadastro-form-campos">
+            <p>Razão social<b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+            <input type="text" required id="razaosocial_ipt" placeholder="Razão social" />
+            <span class="cadastro-form-campos-alerta"></span>
+          </div>
+          <div class="cadastro-form-campos">
+            <p>CNPJ <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+            <input type="text" required id="cnpj_ipt" placeholder="12345678912345" />
+            <span class="cadastro-form-campos-alerta" id="alerta_cnpj"></span>
+          </div>
+        </div>
+        <div class="cadastro-form-campos">
+          <p>E-mail <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+          <input type="text" required id="email_ipt" placeholder="nome@email.com" />
+          <span class="cadastro-form-campos-alerta" id="alerta_email"></span>
+        </div>
+        <div class="duplo">
+          <div class="cadastro-form-campos">
+            <p>Telefone</p>
+            <input type="text" required id="telefone_ipt" placeholder="(11)99999-9999" />
+            <span class="cadastro-form-campos-alerta" id="alerta_telefone"></span>
+          </div>
+          <div class="cadastro-form-campos">
+            <p>CEP <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+            <input type="text" required id="cep_ipt" placeholder="12345678" />
+            <span class="cadastro-form-campos-alerta" id="alerta_cep"></span>
+          </div>
+        </div>
+        <div class="cadastro-form-campos">
+          <p>Endereço <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+          <input type="text" required id="endereco_ipt" />
+          <span class="cadastro-form-campos-alerta"></span>
+        </div>
+        <div class="duplo">
+          <div class="cadastro-form-campos">
+            <p>Número <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+            <input type="text" required id="numero_ipt" />
+            <span class="cadastro-form-campos-alerta"></span>
+          </div>
+          <div class="cadastro-form-campos">
+            <p>Complemento</p>
+            <input type="text" required id="complemento_ipt" />
+            <span class="cadastro-form-campos-alerta" id="alerta_complemento"></span>
+          </div>
+        </div>
+        <div class="cadastro-form-campos">
+          <p>Senha <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+          <input type="password" id="senha_ipt" />
+          <span class="cadastro-form-campos-alerta" id="alerta_senha"></span>
+        </div>
+        <div class="cadastro-form-campos">
+          <p>Confirmar senha <b style="color: rgba(180, 11, 2, 0.9);">*</b></p>
+          <input type="password" id="senhaConfirm_ipt" />
+          <span class="cadastro-form-campos-alerta" id="alerta_senhaconfirm"></span>
+        </div>
+        <div>
+          <button type="button" onclick="cadastro()">Cadastre-se</button>
+          <a style="color: rgba(180, 11, 2, 0.9); text-decoration: underline;" href="../pages/login.html">Já
+            sou cadastrado</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!--footer inicio-->
+  <div class="footer">
+    <div class="container">
+      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
+      <span class="version">v1.0.0</span>
+    </div>
+  </div>
+  <!--footer fim-->
+</body>
+
+</html>
+
+<script>
+
+  // // Array para armazenar empresas cadastradas para validação de código de ativação 
+  // let listaEmpresasCadastradas = [];
+
+    /*var nomeVar = nome_ipt.value;
+    var razaosocialVar = razaosocial_ipt.value;
+    var cnpjVar = cnpj_ipt.value;
+    var emailVar = email_ipt.value;
+    var telefoneVar = telefone_ipt.value;
+    var cepVar = cep_ipt.value;
+    var enderecoVar = endereco_ipt.value;
+    var numeroVar = numero_ipt.value;
+    var complementoVar = complemento_ipt.value;
+    var senhaVar = senha_ipt.value;
+    var senhaConfirmVar = senhaConfirm_ipt.value;*/
+
+  // FUNÇÃO PARA CADASTRAR ENDEREÇO
+  function cadastrarEndereco() {
+    var cepVar = cep_ipt.value;
+    var enderecoVar = endereco_ipt.value;
+    var numeroVar = numero_ipt.value;
+    var complementoVar = complemento_ipt.value;
+
+    // Verificando se há algum campo em branco
+    if (
+      cepVar == "" ||
+      enderecoVar == "" ||
+      numeroVar == "" ||
+      complementoVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    fetch("/usuarios/cadastrarEndereco", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // nomeServer: nomeVar,
+        // razaosocialServer: razaosocialVar,
+        // cnpjServer: cnpjVar,
+        // emailServer: emailVar,
+        // telefoneServer: telefoneVar,
+        cepServer: cepVar,
+        enderecoServer: enderecoVar,
+        numeroServer: numeroVar,
+        complementoServer: complementoVar,
+        // senhaServer: senhaVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+          cadastrarEmpresa();
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          setTimeout(() => {
+            window.location = "#"; // nao vai pra lugar nenhum
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // FUNÇÃO PARA CADASTRAR EMPRESA
+  function cadastrarEmpresa() {
+    var cepVar = cep_ipt.value;
+    var enderecoVar = endereco_ipt.value;
+    var numeroVar = numero_ipt.value;
+    var complementoVar = complemento_ipt.value;
+
+    // Verificando se há algum campo em branco
+    if (
+      cepVar == "" ||
+      enderecoVar == "" ||
+      numeroVar == "" ||
+      complementoVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    fetch("/usuarios/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // nomeServer: nomeVar,
+        // razaosocialServer: razaosocialVar,
+        // cnpjServer: cnpjVar,
+        // emailServer: emailVar,
+        // telefoneServer: telefoneVar,
+        cepServer: cepVar,
+        enderecoServer: enderecoVar,
+        numeroServer: numeroVar,
+        complementoServer: complementoVar,
+        // senhaServer: senhaVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "#"; // nao vai pra lugar nenhum
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // Listando empresas cadastradas 
+  // function listar() {
+  //   fetch("/empresas/listar", {
+  //     method: "GET",
+  //   })
+  //     .then(function (resposta) {
+  //       resposta.json().then((empresas) => {
+  //         empresas.forEach((empresa) => {
+  //           listaEmpresasCadastradas.push(empresa);
+
+  //           console.log("listaEmpresasCadastradas")
+  //           console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+  //         });
+  //       });
+  //     })
+  //     .catch(function (resposta) {
+  //       console.log(`#ERRO: ${resposta}`);
+  //     });
+  // }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>
