@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="listar()">
+<body>
   <!--header inicio-->
   <header class="header">
     <div class="header-content">
@@ -162,7 +162,7 @@
           <span class="cadastro-form-campos-alerta" id="alerta_senhaconfirm"></span>
         </div>
         <div>
-          <button type="button" onclick="cadastro()">Cadastre-se</button>
+          <button type="button" onclick="cadastrarEndereco()">Cadastre-se</button>
           <a style="color: rgba(180, 11, 2, 0.9); text-decoration: underline;" href="../pages/login.html">Já
             sou cadastrado</a>
         </div>
@@ -187,17 +187,17 @@
   // // Array para armazenar empresas cadastradas para validação de código de ativação 
   // let listaEmpresasCadastradas = [];
 
-    /*var nomeVar = nome_ipt.value;
-    var razaosocialVar = razaosocial_ipt.value;
-    var cnpjVar = cnpj_ipt.value;
-    var emailVar = email_ipt.value;
-    var telefoneVar = telefone_ipt.value;
-    var cepVar = cep_ipt.value;
-    var enderecoVar = endereco_ipt.value;
-    var numeroVar = numero_ipt.value;
-    var complementoVar = complemento_ipt.value;
-    var senhaVar = senha_ipt.value;
-    var senhaConfirmVar = senhaConfirm_ipt.value;*/
+  /*var nomeVar = nome_ipt.value;
+  var razaosocialVar = razaosocial_ipt.value;
+  var cnpjVar = cnpj_ipt.value;
+  var emailVar = email_ipt.value;
+  var telefoneVar = telefone_ipt.value;
+  var cepVar = cep_ipt.value;
+  var enderecoVar = endereco_ipt.value;
+  var numeroVar = numero_ipt.value;
+  var complementoVar = complemento_ipt.value;
+  var senhaVar = senha_ipt.value;
+  var senhaConfirmVar = senhaConfirm_ipt.value;*/
 
   // FUNÇÃO PARA CADASTRAR ENDEREÇO
   function cadastrarEndereco() {
@@ -217,10 +217,8 @@
       mensagem_erro.innerHTML =
         "(Mensagem de erro para todos os campos em branco)";
 
-      finalizarAguardar();
-      return false;
     } else {
-      setInterval(sumirMensagem, 5000);
+      
     }
 
     fetch("/usuarios/cadastrarEndereco", {
@@ -254,15 +252,12 @@
             window.location = "#"; // nao vai pra lugar nenhum
           }, "2000");
 
-          limparFormulario();
-          finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
       });
 
     return false;
@@ -270,26 +265,20 @@
 
   // FUNÇÃO PARA CADASTRAR EMPRESA
   function cadastrarEmpresa() {
-    var cepVar = cep_ipt.value;
-    var enderecoVar = endereco_ipt.value;
-    var numeroVar = numero_ipt.value;
-    var complementoVar = complemento_ipt.value;
+    var razaosocialVar = razaosocial_ipt.value;
+    var cnpjVar = cnpj_ipt.value;
 
     // Verificando se há algum campo em branco
     if (
-      cepVar == "" ||
-      enderecoVar == "" ||
-      numeroVar == "" ||
-      complementoVar == ""
+      razaosocialVar == "" ||
+      cnpjVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         "(Mensagem de erro para todos os campos em branco)";
 
-      finalizarAguardar();
-      return false;
     } else {
-      setInterval(sumirMensagem, 5000);
+      
     }
 
     fetch("/usuarios/cadastrarEmpresa", {
@@ -298,16 +287,8 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // nomeServer: nomeVar,
-        // razaosocialServer: razaosocialVar,
-        // cnpjServer: cnpjVar,
-        // emailServer: emailVar,
-        // telefoneServer: telefoneVar,
-        cepServer: cepVar,
-        enderecoServer: enderecoVar,
-        numeroServer: numeroVar,
-        complementoServer: complementoVar,
-        // senhaServer: senhaVar
+        razaosocialServer: razaosocialVar,
+        cnpjServer: cnpjVar,
       }),
     })
       .then(function (resposta) {
@@ -315,6 +296,7 @@
 
         if (resposta.ok) {
           cardErro.style.display = "block";
+          cadastrarUsuario();
 
           mensagem_erro.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
@@ -323,15 +305,70 @@
             window.location = "#"; // nao vai pra lugar nenhum
           }, "2000");
 
-          limparFormulario();
-          finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // FUNÇÃO PARA CADASTRAR USUÁRIO
+  function cadastrarUsuario() {
+    var nomeVar = nome_ipt.value;
+    var emailVar = email_ipt.value;
+    var senhaVar = senha_ipt.value;
+    var senhaConfirmVar = senhaConfirm_ipt.value;
+
+    // Verificando se há algum campo em branco
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      senhaConfirmVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+    } else {
+      
+    }
+
+    fetch("/usuarios/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+          cadastrarUsuario();
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "./simulador.html"; // nao vai pra lugar nenhum
+          }, "2000");
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
       });
 
     return false;
@@ -357,7 +394,4 @@
   //     });
   // }
 
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
 </script>
