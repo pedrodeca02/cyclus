@@ -202,14 +202,14 @@
   // FUNÇÃO PARA CADASTRAR ENDEREÇO
   function cadastrarEndereco() {
     var cepVar = cep_ipt.value;
-    var enderecoVar = endereco_ipt.value;
+    var ruaVar = endereco_ipt.value;
     var numeroVar = numero_ipt.value;
     var complementoVar = complemento_ipt.value;
 
     // Verificando se há algum campo em branco
     if (
       cepVar == "" ||
-      enderecoVar == "" ||
+      ruaVar == "" ||
       numeroVar == "" ||
       complementoVar == ""
     ) {
@@ -227,44 +227,18 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // nomeServer: nomeVar,
-        // razaosocialServer: razaosocialVar,
-        // cnpjServer: cnpjVar,
-        // emailServer: emailVar,
-        // telefoneServer: telefoneVar,
         cepServer: cepVar,
-        enderecoServer: enderecoVar,
+        ruaServer: ruaVar,
         numeroServer: numeroVar,
         complementoServer: complementoVar,
-        // senhaServer: senhaVar
       }),
     })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-          cadastrarEmpresa();
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-          setTimeout(() => {
-            window.location = "#"; // nao vai pra lugar nenhum
-          }, "2000");
-
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-
-    return false;
+      .then(r => r.json())
+      .then(data => cadastrarEmpresa(data.idEndereco));
   }
 
   // FUNÇÃO PARA CADASTRAR EMPRESA
-  function cadastrarEmpresa() {
+  function cadastrarEmpresa(idEndereco) {
     var razaosocialVar = razaosocial_ipt.value;
     var cnpjVar = cnpj_ipt.value;
 
@@ -289,35 +263,15 @@
       body: JSON.stringify({
         razaosocialServer: razaosocialVar,
         cnpjServer: cnpjVar,
+        idEndereco: idEndereco
       }),
     })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-          cadastrarUsuario();
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "#"; // nao vai pra lugar nenhum
-          }, "2000");
-
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-
-    return false;
+      .then(r => r.json())
+      .then(data => cadastrarUsuario(data.idEmpresa));
   }
 
   // FUNÇÃO PARA CADASTRAR USUÁRIO
-  function cadastrarUsuario() {
+  function cadastrarUsuario(idEmpresa) {
     var nomeVar = nome_ipt.value;
     var emailVar = email_ipt.value;
     var senhaVar = senha_ipt.value;
@@ -338,7 +292,7 @@
       
     }
 
-    fetch("/usuarios/cadastrarEmpresa", {
+    fetch("/usuarios/cadastrarUsuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -346,52 +300,15 @@
       body: JSON.stringify({
         nomeServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar
+        senhaServer: senhaVar,
+        idEmpresa, idEmpresa
       }),
     })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-          cadastrarUsuario();
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "./simulador.html"; // nao vai pra lugar nenhum
-          }, "2000");
-
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+      .then(r => r.json())
+      .then(() => {
+        alert("Cadastro Finalizado!");
+        location.href = './login.html';
       });
-
-    return false;
   }
-
-  // Listando empresas cadastradas 
-  // function listar() {
-  //   fetch("/empresas/listar", {
-  //     method: "GET",
-  //   })
-  //     .then(function (resposta) {
-  //       resposta.json().then((empresas) => {
-  //         empresas.forEach((empresa) => {
-  //           listaEmpresasCadastradas.push(empresa);
-
-  //           console.log("listaEmpresasCadastradas")
-  //           console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-  //         });
-  //       });
-  //     })
-  //     .catch(function (resposta) {
-  //       console.log(`#ERRO: ${resposta}`);
-  //     });
-  // }
 
 </script>

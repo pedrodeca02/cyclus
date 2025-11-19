@@ -3,18 +3,18 @@ use cyclus;
 
 CREATE TABLE endereco(
 	idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-    rua VARCHAR(100) NOT NULL,
-	numero VARCHAR(10) NOT NULL,
-    bairro VARCHAR(100) NOT NULL,
-    cidade VARCHAR(50) NOT NULL,
-    cep CHAR(8) NOT NULL,
-    complemento VARCHAR(50) NOT NULL,
+    rua VARCHAR(100),
+	numero VARCHAR(10),
+    bairro VARCHAR(100),
+    cidade VARCHAR(50),
+    cep CHAR(8),
+    complemento VARCHAR(50)
 );
 
 CREATE TABLE empresa(
 	idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-    razao_social VARCHAR(70) NOT NULL,
-    cnpj CHAR(14) NOT NULL,
+    razao_social VARCHAR(70),
+    cnpj CHAR(14),
     fkEndereco INT,
 		CONSTRAINT fkEmpresaEndereco
         FOREIGN KEY (fkEndereco) REFERENCES endereco (idEndereco)
@@ -22,10 +22,10 @@ CREATE TABLE empresa(
 
 CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    cpf CHAR(11) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    senha VARCHAR(25) NOT NULL,
+    nome VARCHAR(100),
+    cpf CHAR(11),
+    email VARCHAR(100),
+    senha VARCHAR(25),
     fkEmpresa INT,
 		CONSTRAINT fkUsuarioEmpresa
         FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
@@ -33,16 +33,16 @@ CREATE TABLE usuario(
 	
 CREATE TABLE freezer(
 	idFreezer INT PRIMARY KEY AUTO_INCREMENT,
-    localizacao VARCHAR(300) NOT NULL,
-    modelo VARCHAR(30) NOT NULL,
-    status VARCHAR(30) NOT NULL
+    localizacao VARCHAR(300),
+    modelo VARCHAR(30),
+    status VARCHAR(30)
 );
 
 CREATE TABLE sensor(
 	idSensor INT PRIMARY KEY AUTO_INCREMENT,
-    modelo VARCHAR(100) NOT NULL,
-    tempMax DECIMAL(3,1) NOT NULL,
-    tempMin DECIMAL(3,1) NOT NULL,
+    modelo VARCHAR(100),
+    tempMax DECIMAL(3,1),
+    tempMin DECIMAL(3,1),
     fkFreezer INT,
 		CONSTRAINT fkSensorFreezer
 		FOREIGN KEY (fkFreezer) REFERENCES freezer (idFreezer),
@@ -56,7 +56,7 @@ CREATE TABLE registro(
     fkSensor INT,
     CONSTRAINT pkComposta
 		PRIMARY KEY (idRegistro, fkSensor),
-    tempAtual DECIMAL(3,1) NOT NULL,
+    tempAtual DECIMAL(3,1),
     dataHoraRegistro DATETIME,
     CONSTRAINT fkRegSensor
 		FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
@@ -77,15 +77,15 @@ CREATE TABLE monitoramento (
 );
 
 -- INSERINDO VALORES
-INSERT INTO endereco (rua, numero, bairro, cidade, cep, complemento, uf) VALUES
-	('Rua das Estrelas', 810, 'Vila dos Cedros', 'Jundiai', 32345098, 'Loja', 'SP'),
-	('Avenida Horizonte Azul', 357, 'Jardim Aurora', 'Campinas', 65432321, 'Loja', 'SP'),
-	('Travessa da Lua Cheia', 194, 'Vila Monte Claro', 'São Paulo', 89123345, 'Loja', 'SP');
+INSERT INTO endereco (rua, numero, bairro, cidade, cep, complemento) VALUES
+	('Rua das Estrelas', 810, 'Vila dos Cedros', 'Jundiai', 32345098, 'Loja'),
+	('Avenida Horizonte Azul', 357, 'Jardim Aurora', 'Campinas', 65432321, 'Loja'),
+	('Travessa da Lua Cheia', 194, 'Vila Monte Claro', 'São Paulo', 89123345, 'Loja');
     
-INSERT INTO empresa (razao_social, cnpj, email, fkEndereco) VALUES
-	('Loja Vila dos Cedros', 11111111000111, 'lojaviladoscedros@gmail.com', 1),
-	('Loja Jardim Aurora', 22222222000222, 'lojajardimaurora@gmail.com', 2),
-	('Loja Vila Monte Claro', 33333333000333, 'lojavilamonteclaro@gmail.com', 3);
+INSERT INTO empresa (razao_social, cnpj, fkEndereco) VALUES
+	('Loja Vila dos Cedros', 11111111000111,  1),
+	('Loja Jardim Aurora', 22222222000222, 2),
+	('Loja Vila Monte Claro', 33333333000333, 3);
     
 INSERT INTO usuario (nome, cpf, email, senha, fkEmpresa) VALUES
 	('Claudio Figueira', 22222222222, 'claudio.figueira@gmail.com', 'claudio123', 1),
@@ -144,3 +144,6 @@ SELECT s.modelo, s.tempMax, s.tempMin, s.idSensor,
         JOIN registro AS r
         ON r.fkSensor= s.idSensor;
         
+select * from endereco;
+select * from empresa;
+select * from usuario;

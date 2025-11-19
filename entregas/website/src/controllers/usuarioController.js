@@ -51,174 +51,48 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var nome = req.body.nomeServer;
-    var razaosocial = req.body.razaosocialServer;
-    var cnpj = req.body.cnpjServer;
-    var email = req.body.emailServer;
-    var telefone = req.body.telefoneServer;
-    var cep = req.body.cepServer;
-    var endereco = req.body.enderecoServer;
-    var numero = req.body.numeroServer;
-    var complemento = req.body.complementoServer;
-    var senha = req.body.senhaServer;
+    function cadastrarEndereco(req, res) {
+        const { cepServer, ruaServer, numeroServer, complementoServer } = req.body;
 
-    // Faça as validações dos valores
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (razaosocial == undefined) {
-        res.status(400).send("Sua razaosocial está undefined!");
-    } else if (cnpj == undefined) {
-        res.status(400).send("Seu cnpj está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu telefone está undefined!");
-    } else if (cep == undefined) {
-        res.status(400).send("Seu cep está undefined!");
-    } else if (endereco == undefined) {
-        res.status(400).send("Seu endereço está undefined!");
-    } else if (numero == undefined) {
-        res.status(400).send("Seu número está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Seu complemento está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else {
-        usuarioModel.cadastrar(nome, razaosocial, cnpj, email, telefone, cep, endereco, numero, complemento, senha)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+        usuarioModel.cadastrarEndereco(cepServer, ruaServer, numeroServer, complementoServer)
+            .then(resultado => {
+                console.log("resultado", resultado);
+                res.json({ idEndereco: resultado.insertId })
+            })
+            .catch(erro => {
+                console.log('erro', erro);
+                res.status(500).json(erro.sqlMessage);
+            });
     }
 
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (razaosocial == undefined) {
-        res.status(400).send("Sua razaosocial está undefined!");
-    } else if (cnpj == undefined) {
-        res.status(400).send("Seu cnpj está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu telefone está undefined!");
-    } else if (cep == undefined) {
-        res.status(400).send("Seu cep está undefined!");
-    } else if (endereco == undefined) {
-        res.status(400).send("Seu endereço está undefined!");
-    } else if (numero == undefined) {
-        res.status(400).send("Seu número está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Seu complemento está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else {
-        usuarioModel.cadastrarEndereco(cep, endereco, numero, complemento)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+    function cadastrarEmpresa(req, res) {
+        const { razaosocialServer, cnpjServer, idEndereco } = req.body;
+        
+        usuarioModel.cadastrarEmpresa(razaosocialServer, cnpjServer, idEndereco)
+            .then(resultado => {
+                res.json({ idEmpresa: resultado.insertId });
+            })
+            .catch(erro => {
+                res.status(500).json(erro.sqlMessage);
+            });
     }
 
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (razaosocial == undefined) {
-        res.status(400).send("Sua razaosocial está undefined!");
-    } else if (cnpj == undefined) {
-        res.status(400).send("Seu cnpj está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu telefone está undefined!");
-    } else if (cep == undefined) {
-        res.status(400).send("Seu cep está undefined!");
-    } else if (endereco == undefined) {
-        res.status(400).send("Seu endereço está undefined!");
-    } else if (numero == undefined) {
-        res.status(400).send("Seu número está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Seu complemento está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else {
-        usuarioModel.cadastrarEmpresa(razaosocial, cnpj)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+    function cadastrarUsuario(req, res) {
+        const { nomeServer, emailServer, senhaServer, idEmpresa } = req.body;
+
+        usuarioModel.cadastrarUsuario(nomeServer, emailServer, senhaServer, idEmpresa)
+            .then(resultado => {
+                res.json({ idUsuario: resultado.insertId });
+            })
+            .catch(erro => {
+                res.status(500).json(erro.sqlMessage);
+            });
     }
 
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (razaosocial == undefined) {
-        res.status(400).send("Sua razaosocial está undefined!");
-    } else if (cnpj == undefined) {
-        res.status(400).send("Seu cnpj está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu telefone está undefined!");
-    } else if (cep == undefined) {
-        res.status(400).send("Seu cep está undefined!");
-    } else if (endereco == undefined) {
-        res.status(400).send("Seu endereço está undefined!");
-    } else if (numero == undefined) {
-        res.status(400).send("Seu número está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Seu complemento está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else {
-        usuarioModel.cadastrarUsuario(nome, cpf, email, senha)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-}
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrarEndereco,
+    cadastrarEmpresa,
+    cadastrarUsuario
 }
