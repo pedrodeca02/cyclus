@@ -34,40 +34,42 @@ CREATE TABLE usuario(
 CREATE TABLE freezer(
 	idFreezer INT PRIMARY KEY AUTO_INCREMENT,
     localizacao VARCHAR(300),
-    modelo VARCHAR(30),
-    status VARCHAR(30)
+    modeloFreezer VARCHAR(30),
+    status VARCHAR(30),
+    tempMax DECIMAL (3,1),
+    tempMin DECIMAL (3,1),
+	fkEmpresa INT,
+		CONSTRAINT fkFreezerEmpresa
+        FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
 CREATE TABLE sensor(
 	idSensor INT PRIMARY KEY AUTO_INCREMENT,
-    modelo VARCHAR(100),
-    tempMax DECIMAL(3,1),
-    tempMin DECIMAL(3,1),
+    modeloSensor VARCHAR(100),
+    estado TINYINT,
     fkFreezer INT,
 		CONSTRAINT fkSensorFreezer
-		FOREIGN KEY (fkFreezer) REFERENCES freezer (idFreezer),
-	fkEmpresa INT,
-		CONSTRAINT fkSensorEmpresa
-        FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
+		FOREIGN KEY (fkFreezer) REFERENCES freezer (idFreezer)
 );
 
 CREATE TABLE registro(
 	idRegistro INT AUTO_INCREMENT,
-    fkSensor INT,
-    CONSTRAINT pkComposta
-		PRIMARY KEY (idRegistro, fkSensor),
     tempAtual DECIMAL(3,1),
     dataHoraRegistro DATETIME,
-    CONSTRAINT fkRegSensor
-		FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
+    alerta TINYINT,
+    fkFreezer INT,
+    CONSTRAINT pkCompostaRegistro
+		PRIMARY KEY(idRegistro, fkFreezer),
+    CONSTRAINT fkRegFreezer
+		FOREIGN KEY (fkFreezer) REFERENCES freezer (idFreezer)
 );
 
 CREATE TABLE monitoramento (
 	idMonitoramento INT AUTO_INCREMENT,
     fkUsuario INT,
     fkFreezer INT,
-    dtInicioTurno DATETIME,
-    dtFimTurno DATETIME,
+    hrInicioTurno TIME,
+    hrFimTurno TIME,
     CONSTRAINT pkCompostaMonitoramento
 		PRIMARY KEY (idMonitoramento, fkUsuario, fkFreezer),
 	CONSTRAINT fkMonUsuario
@@ -92,28 +94,28 @@ INSERT INTO usuario (nome, cpf, email, senha, fkEmpresa) VALUES
 	('Carolina Fonseca', 33333333333, 'carolina.fonseca@gmail.com', 'carolina123', 2),
 	('Jorge Souza', 66666666666, 'jorge.souza@gmail.com', 'jorge123', 3);
     
-INSERT INTO freezer (localizacao, modelo, status) VALUES 
-	('Corredor 1', 'Freezer Philco PFH205B', 'Funcionando'),
-	('Corredor 2', 'Freezer Philco PFH205B', 'Funcionando'),
-	('Corredor 1', 'Freezer Electrolux H330', 'Funcionando'),
-	('Corredor 2', 'Freezer Electrolux H330', 'Funcionando'),
-	('Corredor 1', 'Freezer Midea RCFB22', 'Funcionando'),
-	('Corredor 2', 'Freezer Midea RCFB22', 'Funcionando');
+INSERT INTO freezer (localizacao, modeloFreezer, status, tempMax, tempMin, fkEmpresa) VALUES 
+	('Corredor 1', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
+	('Corredor 2', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
+	('Corredor 1', 'Freezer Electrolux H330', 'Funcionando', 8.0, 2.0, 2),
+	('Corredor 2', 'Freezer Electrolux H330', 'Funcionando', 8.0, 2.0, 2),
+	('Corredor 1', 'Freezer Midea RCFB22', 'Funcionando', 8.0, 2.0, 3),
+	('Corredor 2', 'Freezer Midea RCFB22', 'Funcionando', 8.0, 2.0, 3);
 
-INSERT INTO sensor (modelo, tempMax, tempMin, fkFreezer, fkEmpresa) VALUES
-	('LM35 - RFVNP73E1NG1X4ZH', 8.0, 2.0, 1, 1),
-	('LM35 - OOJDZG40ITAMX97I', 8.0, 2.0, 2, 1),
-	('LM35 - D9DPQLXN9JQEBXCC', 8.0, 2.0, 3, 2),
-	('LM35 - T3B51AEFGF9QT5DY', 8.0, 2.0, 4, 2),
-	('LM35 - 0MU661QWR9ON6USJ', 8.0, 2.0, 5, 3),
-	('LM35 - I324NC4HWW60OWUW', 8.0, 2.0, 6, 3);
+INSERT INTO sensor (modeloSensor, estado, fkFreezer) VALUES
+	('LM35 - RFVNP73E1NG1X4ZH', 1, 1),
+	('LM35 - OOJDZG40ITAMX97I', 1, 2),
+	('LM35 - D9DPQLXN9JQEBXCC', 1, 3),
+	('LM35 - T3B51AEFGF9QT5DY', 1, 4),
+	('LM35 - 0MU661QWR9ON6USJ', 0, 5),
+	('LM35 - I324NC4HWW60OWUW', 0, 6);
     
 -- Valores Mocados
-INSERT INTO registro (fkSensor, tempAtual, dataHoraRegistro) VALUES
+INSERT INTO registro (fkFreezer, tempAtual, dataHoraRegistro) VALUES
 	(1, '10.0', '2025-10-22 16:15:17');
 
 -- Valores Mocados
-INSERT INTO registro (fkSensor, tempAtual, dataHoraRegistro) VALUES
+INSERT INTO registro (fkFreezer, tempAtual, dataHoraRegistro) VALUES
 	(2, '4.0', '2025-10-22 16:15:17');
     
 -- Apenas os sensores
@@ -132,7 +134,7 @@ SELECT em.razao_social,
 		ON u.fkEmpresa = em.idEmpresa;
         
 -- Empresa com Sensor e Freezer
-SELECT s.modelo, s.tempMax, s.tempMin, s.idSensor,
+SELECT s.modeloSensor, f.tempMax, f.tempMin, s.idSensor,
 	f.localizacao, f.status,
     em.razao_social,
 	r.tempAtual, r.dataHoraRegistro
@@ -140,9 +142,9 @@ SELECT s.modelo, s.tempMax, s.tempMin, s.idSensor,
 		JOIN freezer AS f
         ON s.fkFreezer = f.idFreezer
         JOIN empresa AS em
-        ON s.fkEmpresa = em.idEmpresa
+        ON f.fkEmpresa = em.idEmpresa
         JOIN registro AS r
-        ON r.fkSensor= s.idSensor;
+        ON r.fkFreezer= f.idFreezer;
         
 select * from endereco;
 select * from empresa;
