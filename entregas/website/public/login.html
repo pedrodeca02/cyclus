@@ -5,102 +5,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
-    <title>AquaTech | Login</title>
+    <title>Cyclus | Login</title>
 
     <script src="./js/sessao.js"></script>
-
+    
     <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/alert.css">
+    <link rel="stylesheet" href="./css/login-style.css">
+    <link rel="stylesheet" href="./css/menu-style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
 <body>
-
-    <!--Header-->
-
-    <div class="header">
-        <div class="container">
-            <h1 class="titulo">AquaTech</h1>
-            <ul class="navbar">
-                <li>
-                    <a href="index.html">Inicial</a>
+    <header class="header">
+        <div class="header-content">
+            <a href="../pages/home.html">
+                <img class="header-content-logo" src="./assets/cyclus.png">
+            </a>
+            <ul class="header-links">
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/home.html">Home</a>
                 </li>
-                <li>
-                    <a href="simulador.html">Simulador</a>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/simulador.html">Simulador</a>
                 </li>
-                <li>|</li>
-                <li class="agora">
-                    <a href="#">Login</a>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="../pages/contato.html">Contato</a>
                 </li>
-                <li>
-                    <a href="cadastro.html">Cadastro</a>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="./login.html">Login</a>
                 </li>
             </ul>
         </div>
+    </header>
+    <div id="alerta" class="alerta">
+        <span class="msg"></span>
     </div>
-
-
-    <div class="login">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
-        <div class="container">
-            <div class="card card-login">
-                <h2>Olá de volta!</h2>
-                <div class="formulario">
-                    <div class="campo">
-                        <span>E-mail:</span>
-                        <input id="email_input" type="text" placeholder="Login">
+    <div id="alerta-verde" class="alerta-verde">
+        <span class="msg"></span>
+    </div>
+    <h1>Conecte-se conosco</h1>
+    <section class="login">
+        <div class="login-div">
+            <div class="login-div-left">
+                <img src="./assets/cyclus.png">
+                <h2>Login</h2>
+                <p>Não tem conta? <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;"
+                        href="./simulador.html">Cadastre uma conta nova</a></p>
+                <form class="login-form">
+                    <div class="login-form-campos">
+                        <p>E-mail</p>
+                        <input id="ipt_email" type="text" placeholder="" />
                     </div>
-                    <div class="campo">
-                        <span>Senha:</span>
-                        <input id="senha_input" type="password" placeholder="******">
+                    <div class="login-form-campos">
+                        <p>Senha</p>
+                        <input id="ipt_senha" type="password" />
                     </div>
-                    <button class="botao" onclick="entrar()">Entrar</button>
-                </div>
-
-                <div id="div_aguardar" class="loading-div">
-                    <img src="./assets/circle-loading.gif" id="loading-gif">
-                </div>
-
-                <div id="div_erros_login"></div>
+                    <div>
+                        <button onclick="entrar()">Login</button>
+                    </div>
+                </form>
+                <a style="color: rgba(226, 10, 10, 0.65); text-decoration: underline;"
+                    href="../pages/contato.html">Esqueceu a senha?</a>
             </div>
+            <div class="login-div-right"></div>
         </div>
-    </div>
-
-    <!--footer inicio-->
-    <div class="footer">
-        <div class="container">
-            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-            <span class="version">v1.0.0</span>
-        </div>
-    </div>
-    <!--footer fim-->
-
+    </section>
+    <footer class="footer">
+        <p>© 2025 Cyclus - Monitoramento Inteligente</p>
+    </footer>
 </body>
 
-</html>
-
 <script>
+    // function entrar() {
+    //     event.preventDefault();
+    //     let email = ipt_email.value;
+    //     let senha = ipt_senha.value;
 
+    //     // EMAIL: cliente@teste.com SENHA: 1234
+    //     if (email == '' || senha == '') {
+    //         mostrarAlertaInserir();
+    //     } else {
+    //         if (email == 'cliente@teste.com' && senha == '1234') {
+    //             mostrarSucessoLogin();
+    //             setTimeout(() => {
+    //                 window.location.href = "../pages/dashboard.html";
+    //             }, 1500);
+    //         } else {
+    //             mostrarAlertaCadastro();
+    //         }
+    //     }
+    // }
 
     function entrar() {
-        aguardar();
 
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
 
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
             return false;
         }
         else {
-            setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -126,11 +138,10 @@
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+                    sessionStorage.ID_USUARIO = json.id_usuario;
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+                        window.location = "./simulador.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
@@ -141,7 +152,6 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 
@@ -152,8 +162,77 @@
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
+    function mostrarAlertaCadastro() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Email ou senha incorretos</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
     }
 
+    function mostrarAlertaInserir() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Insira os dados</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+
+    function mostrarSucessoLogin() {
+        const alerta = document.getElementById('alerta-verde');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Login realizado com sucesso!</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
 </script>
+
+</html>
