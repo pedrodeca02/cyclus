@@ -6,77 +6,175 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AquaTech | Simulador</title>
+    <title>Cyclus | Simulador</title>
 
     <script src="./js/sessao.js"></script>
 
-    <link rel="stylesheet" href="./css/estilo.css">
+    <!-- <link rel="stylesheet" href="./css/estilo.css"> -->
     <link rel="icon" href="./assets/icon/favicon2.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="./css/menu-style.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/alert.css">
+    <link rel="stylesheet" href="./css/simulador-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-
-    <!--header inicio-->
-    <div class="header">
-        <div class="container">
-            <h1 class="titulo">AquaTech</h1>
-            <ul class="navbar">
-                <li>
-                    <a href="./index.html">Inicial</a>
+    <header class="header">
+        <div class="header-content">
+            <a href="../pages/home.html">
+                <img class="header-content-logo" src="./assets/cyclus.png">
+            </a>
+            <ul class="header-links">
+                <li class="header-links-item">
+                    <a class="letra-menu" href="./index.html">Home</a>
                 </li>
-                <li class="agora">Simulador</li>
-                <li>|</li>
-                <li>
-                    <a href="./login.html">Login</a>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="./simulador.html">Simulador</a>
                 </li>
-                <li>
-                    <a href="./login.html">Cadastro</a>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="./contato.html">Contato</a>
+                </li>
+                <li class="header-links-item">
+                    <a class="letra-menu" href="./login.html">Login</a>
                 </li>
             </ul>
         </div>
-    </div>
-
-
-    <!-- simulador inicio -->
-    <div class="simulador">
-        <div class="container">
-            <h2>Simulador</h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-
+    </header>
+    <div id="alerta" class="alerta"></div>
+    <section class="hero">
+        <div class="hero-title">
+            <h1>Simulador Financeiro Cyclus</h1>
+            <h2>Projete sua economia com segurança!</h2>
         </div>
+    </section>
+    <span class="msg"></span>
     </div>
-    <!-- simulador fim -->
-
-    <!--footer inicio-->
-    <div class="footer">
-        <div class="container">
-            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-            <span class="version">v1.0.0</span>
+    <section class="simulador">
+        <div class="simulador-infos">
+            <h3>Simule agora!</h3>
+            <div class="simulador-input">
+                <p>Informe o nome da sua empresa:</p>
+                <input id="iptNomeEmpresa" placeholder="Nome da empresa">
+            </div>
+            <div class="simulador-input">
+                <p>Informe o o valor do seu faturamento anual aproximado em reais:</p>
+                <input id="iptValorFaturamento" placeholder="Faturamento Anual Aproximado">
+            </div>
+            <button onclick="calcular()">Simule Agora</button>
         </div>
-    </div>
-    <!--footer fim-->
+        <div class="simulador-resultados">
+            <p id="infogeral_msg" class="infogeral_msg">Preencha os dados para fazer a simulação</p>
+            <div class="graficos">
+                <div class="cardPrincipal">
+                    <canvas id="grafico-principal" class="grafico-principal"></canvas>
+                </div>
+            </div>
+            <p id="resultados_msg" class="resultados_msg"></p>
+        </div>
+    </section>
 
+    <footer class="footer">
+        <p>© 2025 Cyclus - Monitoramento Inteligente</p>
+    </footer>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var perdaGlobal = 0;
+    var recuperacaoGlobal = 0;
+    const ctx = document.getElementById('grafico-principal');
+
+    const grafico = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [0, 0]
+            }],
+            labels: [
+                'Recuperação Financeira',
+                'Prejuízo Anual'
+            ], datasets: [{
+                data: [0, 0],
+                backgroundColor: ['green', 'rgb(145, 14, 8)'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    function calcular() {
+        grafico.data.datasets[0].data = [0, 0];
+        grafico.update();
+        infogeral_msg.innerHTML = "Preencha os dados para fazer a simulação";
+        resultados_msg.innerHTML = "";
+
+        var faturamento = iptValorFaturamento.value;
+        var empresa = iptNomeEmpresa.value;
+
+        if (empresa == "" || faturamento == "") {
+            alertaSimulador();
+        } else if (faturamento <= 0) {
+            alert("Insira valores acima de R$0!")
+        } else {
+            var perda = Number(faturamento) * 0.30
+            var recuperacao = perda * 0.40;
+
+            //limpando as entradas
+            iptNomeEmpresa.value = ''
+            iptValorFaturamento.value = '';
+            grafico.data.datasets[0].data = [recuperacao, perda];
+            grafico.update();
+
+            infogeral_msg.innerHTML =
+                `Seja bem vindo(a)!<br><br>
+                
+                Simulação da empresa ${empresa.toUpperCase()}<br><br>
+                Faturamento Anual: R$${faturamento}<br><br>
+
+                Com as soluções da Cyclus, é possível recuperar <b style = "color: green"> R$ ${recuperacao.toFixed(2)} (40%)</b>
+                dos <b style = "color: rgb(145, 14, 8)" > R$ ${perda.toFixed(2)} (30%)</b> de prejuízo anual.<br><br>
+                `
+
+            resultados_msg.innerHTML =
+                `
+            <span style="font-weight: 400";> Empresas do setor perdem até 30% do faturamento anual devido a falhas no monitoramento. </span>
+            `;
+        }
+    }
+    function alertaSimulador() {
+        const alerta = document.getElementById('alerta');
+        alerta.innerHTML = '<p style="color: rgb(245, 232, 231); margin: 20px 30px; font-size: 20px; font-weight: 500;">Insira todos os dados</p>';
+
+        alerta.style.display = 'flex';
+        alerta.style.opacity = '0';
+        alerta.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            alerta.style.transition = 'all 0.5s ease';
+            alerta.style.opacity = '1';
+            alerta.style.transform = 'translateX(0)';
+        }, 10);
+
+        setTimeout(() => {
+            alerta.style.opacity = '0';
+            alerta.style.transform = 'translateX(100%)';
+        }, 2500);
+
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+</script>
 
 </html>
