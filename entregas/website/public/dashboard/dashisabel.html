@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gameloop | Dashboards</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/text.css">
+    <link rel="stylesheet" href="../css/slide.css">
+    <link rel="stylesheet" href="../css/publicar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/publicar.js"></script>
+    <link rel="icon" href="./assets/icon/gameloop.png">
+
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="slide">
+        <span id="b_usuario"></span>
+        <ul class="slide-header">
+            <li class="slide-header-item">
+                <button class="publicar_btn" href="./forum.html" onclick="exibir()">
+                    <img src="../assets/icon/postar_roxo.png">Publicar
+                </button>
+            </li>
+            <li class="slide-header-item">
+                <button class="slide_btn" id="forum_btn" onclick="forumbtn()">
+                    <a href="./forum.html" id="forum_a"><img id="forum_img"
+                            src="../assets/icon/gameloop.png">Gameloop</a>
+                </button>
+            </li>
+            <li class="slide-header-item">
+                <button class="slide_btn" id="dash_btn" onclick="dashbtn()">
+                    <a href="./dashboard.html" id="dash_a"><img id="dash_img"
+                            src="../assets/icon/dashboard.png">Dashboard</a>
+                </button>
+            </li>
+            <li class="slide-header-item">
+                <button class="slide_btn">
+                    <a onclick="limparSessao()"><img src="../assets/icon/saida.png">Sair</a>
+                </button>
+            </li>
+        </ul>
+    </header>
+
+    <div class="publicar" id="publicar_div" style="display: none;"></div>
+
+    <section class="dash dash-text">
+        <div class="dash-divs" style="flex-direction: row; padding: 5px 20px;">
+            <div class="dash-capa-content">
+                <h1>Bem-vindo à dashboard</h1>
+                <span>Verifique informações sobre a Loop()Social</p>
+            </div>
+            <div class="dash-capa-img">
+                <img src="../assets/imgs/pc.png">
+            </div>
+        </div>
+        <div class="dash-divs">
+            <p class="dash-titles">Dúvidas & publicações</p>
+            <ul class="dash-kpis">
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">Total de dúvidas</span>
+                    <span class="dash-kpi-number" id="kpi_totalduvida"></span>
+                </li>
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">Total de publicações</span>
+                    <span class="dash-kpi-number" id="kpi_totalpost"></span>
+                </li>
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">Perguntas não resolvidas</span>
+                    <span class="dash-kpi-number" id="kpi_duvidasporpost"></span>
+                </li>
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">Média de posts por usuário</span>
+                    <span class="dash-kpi-number" id="kpi_postporuser"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="dash-divs">
+            <p class="dash-titles">Engajamento & público</p>
+            <ul class="dash-kpis">
+                <li class="dash-kpis-item">
+                    <h3>Tags mais populares</h3>
+                    <canvas id="myChartCanvas_rankingTags" class="myChartCanvas_rankingTags"></canvas>
+                </li>
+                <li class="dash-kpis-item">
+                    <h3>Publicações x Respostas</h3>
+                    <canvas id="myChartCanvas_engj" class="myChartCanvas_engj"></canvas>
+                </li>
+                <li class="dash-kpis-item">
+                    <h3>Idade dos usuários</h3>
+                    <canvas id="myChartCanvas_idade" class="myChartCanvas_idade"></canvas>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <footer class="footer">
+        <h3>Isabel Lin - SPTech &copy; 2025</h3>
+    </footer>
+</body>
+
+</html>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    let proximaAtualizacao;
+
+    window.onload = validarSessao(), obterDadosTag(), obterDadosUser(), obterDadosKpi(), obterTotalPost(), dashbtn();
+
+    function obterDadosTag() {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch("/avisos/rankingTag", { cache: 'no-store' }).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    plotarGraficoTag(resposta);
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    function plotarGraficoTag(resposta) {
+        let labelsTag = [];
+
+        let dadosTag = {
+            labels: labelsTag,
+            datasets: [{
+                label: 'Tag',
+                data: [],
+                fill: true,
+                backgroundColor: 'rgba(101, 14, 130)',
+                tension: 0.1,
+            }]
+        };
+
+        for (let i = 0; i < resposta.length; i++) {
+            var rankingList = resposta[i];
+            labelsTag.push(rankingList.nome);
+            dadosTag.datasets[0].data.push(rankingList.qtdtag);
+        }
+        const config = {
+            type: 'bar',
+            data: dadosTag,
+            options: {
+                indexAxis: 'y'
+            }
+        };
+        let myChartTag = new Chart(
+            document.getElementById(`myChartCanvas_rankingTags`),
+            config
+        );
+    }
+
+    function obterDadosUser() {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/dadosusuario`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    plotarGraficoUser(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoUser(resposta) {
+        let grupoIdades = {
+            idade11a20: 0,
+            idade21a30: 0,
+            idade31a40: 0,
+            idade41a50: 0,
+            idade51a60: 0,
+            idadeMais60: 0
+        }
+
+        for (let i = 0; i < resposta.length; i++) {
+            var userInfos = resposta[i];
+
+            //QUANTIDADE TOTAL DE CADA GÊNERO
+            if (userInfos.idade >= 11 && userInfos.idade <= 20) {
+                grupoIdades.idade11a20++;
+            } else if (userInfos.idade >= 21 && userInfos.idade <= 30) {
+                grupoIdades.idade21a30++;
+            } else if (userInfos.idade >= 31 && userInfos.idade <= 40) {
+                grupoIdades.idade31a40++;
+            } else if (userInfos.idade >= 41 && userInfos.idade <= 50) {
+                grupoIdades.idade41a50++;
+            } else if (userInfos.idade >= 51 && userInfos.idade <= 60) {
+                grupoIdades.idade51a60++;
+            } else {
+                grupoIdades.idadeMais60++;
+            }
+        }
+
+        let dadosIdade = {
+            labels: ['11-20', '21-30', '31-40', '41-50', '51-60', '60+'],
+            datasets: [{
+                label: 'Idade',
+                data: [grupoIdades.idade11a20, grupoIdades.idade21a30, grupoIdades.idade31a40, grupoIdades.idade41a50, grupoIdades.idade51a60, grupoIdades.idadeMais60],
+                fill: true,
+                backgroundColor: ['rgba(101, 14, 130)', 'rgb(139,0,139)', 'rgb(238,130,238)', 'rgba(101, 14, 130)', 'rgb(123,104,238)', 'rgb(218,112,214)'],
+                tension: 0.1,
+            }]
+        };
+
+        const configIdade = {
+            type: 'bar',
+            data: dadosIdade,
+        };
+        let myChartIdade = new Chart(
+            document.getElementById(`myChartCanvas_idade`),
+            configIdade
+        );
+        // setTimeout(() => atualizarGrafico(dados, myChart1), 10000);
+    }
+
+    function obterDadosKpi() {
+        fetch(`/medidas/dadoskpi`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    resposta.reverse();
+                    plotarGraficoKpi(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoKpi(resposta) {
+        let totalDuvidas = 0;
+        let totalPublicacao = resposta[resposta.length - 1].postId;
+
+        for (let i = 0; i < resposta.length; i++) {
+            var userInfos = resposta[i];
+            if (userInfos.resolvido == 0) {
+                totalDuvidas++;
+            }
+        }
+
+        kpi_totalduvida.innerHTML = `${totalDuvidas}`;
+        kpi_totalpost.innerHTML = `${totalPublicacao}`;
+        kpi_duvidasporpost.innerHTML = `${((totalDuvidas / totalPublicacao) * 100).toFixed(2)}%`;
+
+        fetch(`/medidas/postporuser`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    let totalUsuarios = resposta[0].userID;
+                    let totalPost = 0;
+                    for (let i = 0; i < resposta.length; i++) {
+                        totalPost += resposta[i].totalPost;
+                    }
+
+                    kpi_postporuser.innerHTML = `${(totalPost / totalUsuarios).toFixed(1)}`
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        }).catch(function (error) { console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`); });
+    }
+
+    function obterTotalPost() {
+        fetch(`/medidas/dadospost`).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(resposta => {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // resposta.reverse();
+                    plotarTotalPost(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarTotalPost(resposta) {
+        let totalResposta = 0;
+        let totalPublicacao = resposta[resposta.length - 1].idPost;
+
+        for (let i = 0; i < resposta.length; i++) {
+            totalResposta += resposta[i].totalResposta;
+        }
+
+        let labelsEngj = [];
+
+        let dadosEngj = {
+            labels: labelsEngj,
+            datasets: [{
+                label: 'Respostas',
+                data: [],
+                borderColor: ['rgb(238,130,238)'],
+                borderWidth: 5,
+                pointBorderWidth: 0,
+                tension: .3,
+                type: 'line',
+                order: 0
+            }, {
+                label: 'Publicações',
+                data: [],
+                fill: true,
+                backgroundColor: ['rgba(101, 14, 130)'],
+                tension: 0.1,
+                order: 1
+            }]
+        };
+        let countPublicacao = 1;
+        let countRepost = resposta[0].totalResposta;
+
+        for (let i = 0; i < resposta.length - 1; i++) {
+            if (resposta[i].data == resposta[i + 1].data) {
+                countRepost += resposta[i + 1].totalResposta
+                countPublicacao += 1;
+            } else {
+                labelsEngj.push(resposta[i].data);
+                dadosEngj.datasets[0].data.push(countRepost);
+                dadosEngj.datasets[1].data.push(countPublicacao);
+                countPublicacao = 1;
+                countRepost = resposta[i].totalResposta;
+            }
+        }
+
+        const configEngj = {
+            type: 'bar',
+            data: dadosEngj
+        };
+
+        let myChartEngj = new Chart(
+            document.getElementById(`myChartCanvas_engj`),
+            configEngj
+        );
+        // setTimeout(() => atualizarEngj(dadosEngj, myChartEngj), 10000);
+    }
+
+    function dashbtn() {
+        dash_btn.style.backgroundColor = `#650E82`;
+        dash_a.style.color = `#fff`;
+        dash_img.src = `../assets/icon/dashboard_white.png`;
+    }
+
+    // function atualizarTag(dadosTag, myChartTag) {
+    //     fetch(`/medidas/temporealtag`, { cache: 'no-store' }).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (novoRegistro) {
+    //                 // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+    //                 // console.log(`Dados atuais do gráfico:`);
+    //                 // console.log(dadosTag);
+    //                 let dataMudou = false;
+    //                 let labelMudou = false;
+
+    //                 for (let i = 0; i < dadosTag.datasets[0].data.length; i++) {
+    //                     if (novoRegistro[i].nome != dadosTag.labels[i]) {
+    //                         labelMudou = true;
+    //                     }
+    //                     if (novoRegistro[i].qtdtag != dadosTag.datasets[0].data[i]) {
+    //                         dataMudou = true;
+    //                     }
+    //                 }
+
+    //                 if (dataMudou == false && labelMudou == false) {
+    //                     console.log("---------------------------------------------------------------")
+    //                     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+    //                     console.log("---------------------------------------------------------------")
+    //                 } else {
+    //                     for (let i = 0; i < dadosTag.datasets[0].data.length; i++) {
+    //                         dadosTag.labels[i] = novoRegistro[i].nome;
+    //                         dadosTag.datasets[0].data[i] = novoRegistro[i].qtdtag;
+    //                     }
+    //                     myChartTag.update();
+    //                 }
+
+    //                 proximaAtualizacao = setTimeout(() => atualizarTag(dadosTag, myChartTag), 10000);
+    //             });
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //             proximaAtualizacao = setTimeout(() => atualizarTag(dadosTag, myChartTag), 10000);
+    //         }
+    //     })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+
+    // }
+
+    // function atualizarEngj(dadosEngj, myChartEngj) {
+    //     fetch(`/medidas/temporealengj`, { cache: 'no-store' }).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (novoRegistro) {
+
+    //                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+
+    //                 console.log(`Dados atuais do gráfico:`);
+    //                 console.log(dadosEngj);
+
+
+    //                 console.log(`novo registro: ${novoRegistro[0].idPost}`)
+    //                 console.log(`dados: ${dadosEngj.datasets[1].data[dadosEngj.datasets[1].data.length - 1]}`)
+
+    //                 console.log(`data: ${dataMudou}`)
+
+    //                 // if (dataMudou == false && labelMudou == false) {
+    //                 //     console.log("---------------------------------------------------------------")
+    //                 //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+    //                 //     console.log("---------------------------------------------------------------")
+    //                 // } else {
+    //                 //     for (let i = 0; i < dadosEngj.datasets[0].data.length; i++) {
+    //                 //         dadosEngj.labels[i] = novoRegistro[i].nome;
+    //                 //         dadosEngj.datasets[0].data[i] = novoRegistro[i].qtdtag;
+    //                 //     }
+    //                 //     myChartEngj.update();
+    //                 // }
+
+    //                 proximaAtualizacao = setTimeout(() => atualizarEngj(dadosEngj, myChartEngj), 10000);
+    //             });
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //             proximaAtualizacao = setTimeout(() => atualizarEngj(dadosEngj, myChartEngj), 10000);
+    //         }
+    //     })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+
+    // }
+</script>
