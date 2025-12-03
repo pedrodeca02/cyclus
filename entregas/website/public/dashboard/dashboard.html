@@ -45,19 +45,19 @@
         <div class="dash-divs">
             <ul class="dash-kpis">
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Total de dúvidas</span>
-                    <span class="dash-kpi-number" id="kpi_totalduvida"></span>
+                    <span class="dash-kpi-title">SENSOR1</span>
+                    <span class="dash-kpi-number" id="kpi_totaldu"></span>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Total de publicações</span>
+                    <span class="dash-kpi-title">SENSOR2</span>
                     <span class="dash-kpi-number" id="kpi_totalpost"></span>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Perguntas não resolvidas</span>
+                    <span class="dash-kpi-title">SENSOR3</span>
                     <span class="dash-kpi-number" id="kpi_duvidasporpost"></span>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Média de posts por usuário</span>
+                    <span class="dash-kpi-title">SENSOR4</span>
                     <span class="dash-kpi-number" id="kpi_postporuser"></span>
                 </li>
             </ul>
@@ -65,16 +65,32 @@
         <div class="dash-divs">
             <ul class="dash-kpis">
                 <li class="dash-kpis-item">
-                    <h3>Tags mais populares</h3>
+                    <span class="dash-kpi-title">KPI1</span>
+                    <span class="dash-kpi-number" id="kpi_totalduvida"></span>
+                </li>
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">KPI1</span>
+                    <span class="dash-kpi-number" id="kpi_totalpost"></span>
+                </li>
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">KPI1</span>
+                    <span class="dash-kpi-number" id="kpi_duvidasporpost"></span>
+                </li>
+                <li class="dash-kpis-item">
+                    <span class="dash-kpi-title">KPI1</span>
+                    <span class="dash-kpi-number" id="kpi_postporuser"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="dash-divs">
+            <ul class="dash-kpis">
+                <li class="dash-kpis-item">
+                    <h3>Todos os sensores</h3>
                     <canvas id="myChartCanvas_rankingTags" class="myChartCanvas_rankingTags"></canvas>
                 </li>
                 <li class="dash-kpis-item">
-                    <h3>Publicações x Respostas</h3>
+                    <h3>Alerta</h3>
                     <canvas id="myChartCanvas_engj" class="myChartCanvas_engj"></canvas>
-                </li>
-                <li class="dash-kpis-item">
-                    <h3>Idade dos usuários</h3>
-                    <canvas id="myChartCanvas_idade" class="myChartCanvas_idade"></canvas>
                 </li>
             </ul>
         </div>
@@ -195,7 +211,7 @@
     // }
 
     // // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // // Configura o gráfico (cores, tipo, etc), materializa-o na página e,
     // // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     // function plotarGrafico(resposta, idAquario) {
 
@@ -260,7 +276,7 @@
 
 
     // // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // // buscando a última medida inserida em tabela contendo as capturas, 
+    // // buscando a última medida inserida em tabela contendo as capturas,
 
     // //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     // //     Para ajustar o "select", ajuste o comando sql em src/models
