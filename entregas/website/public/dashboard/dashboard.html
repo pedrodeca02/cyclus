@@ -86,11 +86,13 @@
             <ul class="dash-kpis">
                 <li class="dash-kpis-item">
                     <h3>Todos os sensores</h3>
-                    <canvas id="myChartCanvas_rankingTags" class="myChartCanvas_rankingTags"></canvas>
+                    <canvas id="graficoSensores" class="myChartCanvas_rankingTags"></canvas>
                 </li>
                 <li class="dash-kpis-item">
                     <h3>Alerta</h3>
-                    <canvas id="myChartCanvas_engj" class="myChartCanvas_engj"></canvas>
+                    <div id="alertaBox" class="alerta-ok">
+                        Temperatura Normal
+                    </div>
                 </li>
             </ul>
         </div>
@@ -103,6 +105,147 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
+
+    let chartSensores;
+    let dadosSensores = {
+        labels: [],
+        sensor1: [],
+        sensor2: [],
+        sensor3: [],
+        sensor4: []
+    };
+
+    // Inicia o gráfico ao carregar a página
+    window.onload = function () {
+        iniciarGrafico();
+        atualizarDados();
+    }
+
+    function iniciarGrafico(){
+        const ctx = document.getElementById('graficoSensores');
+
+        chartSensores = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: "Sensor 1 (Arduino)",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Sensor 2",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Sensor 3",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Sensor 4",
+                        data: [],
+                        borderWidth: 2
+                    }
+                ]
+            }
+        });
+    }
+
+    function gerarDados(){
+        // Isso aqui vai virar um fetch
+        let sensor1 = Math.random() * 10 + 1;
+
+        // Dados mockado com math random
+        let sensor2 = Math.random() * 10 + 1;
+        let sensor3 = Math.random() * 10 + 1;
+        let sensor4 = Math.random() * 10 + 1;
+
+        return {
+            sensor1: sensor1.toFixed(1),
+            sensor2: sensor2.toFixed(1),
+            sensor3: sensor3.toFixed(1),
+            sensor4: sensor4.toFixed(1)
+        }
+    }
+
+    function atualizarDados () {
+        let agora = new Date().toLocaleTimeString();
+        let leitura = gerarDados();
+
+        dadosSensores.labels.push(agora);
+        dadosSensores.sensor1.push(leitura.sensor1);
+        dadosSensores.sensor2.push(leitura.sensor2);
+        dadosSensores.sensor3.push(leitura.sensor3);
+        dadosSensores.sensor4.push(leitura.sensor4);
+
+        if (dadosSensores.labels.length > 10) {
+            dadosSensores.labels.shift();
+            dadosSensores.sensor1.shift();
+            dadosSensores.sensor2.shift();
+            dadosSensores.sensor3.shift();
+            dadosSensores.sensor4.shift();
+        }
+
+        let datasets = chartSensores.data.datasets;
+
+        for (let x = 0; x < datasets.length; x++) {
+            if (x == 0) {
+                datasets[x].data = dadosSensores.sensor1;
+            }
+            if (x == 1) {
+                datasets[x].data = dadosSensores.sensor2;
+            }
+            if (x == 2) {
+                datasets[x].data = dadosSensores.sensor3;
+            }
+            if (x == 3) {
+                datasets[x].data = dadosSensores.sensor4;
+            }
+        }
+
+        chartSensores.data.labels = dadosSensores.labels;
+        chartSensores.update();
+
+        setTimeout(atualizarDados, 2000);
+
+        verificarAlerta(
+            leitura.sensor1,
+            leitura.sensor2,
+            leitura.sensor3,
+            leitura.sensor4,
+        );
+    }
+
+    // Alertas
+    function verificarAlerta(sensor1, sensor2, sensor3, sensor4) {
+        let alerta = document.getElementById('alertaBox');
+        let problemas = [];
+
+        if (sensor1 < 2 || sensor1 > 7) {
+            problemas.push(`Sensor 1 (Arduino): ${sensor1} °C` );
+        }
+        if (sensor2 < 2 || sensor2 > 7) {
+            problemas.push(`Sensor 2: ${sensor2} °C`);
+        }
+        if (sensor3 < 2 || sensor3 > 7) {
+            problemas.push(`Sensor 3: ${sensor3} °C`);
+        }
+        if (sensor4 < 2 || sensor4 > 7) {
+            problemas.push(`Sensor 4: ${sensor4} °C`);
+        }
+
+        if (problemas.length > 0) {
+            alerta.innerHTML = `ALERTA! Temperatura fora do padrão<br> ${problemas.join('<br>')}`;
+            alerta.className = 'alerta-perigo';
+        }
+        else {
+            alerta.innerHTML = 'Todos os sensores dentro do padrão';
+            alerta.className = 'alerta-ok';
+        }
+    }
 
     // window.onload = exibirAquariosDoUsuario();
 

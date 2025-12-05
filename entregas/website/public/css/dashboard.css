@@ -57,3 +57,39 @@ body {
     height: 100px;
     margin: auto 0;
 }
+
+/* Alerta */
+#alertaBox {
+    width: 90%;
+    min-height: 150px;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.5;
+}
+
+.alerta-ok {
+    background-color: #b1f0b4;
+    color: #0a3d0a;
+    border: 2px solid #28a745;
+}
+
+.alerta-perigo {
+    background-color: #ffb3b3;
+    color: #7a0000;
+    animation: piscar 1.5s infinite;
+    border: 3px solid #dc3545;
+    box-shadow: 0px 0px 15px rgba(220, 53, 59, 0.5);
+}
+
+@keyframes piscar {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
