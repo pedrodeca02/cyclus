@@ -23,15 +23,20 @@ function buscarFreezer(limite) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function buscarDados(limite) {
+    var instrucaoSql = `SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
+                        freezer_id, freezer_tempMax, freezer_tempMin
+                        FROM grafico_view WHERE freezer_id = 1
+                        ORDER BY freezer_dataHora DESC LIMIT ${limite};`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+function buscarDadosTempoReal() {
+    var instrucaoSql = `SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
+                        freezer_id, freezer_tempMax, freezer_tempMin
+                        FROM grafico_view WHERE freezer_id = 1
+                        ORDER BY freezer_dataHora DESC LIMIT 1;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -39,6 +44,7 @@ function buscarMedidasEmTempoReal(idAquario) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal,
-    buscarFreezer
+    buscarDadosTempoReal,
+    buscarFreezer,
+    buscarDados
 }
