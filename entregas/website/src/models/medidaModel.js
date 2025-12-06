@@ -1,7 +1,6 @@
 var database = require("../database/config");
 
 function buscarUltimasMedidas(idAquario, limite_linhas) {
-
     var instrucaoSql = `SELECT 
         dht11_temperatura as temperatura, 
         dht11_umidade as umidade,
@@ -11,6 +10,15 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
                     WHERE fk_aquario = ${idAquario}
                     ORDER BY id DESC LIMIT ${limite_linhas}`;
 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarFreezer(limite) {
+    var instrucaoSql = `SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
+                        freezer_id, freezer_tempMax, freezer_tempMin
+                        FROM freezer_view WHERE freezer_id = 1
+                        ORDER BY freezer_dataHora DESC LIMIT ${limite};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -31,5 +39,6 @@ function buscarMedidasEmTempoReal(idAquario) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarFreezer
 }

@@ -80,81 +80,49 @@ CREATE TABLE monitoramento (
 
 -- INSERINDO VALORES
 INSERT INTO endereco (rua, numero, bairro, cidade, cep, complemento) VALUES
-	('Rua das Estrelas', 810, 'Vila dos Cedros', 'Jundiai', 32345098, 'Loja'),
-	('Avenida Horizonte Azul', 357, 'Jardim Aurora', 'Campinas', 65432321, 'Loja'),
-	('Travessa da Lua Cheia', 194, 'Vila Monte Claro', 'São Paulo', 89123345, 'Loja');
+('Rua das Estrelas', 810, 'Vila dos Cedros', 'Jundiai', 32345098, 'Loja');
     
 INSERT INTO empresa (razao_social, cnpj, fkEndereco) VALUES
-	('Loja Vila dos Cedros', 11111111000111,  1),
-	('Loja Jardim Aurora', 22222222000222, 2),
-	('Loja Vila Monte Claro', 33333333000333, 3);
+('Loja Vila dos Cedros', 11111111000111,  1);
     
 INSERT INTO usuario (nome, cpf, email, senha, fkEmpresa) VALUES
-	('Claudio Figueira', 22222222222, 'claudio.figueira@gmail.com', 'claudio123', 1),
-	('Carolina Fonseca', 33333333333, 'carolina.fonseca@gmail.com', 'carolina123', 2),
-	('Jorge Souza', 66666666666, 'jorge.souza@gmail.com', 'jorge123', 3);
+('adm', 22222222222, 'adm@teste.com', '123', 1);
     
 INSERT INTO freezer (localizacao, modeloFreezer, status, tempMax, tempMin, fkEmpresa) VALUES 
-	('Corredor 1', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
-	('Corredor 2', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
-	('Corredor 1', 'Freezer Electrolux H330', 'Funcionando', 8.0, 2.0, 2),
-	('Corredor 2', 'Freezer Electrolux H330', 'Funcionando', 8.0, 2.0, 2),
-	('Corredor 1', 'Freezer Midea RCFB22', 'Funcionando', 8.0, 2.0, 3),
-	('Corredor 2', 'Freezer Midea RCFB22', 'Funcionando', 8.0, 2.0, 3);
+('Corredor 1', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
+('Corredor 2', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
+('Corredor 3', 'Freezer Electrolux H330', 'Funcionando', 8.0, 2.0, 1),
+('Corredor 4', 'Freezer Electrolux H330', 'Funcionando', 8.0, 2.0, 1);
 
 INSERT INTO sensor (modeloSensor, estado, fkFreezer) VALUES
-	('LM35 - RFVNP73E1NG1X4ZH', 1, 1),
-	('LM35 - OOJDZG40ITAMX97I', 1, 2),
-	('LM35 - D9DPQLXN9JQEBXCC', 1, 3),
-	('LM35 - T3B51AEFGF9QT5DY', 1, 4),
-	('LM35 - 0MU661QWR9ON6USJ', 0, 5),
-	('LM35 - I324NC4HWW60OWUW', 0, 6);
+('LM35 - RFVNP73E1NG1X4ZH', 1, 1),
+('LM35 - OOJDZG40ITAMX97I', 1, 2),
+('LM35 - D9DPQLXN9JQEBXCC', 1, 3),
+('LM35 - T3B51AEFGF9QT5DY', 1, 4);
     
 -- Valores Mocados
 INSERT INTO registro (tempAtual, dataHoraRegistro, alerta, fkFreezer) VALUES
 (4.5, '2025-01-10 08:15:00', 0, 1),
 (7.9, '2025-01-10 12:30:00', 0, 1),
-(8.5, '2025-01-10 16:00:00', 1, 1),
-(3.2, '2025-01-10 08:20:00', 0, 2),
-(2.1, '2025-01-10 13:10:00', 0, 2),
-(1.5, '2025-01-10 18:45:00', 1, 2),
-(5.0, '2025-01-10 09:00:00', 0, 3),
-(6.2, '2025-01-10 14:30:00', 0, 3),
-(9.1, '2025-01-10 19:00:00', 1, 3),
-(4.9, '2025-01-10 09:10:00', 0, 4),
-(2.5, '2025-01-10 15:00:00', 0, 4),
-(10.0, '2025-01-10 20:10:00', 1, 4);
+(8.5, '2025-01-10 16:00:00', 1, 1);
 
+SELECT tempAtual, dataHoraRegistro, fkFreezer
+FROM registro WHERE fkFreezer = 1
+ORDER BY dataHoraRegistro DESC LIMIT 1;
 
-    
--- Apenas os sensores
-SELECT * FROM sensor;
+CREATE OR REPLACE VIEW freezer_view AS 
+SELECT r.tempAtual AS freezer_tempAtual,
+		DATE_FORMAT(r.dataHoraRegistro,'%H:%i %d/%m') AS freezer_dataHora,
+        r.fkFreezer AS freezer_id,
+        f.localizacao AS freezer_corredor,
+        f.tempMax AS freezer_tempMax,
+        f.tempMin AS freezer_tempMin
+FROM registro r
+JOIN freezer f ON f.idFreezer = r.fkFreezer
+WHERE r.fkFreezer = 1
+ORDER BY dataHoraRegistro DESC;
 
--- Endereco com Empresa
-SELECT * FROM endereco AS e
-	JOIN empresa AS em
-    ON em.fkEndereco = e.idEndereco;
-    
--- Empresa com Usuarios
-SELECT em.razao_social,
-	u.nome, u.email
-	FROM empresa AS em
-		JOIN usuario AS u
-		ON u.fkEmpresa = em.idEmpresa;
-        
--- Empresa com Sensor e Freezer
-SELECT s.modeloSensor, f.tempMax, f.tempMin, s.idSensor,
-	f.localizacao, f.status,
-    em.razao_social,
-	r.tempAtual, r.dataHoraRegistro
-    FROM sensor AS s
-		JOIN freezer AS f
-        ON s.fkFreezer = f.idFreezer
-        JOIN empresa AS em
-        ON f.fkEmpresa = em.idEmpresa
-        JOIN registro AS r
-        ON r.fkFreezer= f.idFreezer;
-        
-select * from endereco;
-select * from empresa;
-select * from usuario;
+SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
+		freezer_id, freezer_tempMax, freezer_tempMin
+FROM freezer_view WHERE freezer_id = 1
+ORDER BY freezer_dataHora DESC LIMIT 1;

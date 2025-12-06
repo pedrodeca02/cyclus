@@ -34,31 +34,40 @@
         <span id="b_usuario"></span>
         <ul class="slide-header">
             <li class="slide-header-item">
-                <button class="slide_btn">
-                    <a onclick="limparSessao()"><img src="../assets/icon/saida.png">Sair</a>
-                </button>
+                <a href="./dashboard.html"><img src="../assets/icon/dashboard_white.png">Dashboard</a>
+            </li>
+            <li class="slide-header-item">
+                <a href="#"><img src="../assets/icon/chat.svg">Chat</a>
+            </li>
+            <li class="slide-header-item">
+                <a onclick="limparSessao()"><img src="../assets/icon/sair.svg">Sair</a>
             </li>
         </ul>
+        <img class="cyclus_logo" src="../assets/cyclus.png">
     </header>
 
     <section class="dash dash-text">
         <div class="dash-divs">
+            <p>Freezers</p>
             <ul class="dash-kpis">
+                <li class="dash-kpis-item" id="dash_freezer_1"></li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">SENSOR1</span>
-                    <span class="dash-kpi-number" id="kpi_totaldu"></span>
+                    <span class="dash-kpi-title">Freezer 2</span>
+                    <span class="dash-kpi-status">Status: </span>
+                    <span class="dash-kpi-corredor">Corredor: </span>
+                    <button class="dash-kpi-detalhes">Ver detalhes</button>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">SENSOR2</span>
-                    <span class="dash-kpi-number" id="kpi_totalpost"></span>
+                    <span class="dash-kpi-title">Freezer 3</span>
+                    <span class="dash-kpi-status">Status: </span>
+                    <span class="dash-kpi-corredor">Corredor: </span>
+                    <button class="dash-kpi-detalhes">Ver detalhes</button>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">SENSOR3</span>
-                    <span class="dash-kpi-number" id="kpi_duvidasporpost"></span>
-                </li>
-                <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">SENSOR4</span>
-                    <span class="dash-kpi-number" id="kpi_postporuser"></span>
+                    <span class="dash-kpi-title">Freezer 4</span>
+                    <span class="dash-kpi-status">Status: </span>
+                    <span class="dash-kpi-corredor">Corredor: </span>
+                    <button class="dash-kpi-detalhes">Ver detalhes</button>
                 </li>
             </ul>
         </div>
@@ -128,6 +137,7 @@
     window.onload = function () {
         iniciarGrafico();
         atualizarDados();
+        obterDadosFreezers();
     }
 
     // Gráfico geral
@@ -233,7 +243,7 @@
 
     // Verifica se existe alerta
     function verificarAlerta(sensor1, sensor2, sensor3, sensor4) {
-        
+
         let sensores = [
             { nome: "Sensor 1 (Arduino)", valor: Number(sensor1) },
             { nome: "Sensor 2", valor: Number(sensor2) },
@@ -287,6 +297,52 @@
 
             corpo.appendChild(linha);
         });
+    }
+
+    // ------------- ISABEL LIN - FREEZERS ------------- //
+    function obterDadosFreezers() {
+        fetch(`/medidas/dadosfreezer`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (r) {
+                    plotarGraficoFreezer(r);
+                    console.log(r)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Freezer: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoFreezer(r) {
+        let status = ``;
+        let alerta = false;
+
+        if (r[0].freezer_tempAtual >= r[0].freezer_tempMax ||
+            r[0].freezer_tempAtual <= r[0].freezer_tempMin) {
+            status = `alerta`
+            alerta = true;
+        } else {
+            status = `normal`
+        }
+        if (alerta == true) {
+            dash_freezer_1.className = `dash-kpis-item-alert`
+            dash_freezer_1.innerHTML = `
+                <span class="dash-kpi-title">Freezer ${r[0].freezer_id}</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">${r[0].freezer_corredor}</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        } else {
+            dash_freezer_1.innerHTML = `
+                <span class="dash-kpi-title">Freezer ${r[0].freezer_id}</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">${r[0].freezer_corredor}</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        }
     }
 
     // window.onload = exibirAquariosDoUsuario();
