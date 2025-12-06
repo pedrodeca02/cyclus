@@ -86,7 +86,7 @@ INSERT INTO empresa (razao_social, cnpj, fkEndereco) VALUES
 ('Loja Vila dos Cedros', 11111111000111,  1);
     
 INSERT INTO usuario (nome, cpf, email, senha, fkEmpresa) VALUES
-('adm', 22222222222, 'adm@teste.com', '123', 1);
+('Claudio Figueira', 22222222222, 'claudio.figueira@gmail.com', 'claudio123', 1);
     
 INSERT INTO freezer (localizacao, modeloFreezer, status, tempMax, tempMin, fkEmpresa) VALUES 
 ('Corredor 1', 'Freezer Philco PFH205B', 'Funcionando', 8.0, 2.0, 1),
@@ -102,27 +102,20 @@ INSERT INTO sensor (modeloSensor, estado, fkFreezer) VALUES
     
 -- Valores Mocados
 INSERT INTO registro (tempAtual, dataHoraRegistro, alerta, fkFreezer) VALUES
-(5.2, '2025-01-11 08:00:00', 0, 1),
-(6.8, '2025-01-11 12:00:00', 0, 1),
-(8.9, '2025-01-11 16:30:00', 1, 1),
-(4.1, '2025-01-12 07:50:00', 0, 1),
-(7.3, '2025-01-12 12:10:00', 0, 1),
-(9.2, '2025-01-12 15:55:00', 1, 1),
-(5.0, '2025-01-13 08:20:00', 0, 1),
-(6.5, '2025-01-13 12:40:00', 0, 1),
-(8.7, '2025-01-13 16:10:00', 1, 1),
-(4.8, '2025-01-14 08:05:00', 0, 1),
-(7.0, '2025-01-14 12:25:00', 0, 1),
-(8.3, '2025-01-14 16:20:00', 1, 1),
-(5.6, '2025-01-15 08:15:00', 0, 1),
-(6.9, '2025-01-15 12:35:00', 0, 1),
-(9.1, '2025-01-15 16:45:00', 1, 1),
-(4.3, '2025-01-16 08:10:00', 0, 1),
-(7.4, '2025-01-16 12:50:00', 0, 1),
-(8.8, '2025-01-16 16:30:00', 1, 1),
-(5.1, '2025-01-17 08:25:00', 0, 1),
-(6.7, '2025-01-17 12:15:00', 0, 1);
+(4.5, '2025-01-10 08:15:00', 0, 1),
+(7.9, '2025-01-10 12:30:00', 0, 1),
+(8.5, '2025-01-10 16:00:00', 1, 1),
+(3.2, '2025-01-10 08:20:00', 0, 2),
+(2.1, '2025-01-10 13:10:00', 0, 2),
+(1.5, '2025-01-10 18:45:00', 1, 2),
+(5.0, '2025-01-10 09:00:00', 0, 3),
+(6.2, '2025-01-10 14:30:00', 0, 3),
+(9.1, '2025-01-10 19:00:00', 1, 3),
+(4.9, '2025-01-10 09:10:00', 0, 4),
+(2.5, '2025-01-10 15:00:00', 0, 4),
+(10.0, '2025-01-10 20:10:00', 1, 4);
 
+-- Apenas os sensores
 SELECT tempAtual, dataHoraRegistro, fkFreezer
 FROM registro WHERE fkFreezer = 1
 ORDER BY dataHoraRegistro DESC LIMIT 1;
@@ -139,7 +132,29 @@ JOIN freezer f ON f.idFreezer = r.fkFreezer
 WHERE r.fkFreezer = 1
 ORDER BY dataHoraRegistro DESC;
 
+CREATE OR REPLACE VIEW grafico_view AS 
+SELECT r.tempAtual AS freezer_tempAtual,
+		DATE_FORMAT(r.dataHoraRegistro,'%H:%i:%s') AS freezer_dataHora,
+        r.fkFreezer AS freezer_id,
+        f.localizacao AS freezer_corredor,
+        f.tempMax AS freezer_tempMax,
+        f.tempMin AS freezer_tempMin
+FROM registro r
+JOIN freezer f ON f.idFreezer = r.fkFreezer
+WHERE r.fkFreezer = 1
+ORDER BY dataHoraRegistro DESC;
+
 SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
 		freezer_id, freezer_tempMax, freezer_tempMin
 FROM freezer_view WHERE freezer_id = 1
+ORDER BY freezer_dataHora DESC LIMIT 1;
+
+SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
+		freezer_id, freezer_tempMax, freezer_tempMin
+FROM grafico_view WHERE freezer_id = 1
+ORDER BY freezer_dataHora DESC LIMIT 5;
+
+SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
+		freezer_id, freezer_tempMax, freezer_tempMin
+FROM grafico_view WHERE freezer_id = 1
 ORDER BY freezer_dataHora DESC LIMIT 1;
