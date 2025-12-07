@@ -99,26 +99,6 @@ INSERT INTO sensor (modeloSensor, estado, fkFreezer) VALUES
 ('LM35 - OOJDZG40ITAMX97I', 1, 2),
 ('LM35 - D9DPQLXN9JQEBXCC', 1, 3),
 ('LM35 - T3B51AEFGF9QT5DY', 1, 4);
-    
--- Valores Mocados
--- INSERT INTO registro (tempAtual, dataHoraRegistro, alerta, fkFreezer) VALUES
--- (4.5, '2025-01-10 08:15:00', 0, 1),
--- (7.9, '2025-01-10 12:30:00', 0, 1),
--- (8.5, '2025-01-10 16:00:00', 1, 1),
--- (3.2, '2025-01-10 08:20:00', 0, 2),
--- (2.1, '2025-01-10 13:10:00', 0, 2),
--- (1.5, '2025-01-10 18:45:00', 1, 2),
--- (5.0, '2025-01-10 09:00:00', 0, 3),
--- (6.2, '2025-01-10 14:30:00', 0, 3),
--- (9.1, '2025-01-10 19:00:00', 1, 3),
--- (4.9, '2025-01-10 09:10:00', 0, 4),
--- (2.5, '2025-01-10 15:00:00', 0, 4),
--- (10.0, '2025-01-10 20:10:00', 1, 4);
-
--- Apenas os sensores
-SELECT tempAtual, dataHoraRegistro, fkFreezer
-FROM registro WHERE fkFreezer = 1
-ORDER BY dataHoraRegistro DESC LIMIT 1;
 
 CREATE OR REPLACE VIEW freezer_view AS 
 SELECT r.tempAtual AS freezer_tempAtual,
@@ -145,18 +125,3 @@ FROM registro r
 JOIN freezer f ON f.idFreezer = r.fkFreezer
 WHERE r.fkFreezer = 1
 ORDER BY dataHoraRegistro DESC;
-
-SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
-		freezer_id, freezer_tempMax, freezer_tempMin, freezer_alerta
-FROM freezer_view WHERE freezer_id = 1
-ORDER BY freezer_dataHora DESC LIMIT 1;
-
-SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
-		freezer_id, freezer_tempMax, freezer_tempMin, freezer_alerta
-FROM grafico_view WHERE freezer_id = 1
-ORDER BY freezer_dataHora DESC LIMIT 5;
-
-SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
-		freezer_id, freezer_tempMax, freezer_tempMin
-FROM grafico_view WHERE freezer_id = 1
-ORDER BY freezer_dataHora DESC LIMIT 1;

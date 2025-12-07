@@ -83,12 +83,13 @@
                     <canvas id="graficoSensores" class="myChartCanvas_rankingTags"></canvas>
                 </li>
                 <li class="dash-kpis-item">
-                    <h3>Alerta</h3>
+                    <h3>Alerta mais recentes</h3>
                     <table id="tabelaAlertas">
                         <thead>
                             <tr>
-                                <th>Sensor</th>
+                                <th>Freezer</th>
                                 <th>Temperatura</th>
+                                <th>Horário</th>
                             </tr>
                         </thead>
                         <tbody id="corpoAlertas"></tbody>
@@ -126,10 +127,9 @@
     // Gerar os dados mockados
     function gerarDados() {
         // Dados mockado com math random
-
-        let sensor2 = Math.random() * 10 + 1;
-        let sensor3 = Math.random() * 10 + 1;
-        let sensor4 = Math.random() * 10 + 1;
+        let sensor2 = Math.random() * 7 + 1;
+        let sensor3 = Math.random() * 7 + 1;
+        let sensor4 = Math.random() * 7 + 1;
 
         return {
             sensor2: sensor2.toFixed(1),
@@ -139,11 +139,9 @@
     }
 
     function obterDadosSensor() {
-        // Isso aqui vai virar um fetch
         fetch(`/medidas/obterdados`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (sensor1) {
-                    console.log(`Dados recebidos: ${JSON.stringify(sensor1)}`);
                     sensor1.reverse();
                     plotarGrafico(sensor1);
                 });
@@ -237,11 +235,6 @@
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
                     obterDadosSensor();
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
                     if (novoRegistro[0].freezer_dataHora == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
@@ -261,6 +254,8 @@
                         dados.datasets[2].data.push(dadosmocados.sensor3);
                         dados.datasets[3].data.push(dadosmocados.sensor4);
 
+                        let registro = novoRegistro[0];
+                        verificarAlerta(registro, dadosmocados)
                         plotarTabelaFreezer(novoRegistro, dadosmocados)
                         myChart.update();
                     }
@@ -278,12 +273,12 @@
     }
 
     // Verifica se existe alerta
-    function verificarAlerta(sensor1, sensor2, sensor3, sensor4) {
+    function verificarAlerta(registro, dadosmocados) {
         let sensores = [
-            { nome: "Sensor 1 (Arduino)", valor: Number(sensor1) },
-            { nome: "Sensor 2", valor: Number(sensor2) },
-            { nome: "Sensor 3", valor: Number(sensor3) },
-            { nome: "Sensor 4", valor: Number(sensor4) }
+            { nome: "Freezer 1", valor: Number(registro.freezer_tempAtual) },
+            { nome: "Freezer 2", valor: Number(dadosmocados.sensor2) },
+            { nome: "Freezer 3", valor: Number(dadosmocados.sensor3) },
+            { nome: "Freezer 4", valor: Number(dadosmocados.sensor2) }
         ];
 
         for (let x = 0; x < sensores.length; x++) {
@@ -291,25 +286,24 @@
             let nome = sensores[x].nome;
 
             if (temp < 2 || temp > 7) {
-                registrarAlerta(nome, temp);
+                registrarAlerta(nome, temp, registro);
             }
         }
     }
 
     // Registrar o alerta
-    function registrarAlerta(sensor, temperatura) {
+    function registrarAlerta(sensor, temperatura, registro) {
 
         temperatura = Number(temperatura);
-
         historicoAlertas.push({
             sensor: sensor,
-            temperatura: temperatura.toFixed(1) + " °C"
+            temperatura: temperatura.toFixed(1) + " °C",
+            horario: registro.freezer_dataHora
         });
 
         if (historicoAlertas.length > LIMITE_ALERTAS) {
             historicoAlertas.shift();
         }
-
         atualizarTabelaAlertas();
     }
 
@@ -327,8 +321,12 @@
             const tdTemp = document.createElement("td");
             tdTemp.innerText = alerta.temperatura;
 
+            const tdHoras = document.createElement("td");
+            tdHoras.innerText = alerta.horario;
+
             linha.appendChild(tdSensor);
             linha.appendChild(tdTemp);
+            linha.appendChild(tdHoras);
 
             corpo.appendChild(linha);
         });
@@ -338,7 +336,8 @@
         fetch(`/medidas/dadosfreezer`).then(function (response) {
             if (response.ok) {
                 response.json().then(function (r) {
-                    plotarTabelaFreezer(r);
+                    let dadosmocados = gerarDados();
+                    plotarTabelaFreezer(r, dadosmocados);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -358,7 +357,7 @@
                 <span class="dash-kpi-title">Freezer ${r[0].freezer_id}</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">${r[0].freezer_corredor}</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${r[0].freezer_tempAtual}ºC às ${r[0].freezer_dataHora}</span>
             `
         } else {
             status = `Normal`
@@ -367,7 +366,7 @@
                 <span class="dash-kpi-title">Freezer ${r[0].freezer_id}</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">${r[0].freezer_corredor}</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${r[0].freezer_tempAtual}ºC às ${r[0].freezer_dataHora}</span>
             `
         }
 
@@ -378,7 +377,7 @@
                 <span class="dash-kpi-title">Freezer 2</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">Corredor 2</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${dadosmocados.sensor2}ºC às ${r[0].freezer_dataHora}</span>
             `
         } else {
             status = `Normal`
@@ -387,7 +386,7 @@
                 <span class="dash-kpi-title">Freezer 2</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">Corredor 2</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${dadosmocados.sensor2}ºC às ${r[0].freezer_dataHora}</span>
             `
         }
         if (dadosmocados.sensor3 > 7 || dadosmocados.sensor3 < 2) {
@@ -397,7 +396,7 @@
                 <span class="dash-kpi-title">Freezer 3</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">Corredor 3</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${dadosmocados.sensor3}ºC às ${r[0].freezer_dataHora}</span>
             `
         } else {
             status = `Normal`
@@ -406,7 +405,7 @@
                 <span class="dash-kpi-title">Freezer 3</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">Corredor 3</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${dadosmocados.sensor3}ºC às ${r[0].freezer_dataHora}</span>
             `
         }
         if (dadosmocados.sensor4 > 7 || dadosmocados.sensor4 < 2) {
@@ -416,7 +415,7 @@
                 <span class="dash-kpi-title">Freezer 4</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">Corredor 4</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${dadosmocados.sensor4}ºC às ${r[0].freezer_dataHora}</span>
             `
         } else {
             status = `Normal`
@@ -425,7 +424,7 @@
                 <span class="dash-kpi-title">Freezer 4</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">Corredor 4</span>
-                <button class="dash-kpi-detalhes">Ver detalhes</button>
+                <span class="dash-kpi-detalhes">${dadosmocados.sensor4}ºC às ${r[0].freezer_dataHora}</span>
             `
         }
     }
