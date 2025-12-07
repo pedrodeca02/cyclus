@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BobIA</title>
+    <link rel="stylesheet" href="../css/styleBob.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/slide.css">
+
+
+
+</head>
+
+<body>
+    <header class="slide">
+        <span id="b_usuario"></span>
+        <ul class="slide-header">
+            <li class="slide-header-item">
+                <a href="./dashboard.html"><img src="../assets/icon/dashboard_white.png">Dashboard</a>
+            </li>
+            <li class="slide-header-item">
+                <a href="bob.html"><img src="../assets/icon/chat.svg">Chat</a>
+            </li>
+            <li class="slide-header-item">
+                <a onclick="limparSessao()"><img src="../assets/icon/sair.svg">Sair</a>
+            </li>
+        </ul>
+        <img class="cyclus_logo" src="../assets/cyclus.png">
+    </header>
+    <section class="dash dash-text">
+        <div class="dash-divs">
+            <div class="container" id="container">
+                <div class="dash-kpis-item">
+                    <h1>BobIA</h1>
+                    <br>
+                    <div class="text">
+                        <textarea class="textarea" id="pergunta" type="text"
+                            placeholder="Digite a pergunta..."></textarea>
+                    </div>
+                    <br><br>
+                    <button class="botao" onclick="gerarResposta()">Gerar Resposta</button>
+                    <br><br>
+                    <h3>Resposta da IA:</h3>
+                    <div id="resposta"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    async function gerarResposta() {
+        const pergunta = document.getElementById('pergunta').value;
+
+        const response = await fetch('/perguntar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ pergunta })
+        });
+
+        const data = await response.json();
+
+        resposta.style.display = 'block';
+        document.getElementById('resposta').innerText = data.resultado;
+    }
+
+</script>
+
+</html>
