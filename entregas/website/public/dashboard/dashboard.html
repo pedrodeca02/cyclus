@@ -51,24 +51,9 @@
             <p>Freezers</p>
             <ul class="dash-kpis">
                 <li class="dash-kpis-item" id="dash_freezer_1"></li>
-                <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Freezer 2</span>
-                    <span class="dash-kpi-status">Status: </span>
-                    <span class="dash-kpi-corredor">Corredor: </span>
-                    <button class="dash-kpi-detalhes">Ver detalhes</button>
-                </li>
-                <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Freezer 3</span>
-                    <span class="dash-kpi-status">Status: </span>
-                    <span class="dash-kpi-corredor">Corredor: </span>
-                    <button class="dash-kpi-detalhes">Ver detalhes</button>
-                </li>
-                <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">Freezer 4</span>
-                    <span class="dash-kpi-status">Status: </span>
-                    <span class="dash-kpi-corredor">Corredor: </span>
-                    <button class="dash-kpi-detalhes">Ver detalhes</button>
-                </li>
+                <li class="dash-kpis-item" id="dash_freezer_2"></li>
+                <li class="dash-kpis-item" id="dash_freezer_3"></li>
+                <li class="dash-kpis-item" id="dash_freezer_4"></li>
             </ul>
         </div>
         <div class="dash-divs">
@@ -94,7 +79,7 @@
         <div class="dash-divs">
             <ul class="dash-kpis">
                 <li class="dash-kpis-item">
-                    <h3>Todos os sensores</h3>
+                    <h3>Todos os freezers</h3>
                     <canvas id="graficoSensores" class="myChartCanvas_rankingTags"></canvas>
                 </li>
                 <li class="dash-kpis-item">
@@ -141,6 +126,7 @@
     // Gerar os dados mockados
     function gerarDados() {
         // Dados mockado com math random
+
         let sensor2 = Math.random() * 10 + 1;
         let sensor3 = Math.random() * 10 + 1;
         let sensor4 = Math.random() * 10 + 1;
@@ -275,6 +261,7 @@
                         dados.datasets[2].data.push(dadosmocados.sensor3);
                         dados.datasets[3].data.push(dadosmocados.sensor4);
 
+                        plotarTabelaFreezer(novoRegistro, dadosmocados)
                         myChart.update();
                     }
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
@@ -290,52 +277,8 @@
             });
     }
 
-    // Atualiza dados mockados
-    // function atualizarDados() {
-    //     // let agora = new Date().toLocaleTimeString();
-    //     let leitura = obterDadosSensor();
-
-    //     dadosSensores.labels.push(agora);
-    //     dadosSensores.sensor2.push(leitura.sensor2);
-    //     dadosSensores.sensor3.push(leitura.sensor3);
-    //     dadosSensores.sensor4.push(leitura.sensor4);
-
-    //     if (dadosSensores.labels.length > 10) {
-    //         dadosSensores.labels.shift();
-    //         dadosSensores.sensor2.shift();
-    //         dadosSensores.sensor3.shift();
-    //         dadosSensores.sensor4.shift();
-    //     }
-
-    //     let datasets = chartSensores.data.datasets;
-
-    //     for (let x = 0; x < datasets.length; x++) {
-    //         if (x == 1) {
-    //             datasets[x].data = dadosSensores.sensor2;
-    //         }
-    //         if (x == 2) {
-    //             datasets[x].data = dadosSensores.sensor3;
-    //         }
-    //         if (x == 3) {
-    //             datasets[x].data = dadosSensores.sensor4;
-    //         }
-    //     }
-
-    //     chartSensores.data.labels = dadosSensores.labels;
-    //     chartSensores.update();
-
-    //     setTimeout(atualizarDados, 5000);
-
-    //     verificarAlerta(
-    //         leitura.sensor2,
-    //         leitura.sensor3,
-    //         leitura.sensor4
-    //     );
-    // }
-
     // Verifica se existe alerta
     function verificarAlerta(sensor1, sensor2, sensor3, sensor4) {
-
         let sensores = [
             { nome: "Sensor 1 (Arduino)", valor: Number(sensor1) },
             { nome: "Sensor 2", valor: Number(sensor2) },
@@ -391,7 +334,6 @@
         });
     }
 
-    // ------------- ISABEL LIN - FREEZERS ------------- //
     function obterDadosFreezers() {
         fetch(`/medidas/dadosfreezer`).then(function (response) {
             if (response.ok) {
@@ -407,18 +349,10 @@
             });
     }
 
-    function plotarTabelaFreezer(r) {
+    function plotarTabelaFreezer(r, dadosmocados) {
         let status = ``;
-        let alerta = false;
-
-        if (r[0].freezer_tempAtual >= r[0].freezer_tempMax ||
-            r[0].freezer_tempAtual <= r[0].freezer_tempMin) {
-            status = `alerta`
-            alerta = true;
-        } else {
-            status = `normal`
-        }
-        if (alerta == true) {
+        if (r[0].freezer_alerta == 1) {
+            status = `Alerta`
             dash_freezer_1.className = `dash-kpis-item-alert`
             dash_freezer_1.innerHTML = `
                 <span class="dash-kpi-title">Freezer ${r[0].freezer_id}</span>
@@ -427,10 +361,70 @@
                 <button class="dash-kpi-detalhes">Ver detalhes</button>
             `
         } else {
+            status = `Normal`
+            dash_freezer_1.className = `dash-kpis-item`
             dash_freezer_1.innerHTML = `
                 <span class="dash-kpi-title">Freezer ${r[0].freezer_id}</span>
                 <span class="dash-kpi-status">Status: ${status}</span>
                 <span class="dash-kpi-corredor">${r[0].freezer_corredor}</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        }
+
+        if (dadosmocados.sensor2 > 7 || dadosmocados.sensor2 < 2) {
+            status = `Alerta`
+            dash_freezer_2.className = `dash-kpis-item-alert`
+            dash_freezer_2.innerHTML = `
+                <span class="dash-kpi-title">Freezer 2</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">Corredor 2</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        } else {
+            status = `Normal`
+            dash_freezer_2.className = `dash-kpis-item`
+            dash_freezer_2.innerHTML = `
+                <span class="dash-kpi-title">Freezer 2</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">Corredor 2</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        }
+        if (dadosmocados.sensor3 > 7 || dadosmocados.sensor3 < 2) {
+            status = `Alerta`
+            dash_freezer_3.className = `dash-kpis-item-alert`
+            dash_freezer_3.innerHTML = `
+                <span class="dash-kpi-title">Freezer 3</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">Corredor 3</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        } else {
+            status = `Normal`
+            dash_freezer_3.className = `dash-kpis-item`
+            dash_freezer_3.innerHTML = `
+                <span class="dash-kpi-title">Freezer 3</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">Corredor 3</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        }
+        if (dadosmocados.sensor4 > 7 || dadosmocados.sensor4 < 2) {
+            status = `Alerta`
+            dash_freezer_4.className = `dash-kpis-item-alert`
+            dash_freezer_4.innerHTML = `
+                <span class="dash-kpi-title">Freezer 4</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">Corredor 4</span>
+                <button class="dash-kpi-detalhes">Ver detalhes</button>
+            `
+        } else {
+            status = `Normal`
+            dash_freezer_4.className = `dash-kpis-item`
+            dash_freezer_4.innerHTML = `
+                <span class="dash-kpi-title">Freezer 4</span>
+                <span class="dash-kpi-status">Status: ${status}</span>
+                <span class="dash-kpi-corredor">Corredor 4</span>
                 <button class="dash-kpi-detalhes">Ver detalhes</button>
             `
         }

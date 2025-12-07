@@ -16,7 +16,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
 
 function buscarFreezer(limite) {
     var instrucaoSql = `SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
-                        freezer_id, freezer_tempMax, freezer_tempMin
+                        freezer_id, freezer_tempMax, freezer_tempMin, freezer_alerta
                         FROM freezer_view WHERE freezer_id = 1
                         ORDER BY freezer_dataHora DESC LIMIT ${limite};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -25,7 +25,7 @@ function buscarFreezer(limite) {
 
 function buscarDados(limite) {
     var instrucaoSql = `SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
-                        freezer_id, freezer_tempMax, freezer_tempMin
+                        freezer_id, freezer_tempMax, freezer_tempMin, freezer_alerta
                         FROM grafico_view WHERE freezer_id = 1
                         ORDER BY freezer_dataHora DESC LIMIT ${limite};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -34,7 +34,7 @@ function buscarDados(limite) {
 
 function buscarDadosTempoReal() {
     var instrucaoSql = `SELECT freezer_tempAtual, freezer_dataHora, freezer_corredor,
-                        freezer_id, freezer_tempMax, freezer_tempMin
+                        freezer_id, freezer_tempMax, freezer_tempMin, freezer_alerta
                         FROM grafico_view WHERE freezer_id = 1
                         ORDER BY freezer_dataHora DESC LIMIT 1;`;
 
