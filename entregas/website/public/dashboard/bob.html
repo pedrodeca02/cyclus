@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <script src="../js/sessao.js"></script>
+    <script src="./../js/slide.js"></script>
 
     <!-- Ícone da página -->
     <link rel="shortcut icon" type="imagex/png" href="../assets/logo-p-cyclus.png">
@@ -23,13 +24,14 @@
         <span id="b_usuario"></span>
         <ul class="slide-header">
             <li class="slide-header-item">
-                <a href="./dashboard.html"><img src="../assets/icon/dashboard_white.png">Dashboard</a>
+                <a id="dash_slide" onclick="dashboard_slide()" href="./dashboard.html"><img
+                        src="../assets/icon/dashboard_white.png">Dashboard</a>
             </li>
             <li class="slide-header-item">
-                <a href="bob.html"><img src="../assets/icon/chat.svg">Chat</a>
+                <a id="bob_slide" onclick="bobia_slide()" href="bob.html"><img src="../assets/icon/chat.svg">Chat</a>
             </li>
             <li class="slide-header-item">
-                <a onclick="limparSessao()"><img src="../assets/icon/sair.svg">Sair</a>
+                <a id="sair_slide" onclick="limparSessao()"><img src="../assets/icon/sair.svg">Sair</a>
             </li>
         </ul>
         <img class="cyclus_logo" src="../assets/cyclus.png">
@@ -69,8 +71,12 @@
 </body>
 
 <script>
-    
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    window.onload = function () {
+        bobia_slide();
+    }
 
     async function gerarResposta() {
         const pergunta = document.getElementById('pergunta').value;

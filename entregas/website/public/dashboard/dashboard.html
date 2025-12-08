@@ -17,6 +17,7 @@
 
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
+    <script src="./../js/slide.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
@@ -34,20 +35,24 @@
         <span id="b_usuario"></span>
         <ul class="slide-header">
             <li class="slide-header-item">
-                <a href="./dashboard.html"><img src="../assets/icon/dashboard_white.png">Dashboard</a>
+                <a id="dash_slide" onclick="dashboard_slide()" href="./dashboard.html"><img
+                        src="../assets/icon/dashboard_white.png">Dashboard</a>
             </li>
             <li class="slide-header-item">
-                <a href="bob.html"><img src="../assets/icon/chat.svg">Chat</a>
+                <a id="bob_slide" onclick="bobia_slide()" href="bob.html"><img src="../assets/icon/chat.svg">Chat</a>
             </li>
             <li class="slide-header-item">
-                <a onclick="limparSessao()"><img src="../assets/icon/sair.svg">Sair</a>
+                <a id="sair_slide" onclick="limparSessao()"><img src="../assets/icon/sair.svg">Sair</a>
             </li>
         </ul>
         <img class="cyclus_logo" src="../assets/cyclus.png">
     </header>
 
     <section class="dash dash-text">
+        <h1>Dashboard</h1>
+
         <div class="dash-divs">
+            <h2>KPI's</h2>
             <ul class="dash-kpis">
                 <li class="dash-kpis-item" id="dash_freezer_1">
                 </li>
@@ -104,6 +109,7 @@
 
     // Inicia o gráfico ao carregar a página
     window.onload = function () {
+        dashboard_slide();
         obterDadosSensor();
         obterDadosFreezers();
         obterDadosKpi1();
@@ -317,9 +323,17 @@
 
             if (response.ok) {
                 const resposta = await response.json();
+                // resposta = Number(resposta);
+                let status;
+                if (resposta >= 0 && resposta <= 10) {
+                    status = `Normal`
+                } else if (resposta >= 11 && resposta <= 30){
+                    status = `Atenção`
+                } else {
+                    status = `Perigo`
+                }
                 kpi_percentual.innerHTML = `
-                ${resposta[0].percentual_alertas}
-            `;
+                ${resposta[0].percentual_alertas}% - ${status}`;
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }

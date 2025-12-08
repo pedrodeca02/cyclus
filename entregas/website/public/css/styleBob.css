@@ -76,7 +76,7 @@ h2 {
     flex-direction: column;
     border-radius: 7px;
     align-items: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-shadow: 1px 1px 7px 1px rgb(8, 10, 12, 0.4);
     overflow: auto;
 }
@@ -102,8 +102,10 @@ h2 {
     width: 500px;
     height: 200px;
     border-radius: 16px;
-    padding: 10px;
+    margin: 10px;
     font-size: larger;
+    resize: none;
+    padding: 10px;
 }
 
 

@@ -125,3 +125,5 @@ FROM registro r
 JOIN freezer f ON f.idFreezer = r.fkFreezer
 WHERE r.fkFreezer = 1
 ORDER BY dataHoraRegistro DESC;
+
+select * from usuario;

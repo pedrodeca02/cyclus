@@ -50,10 +50,8 @@ function buscarDadosKpi2() {
                         WEEK(dataHoraRegistro) AS semana_do_ano,
                         COUNT(CASE WHEN alerta = 1 THEN 1 END) AS total_alertas,
                         COUNT(*) AS total_registros,
-                        CONCAT(
-                            FORMAT(
-                                (COUNT(CASE WHEN alerta = 1 THEN 1 END) / COUNT(*)) * 100, 2
-                            ), '%'
+                        FORMAT(
+                            (COUNT(CASE WHEN alerta = 1 THEN 1 END) / COUNT(*)) * 100, 2
                         ) AS percentual_alertas
                         FROM registro GROUP BY ano, semana_do_ano
                         ORDER BY ano DESC, semana_do_ano DESC;`;

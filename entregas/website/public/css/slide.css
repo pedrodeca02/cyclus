@@ -34,16 +34,19 @@
 }
 
 .slide-header-item a {
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.1s ease-in-out;
     text-decoration: none;
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: color 0.2s ease;
 }
 
 .slide-header-item a:hover {
     cursor: pointer;
+    background-color: rgb(52, 93, 146);
 }
 
 .cyclus_logo {
