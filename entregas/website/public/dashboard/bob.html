@@ -4,12 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BobIA</title>
+    <title>Cyclus | Suporte</title>
     <link rel="stylesheet" href="../css/styleBob.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/slide.css">
 
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
+    <script src="../js/sessao.js"></script>
+
+    <!-- Ícone da página -->
+    <link rel="shortcut icon" type="imagex/png" href="../assets/logo-p-cyclus.png">
 
 </head>
 
@@ -29,28 +34,42 @@
         </ul>
         <img class="cyclus_logo" src="../assets/cyclus.png">
     </header>
+
     <section class="dash dash-text">
         <div class="dash-divs">
             <div class="container" id="container">
-                <div class="dash-kpis-item">
-                    <h1>BobIA</h1>
-                    <br>
-                    <div class="text">
-                        <textarea class="textarea" id="pergunta" type="text"
-                            placeholder="Digite a pergunta..."></textarea>
-                    </div>
-                    <br><br>
-                    <button class="botao" onclick="gerarResposta()">Gerar Resposta</button>
-                    <br><br>
-                    <h3>Resposta da IA:</h3>
-                    <div id="resposta"></div>
+                <div class="sub-container1">
+                    <h1>Suporte Cyclus</h1>
+                    <p>Olá, sou o BobIA, assistente virtual da Cyclus.</p>
                 </div>
+
+                <div class="sub-container2">
+                    <div class="dash-kpis-item">
+                        <br>
+                        <h2>No que precisa de ajuda?</h1>
+                            <div class="text">
+                                <textarea class="textarea" id="pergunta" type="text"
+                                    placeholder="Digite a pergunta..."></textarea>
+                            </div>
+                            <br><br>
+                            <button class="botao" onclick="gerarResposta()">Gerar Resposta</button>
+
+                    </div>
+                    <div class="dash-kpis-item" id="id_resposta">
+                        <br>
+                        <h2>Resposta:</h2>
+                        <div class="text" id="resposta"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
 </body>
+
 <script>
+    
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     async function gerarResposta() {
