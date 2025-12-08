@@ -7,25 +7,59 @@ const mysql = require('mysql2');
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3300;
 
+const MODO_SIMULACAO = true;
+const valoresSensorAnalogico = [];
+const sensor2 = [];
+const sensor3 = [];
+const sensor4 = [];
+
+
 // habilita ou desabilita a inserção de dados no banco de dados
 const HABILITAR_OPERACAO_INSERIR = true;
 
-// função para comunicação serial
-const serial = async (
-    valoresSensorAnalogico,
-    valoresSensorDigital,
-) => {
+// conexão com o banco de dados MySQL
+const poolBancoDados = mysql.createPool(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: '#',
+        database: 'cyclus',
+        port: 3306
+    }
+).promise();
 
-    // conexão com o banco de dados MySQL
-    let poolBancoDados = mysql.createPool(
-        {
-            host: 'localhost',
-            user: 'claudio',
-            password: 'Sptech#2024',
-            database: 'cyclus',
-            port: 3307
-        }
-    ).promise();
+async function inserirBanco(sensor, temperatura) {
+
+    let alerta = (temperatura < 2 || temperatura > 7);
+
+    await poolBancoDados.execute(
+        "INSERT INTO registro (tempAtual, dataHoraRegistro, alerta, fkFreezer) VALUES (?, NOW(), ?, ?)",
+        [temperatura, alerta, sensor]
+    );
+
+    console.log(`Sensor ${sensor} - Temperatura: ${temperatura}`);
+}
+
+async function iniciarArduino() {
+
+    if (MODO_SIMULACAO) {
+        console.log("Rodando Arduino FAKE (Sensor 1)");
+
+        setInterval(async () => {
+            const temperaturaFake = Number((Math.random() * 10).toFixed(1));
+            valoresSensorAnalogico.push(temperaturaFake);
+            await inserirBanco(1, temperaturaFake);
+            console.log("Arduino Fake:", temperaturaFake);
+        }, 5000);
+
+        return;
+    }
+
+    // função para comunicação serial
+    // const serial = async (
+    //     valoresSensorAnalogico,
+    //     valoresSensorDigital,
+    // ) => {
 
     // lista as portas seriais disponíveis e procura pelo Arduino
     const portas = await serialport.SerialPort.list();
@@ -61,13 +95,14 @@ const serial = async (
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
 
+            let alerta = (sensorAnalogico < 2 || sensorAnalogico > 7);
+
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO registro (fkSensor, tempAtual, dataHoraRegistro) VALUES (1, ?, NOW())',
-                [sensorAnalogico]
+                "INSERT INTO registro (tempAtual, dataHoraRegistro, alerta, fkFreezer) VALUES (?, NOW(), ?, ?)",
+                [sensorAnalogico, alerta, sensor]
             );
             console.log("valores inseridos no banco: ", sensorAnalogico);
-
         }
 
     });
@@ -76,6 +111,31 @@ const serial = async (
     arduino.on('error', (mensagem) => {
         console.error(`Erro no arduino (Mensagem: ${mensagem}`)
     });
+}
+
+function gerarTemperaturaMock() {
+    return (Math.random() * 8 + 1).toFixed(1);
+}
+
+function iniciarMockSensores() {
+
+    setInterval(async () => {
+
+        const t2 = Number(gerarTemperaturaMock());
+        const t3 = Number(gerarTemperaturaMock());
+        const t4 = Number(gerarTemperaturaMock());
+
+        sensor2.push(t2);
+        sensor3.push(t3);
+        sensor4.push(t4);
+
+        console.log(`Mocks → S2: ${t2} | S3: ${t3} | S4: ${t4}`);
+
+        await inserirBanco(2, t2);
+        await inserirBanco(3, t3);
+        await inserirBanco(4, t4);
+
+    }, 5000);
 }
 
 // função para criar e configurar o servidor web
@@ -113,10 +173,10 @@ const servidor = (
     const valoresSensorDigital = [];
 
     // inicia a comunicação serial
-    await serial(
-        valoresSensorAnalogico,
-        valoresSensorDigital
-    );
+    // await serial(
+    //     valoresSensorAnalogico,
+    //     valoresSensorDigital
+    // );
 
     // inicia o servidor web
     servidor(
@@ -124,3 +184,10 @@ const servidor = (
         valoresSensorDigital
     );
 })();
+
+async function iniciarSistema() {
+    iniciarMockSensores();
+    await iniciarArduino();
+}
+
+iniciarSistema();
