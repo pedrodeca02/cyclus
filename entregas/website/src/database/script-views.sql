@@ -54,7 +54,7 @@ CREATE TABLE sensor(
 
 CREATE TABLE registro(
 	idRegistro INT AUTO_INCREMENT,
-    tempAtual DECIMAL(3,1),
+    tempAtual FLOAT,
     dataHoraRegistro DATETIME,
     alerta TINYINT,
     fkFreezer INT,
