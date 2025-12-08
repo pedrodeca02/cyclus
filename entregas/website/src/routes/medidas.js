@@ -19,4 +19,16 @@ router.get("/obterdados", function (req, res) {
     medidaController.buscarDados(req, res);
 })
 
+router.get("/obterdadoskpi1", function (req, res) {
+    medidaController.buscarDadosKpi1(req, res);
+})
+
+router.get("/obterdadoskpi2", function (req, res) {
+    medidaController.buscarDadosKpi2(req, res);
+})
+
+router.get("/obterdadoskpi3", function (req, res) {
+    medidaController.buscarDadosKpi3(req, res);
+})
+
 module.exports = router;

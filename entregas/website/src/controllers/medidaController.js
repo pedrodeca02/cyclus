@@ -56,6 +56,48 @@ function buscarDados(req, res) {
     });
 }
 
+function buscarDadosKpi1(req, res) {
+    medidaModel.buscarDadosKpi1().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os dados dos sensores.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarDadosKpi2(req, res) {
+    medidaModel.buscarDadosKpi2().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os dados dos sensores.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarDadosKpi3(req, res) {
+    medidaModel.buscarDadosKpi3().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os dados dos sensores.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function buscarDadosTempoReal(req, res) {
     console.log(`Recuperando dados em tempo real`);
 
@@ -76,5 +118,8 @@ module.exports = {
     buscarUltimasMedidas,
     buscarDadosTempoReal,
     buscarFreezer,
-    buscarDados
+    buscarDados,
+    buscarDadosKpi1,
+    buscarDadosKpi2,
+    buscarDadosKpi3
 }

@@ -48,42 +48,31 @@
 
     <section class="dash dash-text">
         <div class="dash-divs">
-            <p>Freezers</p>
             <ul class="dash-kpis">
-                <li class="dash-kpis-item" id="dash_freezer_1"></li>
-                <li class="dash-kpis-item" id="dash_freezer_2"></li>
-                <li class="dash-kpis-item" id="dash_freezer_3"></li>
-                <li class="dash-kpis-item" id="dash_freezer_4"></li>
-            </ul>
-        </div>
-        <div class="dash-divs">
-            <ul class="dash-kpis">
-                <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">KPI1</span>
-                    <span class="dash-kpi-number" id="kpi_totalduvida"></span>
+                <li class="dash-kpis-item" id="dash_freezer_1">
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">KPI1</span>
-                    <span class="dash-kpi-number" id="kpi_totalpost"></span>
+                    <span class="dash-kpi-title">Freezer com Maior Incidência de Alertas</span>
+                    <span class="dash-kpi-number" id="kpi_incidencia"></span>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">KPI1</span>
-                    <span class="dash-kpi-number" id="kpi_duvidasporpost"></span>
+                    <span class="dash-kpi-title">Percentual de Alertas por Semana</span>
+                    <span class="dash-kpi-number" id="kpi_percentual"></span>
                 </li>
                 <li class="dash-kpis-item">
-                    <span class="dash-kpi-title">KPI1</span>
-                    <span class="dash-kpi-number" id="kpi_postporuser"></span>
+                    <span class="dash-kpi-title">Total de Alertas Ativos</span>
+                    <span class="dash-kpi-number" id="kpi_ativo"></span>
                 </li>
             </ul>
         </div>
         <div class="dash-divs">
             <ul class="dash-kpis">
                 <li class="dash-kpis-item">
-                    <h3>Todos os freezers</h3>
+                    <h3>Temperatura do freezer</h3>
                     <canvas id="graficoSensores" class="myChartCanvas_rankingTags"></canvas>
                 </li>
                 <li class="dash-kpis-item">
-                    <h3>Alerta mais recentes</h3>
+                    <h3>Histórico de alertas</h3>
                     <table id="tabelaAlertas">
                         <thead>
                             <tr>
@@ -106,55 +95,40 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
+    let updateKpi1;
+    let updateKpi2;
+    let updateKpi3;
 
     let historicoAlertas = [];
     const LIMITE_ALERTAS = 5;
-
-    let chartSensores;
-    let dadosSensores = {
-        labels: [],
-        sensor2: [],
-        sensor3: [],
-        sensor4: []
-    };
 
     // Inicia o gráfico ao carregar a página
     window.onload = function () {
         obterDadosSensor();
         obterDadosFreezers();
+        obterDadosKpi1();
+        obterDadosKpi2();
+        obterDadosKpi3();
     }
 
-    // Gerar os dados mockados
-    function gerarDados() {
-        // Dados mockado com math random
-        let sensor2 = Math.random() * 7 + 1;
-        let sensor3 = Math.random() * 7 + 1;
-        let sensor4 = Math.random() * 7 + 1;
+    async function obterDadosSensor() {
+        try {
+            const response = await fetch(`/medidas/obterdados`, { cache: 'no-store' });
 
-        return {
-            sensor2: sensor2.toFixed(1),
-            sensor3: sensor3.toFixed(1),
-            sensor4: sensor4.toFixed(1)
-        }
-    }
-
-    function obterDadosSensor() {
-        fetch(`/medidas/obterdados`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
-                response.json().then(function (sensor1) {
-                    sensor1.reverse();
-                    plotarGrafico(sensor1);
-                });
+                const resposta = await response.json();
+                resposta.reverse();
+                plotarGrafico(resposta);
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+
+        } catch (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        }
     }
 
-    function plotarGrafico(sensor1) {
+    function plotarGrafico(resposta) {
         console.log('iniciando plotagem do gráfico...');
 
         let labels = [];
@@ -169,51 +143,14 @@
                 borderWidth: 3,
                 pointBorderWidth: 0,
                 tension: 0.3,
-            },
-            {
-                label: 'Freezer 2',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                borderWidth: 2,
-                pointBorderWidth: 0,
-                tension: 0.3,
-            },
-            {
-                label: 'Freezer 3',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                borderWidth: 2,
-                pointBorderWidth: 0,
-                tension: 0.3,
-            },
-            {
-                label: 'Freezer 4',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                borderWidth: 2,
-                pointBorderWidth: 0,
-                tension: 0.3,
             }]
         };
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < sensor1.length; i++) {
-            let registro1 = sensor1[i];
+        for (i = 0; i < resposta.length; i++) {
+            let registro1 = resposta[i];
             labels.push(registro1.freezer_dataHora);
             dados.datasets[0].data.push(registro1.freezer_tempAtual);
-        }
-
-        for (i = 0; i < 5; i++) {
-            let registro2 = gerarDados();
-            let registro3 = gerarDados();
-            let registro4 = gerarDados();
-
-            dados.datasets[1].data.push(registro2.sensor2);
-            dados.datasets[2].data.push(registro3.sensor3);
-            dados.datasets[3].data.push(registro4.sensor4);
         }
 
         // Criando estrutura para plotar gráfico - config
@@ -234,29 +171,21 @@
         fetch(`/medidas/tempo-real`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
-                    obterDadosSensor();
                     if (novoRegistro[0].freezer_dataHora == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
                         console.log("---------------------------------------------------------------")
                     } else {
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].freezer_dataHora); // incluir um novo momento
-                        let dadosmocados = gerarDados();
+                        dados.labels.shift();
+                        dados.labels.push(novoRegistro[0].freezer_dataHora);
 
                         dados.datasets[0].data.shift();
-                        dados.datasets[1].data.shift();
-                        dados.datasets[2].data.shift();
-                        dados.datasets[3].data.shift();
 
                         dados.datasets[0].data.push(novoRegistro[0].freezer_tempAtual);
-                        dados.datasets[1].data.push(dadosmocados.sensor2);
-                        dados.datasets[2].data.push(dadosmocados.sensor3);
-                        dados.datasets[3].data.push(dadosmocados.sensor4);
 
-                        let registro = novoRegistro[0];
-                        verificarAlerta(registro, dadosmocados)
-                        plotarTabelaFreezer(novoRegistro, dadosmocados)
+                        verificarAlerta(novoRegistro)
+                        plotarTabelaFreezer(novoRegistro)
+
                         myChart.update();
                     }
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
@@ -273,32 +202,25 @@
     }
 
     // Verifica se existe alerta
-    function verificarAlerta(registro, dadosmocados) {
-        let sensores = [
-            { nome: "Freezer 1", valor: Number(registro.freezer_tempAtual) },
-            { nome: "Freezer 2", valor: Number(dadosmocados.sensor2) },
-            { nome: "Freezer 3", valor: Number(dadosmocados.sensor3) },
-            { nome: "Freezer 4", valor: Number(dadosmocados.sensor2) }
-        ];
+    function verificarAlerta(registro) {
 
-        for (let x = 0; x < sensores.length; x++) {
-            let temp = sensores[x].valor;
-            let nome = sensores[x].nome;
+        let temp = Number(registro[0].freezer_tempAtual);
+        let nome = `Freezer ${registro[0].freezer_id}`;
+        let horario = registro[0].freezer_dataHora;
 
-            if (temp < 2 || temp > 7) {
-                registrarAlerta(nome, temp, registro);
-            }
+        if (temp < 2 || temp > 7) {
+            registrarAlerta(nome, temp, horario);
         }
     }
 
     // Registrar o alerta
-    function registrarAlerta(sensor, temperatura, registro) {
+    function registrarAlerta(sensor, temperatura, horario) {
 
         temperatura = Number(temperatura);
         historicoAlertas.push({
             sensor: sensor,
             temperatura: temperatura.toFixed(1) + " °C",
-            horario: registro.freezer_dataHora
+            horario: horario
         });
 
         if (historicoAlertas.length > LIMITE_ALERTAS) {
@@ -307,7 +229,6 @@
         atualizarTabelaAlertas();
     }
 
-    // Atualiza a tabela de forma automática
     function atualizarTabelaAlertas() {
         const corpo = document.getElementById("corpoAlertas");
         corpo.innerHTML = '';
@@ -332,23 +253,22 @@
         });
     }
 
-    function obterDadosFreezers() {
-        fetch(`/medidas/dadosfreezer`).then(function (response) {
+    async function obterDadosFreezers() {
+        try {
+            const response = await fetch(`/medidas/dadosfreezer`);
             if (response.ok) {
-                response.json().then(function (r) {
-                    let dadosmocados = gerarDados();
-                    plotarTabelaFreezer(r, dadosmocados);
-                });
+                const r = await response.json();
+                plotarTabelaFreezer(r);
+                verificarAlerta(r);
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ Freezer: ${error.message}`);
-            });
+        } catch (error) {
+            console.error(`Erro na obtenção dos dados p/ Freezer: ${error.message}`);
+        }
     }
 
-    function plotarTabelaFreezer(r, dadosmocados) {
+    function plotarTabelaFreezer(r) {
         let status = ``;
         if (r[0].freezer_alerta == 1) {
             status = `Alerta`
@@ -369,63 +289,64 @@
                 <span class="dash-kpi-detalhes">${r[0].freezer_tempAtual}ºC às ${r[0].freezer_dataHora}</span>
             `
         }
+    }
 
-        if (dadosmocados.sensor2 > 7 || dadosmocados.sensor2 < 2) {
-            status = `Alerta`
-            dash_freezer_2.className = `dash-kpis-item-alert`
-            dash_freezer_2.innerHTML = `
-                <span class="dash-kpi-title">Freezer 2</span>
-                <span class="dash-kpi-status">Status: ${status}</span>
-                <span class="dash-kpi-corredor">Corredor 2</span>
-                <span class="dash-kpi-detalhes">${dadosmocados.sensor2}ºC às ${r[0].freezer_dataHora}</span>
-            `
-        } else {
-            status = `Normal`
-            dash_freezer_2.className = `dash-kpis-item`
-            dash_freezer_2.innerHTML = `
-                <span class="dash-kpi-title">Freezer 2</span>
-                <span class="dash-kpi-status">Status: ${status}</span>
-                <span class="dash-kpi-corredor">Corredor 2</span>
-                <span class="dash-kpi-detalhes">${dadosmocados.sensor2}ºC às ${r[0].freezer_dataHora}</span>
-            `
+    async function obterDadosKpi1() {
+        try {
+            const response = await fetch(`/medidas/obterdadoskpi1`, { cache: 'no-store' });
+
+            if (response.ok) {
+                const resposta = await response.json();
+                kpi_incidencia.innerHTML = `
+                Freezer: ${resposta[0].id_freezer} Total: ${resposta[0].total_alertas}
+            `;
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+
+        } catch (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         }
-        if (dadosmocados.sensor3 > 7 || dadosmocados.sensor3 < 2) {
-            status = `Alerta`
-            dash_freezer_3.className = `dash-kpis-item-alert`
-            dash_freezer_3.innerHTML = `
-                <span class="dash-kpi-title">Freezer 3</span>
-                <span class="dash-kpi-status">Status: ${status}</span>
-                <span class="dash-kpi-corredor">Corredor 3</span>
-                <span class="dash-kpi-detalhes">${dadosmocados.sensor3}ºC às ${r[0].freezer_dataHora}</span>
-            `
-        } else {
-            status = `Normal`
-            dash_freezer_3.className = `dash-kpis-item`
-            dash_freezer_3.innerHTML = `
-                <span class="dash-kpi-title">Freezer 3</span>
-                <span class="dash-kpi-status">Status: ${status}</span>
-                <span class="dash-kpi-corredor">Corredor 3</span>
-                <span class="dash-kpi-detalhes">${dadosmocados.sensor3}ºC às ${r[0].freezer_dataHora}</span>
-            `
+
+        updateKpi1 = setTimeout(() => obterDadosKpi1(), 5000);
+    }
+
+    async function obterDadosKpi2() {
+        try {
+            const response = await fetch(`/medidas/obterdadoskpi2`, { cache: 'no-store' });
+
+            if (response.ok) {
+                const resposta = await response.json();
+                kpi_percentual.innerHTML = `
+                ${resposta[0].percentual_alertas}
+            `;
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+
+        } catch (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         }
-        if (dadosmocados.sensor4 > 7 || dadosmocados.sensor4 < 2) {
-            status = `Alerta`
-            dash_freezer_4.className = `dash-kpis-item-alert`
-            dash_freezer_4.innerHTML = `
-                <span class="dash-kpi-title">Freezer 4</span>
-                <span class="dash-kpi-status">Status: ${status}</span>
-                <span class="dash-kpi-corredor">Corredor 4</span>
-                <span class="dash-kpi-detalhes">${dadosmocados.sensor4}ºC às ${r[0].freezer_dataHora}</span>
-            `
-        } else {
-            status = `Normal`
-            dash_freezer_4.className = `dash-kpis-item`
-            dash_freezer_4.innerHTML = `
-                <span class="dash-kpi-title">Freezer 4</span>
-                <span class="dash-kpi-status">Status: ${status}</span>
-                <span class="dash-kpi-corredor">Corredor 4</span>
-                <span class="dash-kpi-detalhes">${dadosmocados.sensor4}ºC às ${r[0].freezer_dataHora}</span>
-            `
+
+        updateKpi2 = setTimeout(() => obterDadosKpi2(), 5000);
+    }
+
+    async function obterDadosKpi3() {
+        try {
+            const response = await fetch(`/medidas/obterdadoskpi3`, { cache: 'no-store' });
+
+            if (response.ok) {
+                const resposta = await response.json();
+                kpi_ativo.innerHTML = `
+                ${resposta[0].total_freezers_com_alerta_ativo}
+            `;
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+
+        } catch (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         }
+        updateKpi3 = setTimeout(() => obterDadosKpi3(), 5000);
     }
 </script>
